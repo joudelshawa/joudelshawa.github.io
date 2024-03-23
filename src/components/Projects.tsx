@@ -33,7 +33,7 @@ export default function Projects({ selected, setSelected }: Props) {
       animate="visible"
       variants={projectContainerVariants}
       exit={{ opacity: 0 }}
-      className="mx-auto my-4 grid max-w-7xl grid-cols-1 gap-4 lg:grid-cols-2"
+      className="mx-auto my-4 grid max-w-7xl grid-cols-1 gap-4 px-4 lg:grid-cols-2"
     >
       {projectData.map((project, idx) => (
         <ProjectPreview

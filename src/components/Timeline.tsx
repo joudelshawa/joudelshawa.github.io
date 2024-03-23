@@ -12,7 +12,7 @@ export default function Timeline() {
       animate="visible"
       variants={milestonesContainerVariants}
       exit={{ opacity: 0 }}
-      className="timeline timeline-vertical mx-auto w-full max-w-7xl"
+      className="timeline timeline-vertical mx-auto w-full max-w-7xl px-4"
     >
       {milestoneData.map((milestone, index) => (
         <motion.li
@@ -20,9 +20,14 @@ export default function Timeline() {
           variants={milestoneVariants}
           initial="hidden"
           animate="visible"
-          className="min-h-[6rem]" // @joud change this value [10rem] to set the gap between milestones
+          className="min-h-[6rem] grid-cols-[1fr_min-content_2fr] md:grid-cols-[1fr_min-content_6fr]" // @joud change this value [10rem] to set the gap between milestones
+          style={{
+            gridTemplateColumns: ``,
+          }}
         >
-          <div className="timeline-start">{milestone.date}</div>
+          <div className="timeline-start justify-self-start">
+            {milestone.date}
+          </div>
           {index !== 0 && <hr />}
 
           <div className="timeline-middle">
