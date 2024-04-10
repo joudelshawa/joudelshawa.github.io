@@ -1,11 +1,13 @@
-import GithubSVG from "../../public/github.svg"
-import { motion } from "framer-motion"
-import SocialButton from "./SocialButton"
-import Image from "next/image"
-import { projectPreviewVariants } from "@/utils/framer"
-import { genGradient } from "@/utils/culler"
-import CullerCard from "./CullerCard"
-import { useRef } from "react"
+import { motion } from 'framer-motion'
+import Image from 'next/image'
+import { useRef } from 'react'
+
+import { genGradient } from '@/utils/culler'
+import { projectPreviewVariants } from '@/utils/framer'
+
+import GithubSVG from '../../public/github.svg'
+import CullerCard from '../CullerCard'
+import SocialButton from '../SocialButton'
 
 type ProjectPreviewProps = Project & {
   selected: Project | null

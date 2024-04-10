@@ -7,10 +7,10 @@ import { projectContainerVariants } from '@/utils/framer'
 
 import ProjectModal from './ProjectModal'
 import ProjectPreview from './ProjectPreview'
+import ProjectTitle from './ProjectTitle'
 
 type Props = {}
-
-export default function Projects() {
+export default function ProjectContainer() {
   return (
     <motion.section
       key="projects-container"
@@ -23,18 +23,18 @@ export default function Projects() {
       <div id="container" className="flex w-full flex-col-reverse md:flex-row">
         <ul id="left/bot" className="w-full px-4 py-[50vh]">
           {projectData.map((project) => (
-            <p className="py-36 text-6xl font-semibold text-slate-300">
-              <li key={project.name}>{project.name}</li>
-            </p>
+            <li key={project.name}>
+              <ProjectTitle project={project} />
+            </li>
           ))}
         </ul>
         <div
           id="right/top"
-          className="sticky top-0 flex h-[50vh] w-full items-center px-4 filter backdrop-blur-xl md:h-screen"
+          className="sticky top-0 flex h-[50vh] w-full items-center p-4 pt-24 filter backdrop-blur-xl md:h-screen md:pt-4"
         >
           <div
             id="inner"
-            className="aspect-square w-full rounded-2xl bg-gray-100"
+            className="aspect-square max-h-full w-full rounded-2xl bg-gray-100"
           ></div>
         </div>
       </div>

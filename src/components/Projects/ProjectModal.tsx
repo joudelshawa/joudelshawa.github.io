@@ -1,10 +1,12 @@
-import { motion } from "framer-motion"
-import SocialButton from "./SocialButton"
-import Image from "next/image"
-import GithubSVG from "../../public/github.svg"
-import Pill from "./Pill"
-import CullerCard from "./CullerCard"
-import { ease, techPillContainerVariants } from "@/utils/framer"
+import { motion } from 'framer-motion'
+import Image from 'next/image'
+
+import { ease, techPillContainerVariants } from '@/utils/framer'
+
+import GithubSVG from '../../public/github.svg'
+import CullerCard from '../CullerCard'
+import Pill from '../Pill'
+import SocialButton from '../SocialButton'
 
 type Props = {
   selected: Project | null

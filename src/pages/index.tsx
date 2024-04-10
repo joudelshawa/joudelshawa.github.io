@@ -6,7 +6,7 @@ import DataSourceButton from '@/components/DataSourceButton'
 import DataSourceHeading from '@/components/DataSourceHeading'
 import Hero from '@/components/Hero'
 import Intro from '@/components/Intro'
-import Projects from '@/components/Projects'
+import ProjectContainer from '@/components/Projects/ProjectContainer'
 import Timeline from '@/components/Timeline'
 import { DataContext, DataContextType } from '@/contexts/dataContext'
 import { IntroContext, IntroContextType } from '@/contexts/introContext'
@@ -44,11 +44,7 @@ export default function Home() {
       </motion.div>
       <AnimatePresence mode="wait">
         {currentDataSource === "projects" ? (
-          <Projects
-            key="projects-container"
-            selected={selected}
-            setSelected={setSelected}
-          />
+          <ProjectContainer key="projects-container" />
         ) : (
           <Timeline key="timeline-container" />
         )}
