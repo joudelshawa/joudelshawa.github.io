@@ -10,7 +10,10 @@ type Props = {
 
 export default function TextBubble({ children, visible, index }: Props) {
   return (
-    <motion.div key={children?.toString()} className="chat chat-end">
+    <motion.div
+      key={children?.toString()}
+      className="chat-end flex gap-3 self-end py-1"
+    >
       <motion.div
         {...(index === 0 && { layoutId: "hello" })}
         variants={textBubbleVariants}

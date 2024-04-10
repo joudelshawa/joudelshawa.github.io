@@ -1,4 +1,4 @@
-import { motion, useScroll } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
 
 import TextBubbles from "@/components/TextBubbles"
@@ -8,6 +8,8 @@ export default function Hero() {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({ target: scrollContainerRef })
+  const translateY = useTransform(scrollYProgress, [0, 1], ["-50%", "50%"], {})
+
   return (
     <motion.section
       ref={scrollContainerRef}
@@ -37,7 +39,7 @@ export default function Hero() {
             borderRadius: 20,
           }}
           className="z-0 hidden aspect-square bg-[url('/me.jpg')] bg-cover bg-top md:block "
-        ></motion.div>
+        />
       </motion.div>
     </motion.section>
   )
