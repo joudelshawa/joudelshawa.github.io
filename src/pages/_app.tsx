@@ -1,18 +1,18 @@
-import "@/styles/globals.css"
+import '@/styles/globals.css'
 
-import { AnimatePresence, motion } from "framer-motion"
-import { Plus_Jakarta_Sans } from "next/font/google"
-import Head from "next/head"
-import { useEffect, useState } from "react"
+import { AnimatePresence, motion } from 'framer-motion'
+import { Inter } from 'next/font/google'
+import Head from 'next/head'
+import { useEffect, useState } from 'react'
 
-import Navbar from "@/components/Navbar"
-import { DataContext } from "@/contexts/dataContext"
-import { IntroContext } from "@/contexts/introContext"
-import Lenis from "@studio-freight/lenis"
+import Navbar from '@/components/Navbar'
+import { DataContext } from '@/contexts/dataContext'
+import { IntroContext } from '@/contexts/introContext'
+import Lenis from '@studio-freight/lenis'
 
 import type { AppProps } from "next/app"
 
-const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"] })
+const interFont = Inter({ subsets: ["latin"] })
 
 export default function App({ Component, pageProps }: AppProps) {
   const [shouldShowIntro, setShouldShowIntro] = useState(true)
@@ -64,7 +64,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 },
               }}
             > */}
-          <main className={`${plusJakartaSans.className}`}>
+          <main className={`${interFont.className}`}>
             <Component {...pageProps} />
           </main>
           {/* </motion.div>

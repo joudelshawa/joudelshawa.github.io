@@ -19,7 +19,7 @@ export default function TextBubble({ children, visible, index }: Props) {
         variants={textBubbleVariants}
         initial={index === 0 ? "visible" : "hidden"}
         animate={visible || index === 0 ? "visible" : "hidden"}
-        className="sm chat-bubble  max-w-lg bg-[#0b122b] text-[clamp(0.875rem,0.5rem+0.9275vw,1.4rem)] text-white before:h-4 before:w-4 before:-translate-x-px"
+        className="sm chat-bubble  max-w-lg bg-slate-800 text-[clamp(0.875rem,0.5rem+0.9275vw,1.4rem)] text-white before:h-4 before:w-4 before:-translate-x-px"
         transition={{
           layout: {
             duration: 1.2,

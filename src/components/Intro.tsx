@@ -6,18 +6,18 @@ import { ease, textBubbleVariants } from '@/utils/framer'
 
 export default function Intro() {
   const { setShouldShowIntro } = useContext(IntroContext) as IntroContextType
-  const children = "Hi, I'm Joud!"
+  const text = "Hi, I'm Joud!"
 
   return (
     <motion.div
-      initial={{ opacity: 0.999 }}
+      initial={{ opacity: 0.999999 }}
       animate={{ opacity: 1 }}
       onAnimationComplete={() => setShouldShowIntro(false)}
       transition={{ duration: 2, ease }}
       className="fixed inset-0 z-50 flex items-center justify-center overflow-y-scroll px-4"
     >
       <motion.div
-        key={children}
+        key={text}
         className="chat chat-end"
         transition={{
           duration: 2,
@@ -32,9 +32,9 @@ export default function Intro() {
           variants={textBubbleVariants}
           initial="hidden"
           animate="visible"
-          className="chat-bubble max-w-lg bg-[#0b122b] text-[clamp(0.875rem,0.5rem+0.9375vw,1.4rem)] text-white before:h-4 before:w-4 before:-translate-x-px"
+          className="chat-bubble max-w-lg bg-slate-800 text-[clamp(0.875rem,0.5rem+0.9375vw,1.4rem)] text-white before:h-4 before:w-4 before:-translate-x-px"
         >
-          {children}
+          {text}
         </motion.div>
 
         {/* Mobile avatar */}
