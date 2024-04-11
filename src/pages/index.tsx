@@ -1,28 +1,20 @@
-import { AnimatePresence, motion } from 'framer-motion'
-import { useContext, useEffect, useState } from 'react'
+import { AnimatePresence, motion } from "framer-motion"
+import { useState } from "react"
 
-import ContactModal from '@/components/ContactModal'
-import DataSourceButton from '@/components/DataSourceButton'
-import DataSourceHeading from '@/components/DataSourceHeading'
-import Hero from '@/components/Hero'
-import Intro from '@/components/Intro'
-import ProjectContainer from '@/components/Projects/ProjectContainer'
-import Timeline from '@/components/Timeline'
-import { DataContext, DataContextType } from '@/contexts/dataContext'
-import { IntroContext, IntroContextType } from '@/contexts/introContext'
+import ContactModal from "@/components/ContactModal"
+import DataSourceButton from "@/components/DataSourceButton"
+import DataSourceHeading from "@/components/DataSourceHeading"
+import Hero from "@/components/Hero"
+import Intro from "@/components/Intro"
+import ProjectContainer from "@/components/Projects/ProjectContainer"
+import Timeline from "@/components/Timeline"
+import { useDataContext } from "@/contexts/dataContext"
+import { useIntroContext } from "@/contexts/introContext"
 
 export default function Home() {
-  const { shouldShowIntro } = useContext(IntroContext) as IntroContextType
-  const { currentDataSource, setCurrentDataSource } = useContext(
-    DataContext
-  ) as DataContextType
+  const { shouldShowIntro } = useIntroContext()
+  const { currentDataSource, setCurrentDataSource } = useDataContext()
   const [contactModalOpen, setContactModalOpen] = useState<boolean>(false)
-  const [selected, setSelected] = useState<Project | null>(null)
-
-  useEffect(() => {
-    if (selected || contactModalOpen) document.body.style.overflow = "hidden"
-    else document.body.style.overflow = "auto"
-  }, [selected, contactModalOpen])
 
   if (shouldShowIntro) return <Intro />
 

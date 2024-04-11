@@ -1,15 +1,15 @@
 // import Link from "next/link"
-import { AnimatePresence, motion, useAnimate } from 'framer-motion'
+import { AnimatePresence, motion, useAnimate } from "framer-motion"
 // import { DataContext, DataContextType } from "@/contexts/dataContext"
-import { Plus_Jakarta_Sans } from 'next/font/google'
-import { useContext, useEffect, useState } from 'react'
+import { Plus_Jakarta_Sans } from "next/font/google"
+import { useContext, useEffect, useState } from "react"
 
-import { IntroContext, IntroContextType } from '@/contexts/introContext'
-import { genGradient } from '@/utils/culler'
+import { IntroContext, IntroContextType } from "@/contexts/introContext"
+import { genGradient } from "@/utils/culler"
 // import { useRouter } from "next/router"
-import { ease } from '@/utils/framer'
+import { ease } from "@/utils/framer"
 
-import TextMask from './TextMask'
+import TextMask from "./TextMask"
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"] })
 
