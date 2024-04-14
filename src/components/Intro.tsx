@@ -1,8 +1,8 @@
-import { motion } from 'framer-motion'
-import { useContext } from 'react'
+import { motion } from "framer-motion"
+import { useContext } from "react"
 
-import { IntroContext, IntroContextType } from '@/contexts/introContext'
-import { ease, textBubbleVariants } from '@/utils/framer'
+import { IntroContext, IntroContextType } from "@/contexts/introContext"
+import { ease, textBubbleVariants } from "@/utils/framer"
 
 export default function Intro() {
   const { setShouldShowIntro } = useContext(IntroContext) as IntroContextType
@@ -32,7 +32,7 @@ export default function Intro() {
           variants={textBubbleVariants}
           initial="hidden"
           animate="visible"
-          className="chat-bubble max-w-lg bg-slate-800 text-[clamp(0.875rem,0.5rem+0.9375vw,1.4rem)] text-white before:h-4 before:w-4 before:-translate-x-px"
+          className="chat-bubble max-w-lg bg-slate-800 text-lg text-white before:h-4 before:w-4 before:-translate-x-px md:text-[clamp(0.875rem,0.3242rem+1.1475vw,1.4rem);]"
         >
           {text}
         </motion.div>
@@ -45,7 +45,7 @@ export default function Intro() {
             scale: 1,
             transition: { type: "spring", stiffness: 250, damping: 20 },
           }}
-          className="chat-image avatar block md:hidden"
+          className="avatar chat-image block md:hidden"
           transition={{
             layout: {
               duration: 1,

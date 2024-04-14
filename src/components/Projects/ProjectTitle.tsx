@@ -89,7 +89,7 @@ export default function ProjectTitle({ project }: Props) {
 
   return (
     <motion.div
-      // style={{ scale, opacity }}
+      style={{ scale, opacity }}
       ref={ref}
       className="origin-left py-36"
     >
@@ -106,7 +106,7 @@ export default function ProjectTitle({ project }: Props) {
         </p>
         <p
           className={cn(
-            "text-6xl font-semibold transition-colors",
+            "text-[clamp(1.875rem,1.0356rem+2.8275vw,3.75rem)] font-semibold transition-colors",
             isInView ? "text-slate-700" : "text-slate-300"
           )}
         >

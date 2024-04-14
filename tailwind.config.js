@@ -16,6 +16,7 @@ module.exports = {
         twitter: "#1DA1F2",
       },
       screens: {
+        xs: "475px",
         short: { raw: "(max-height: 700px) and (max-width: 600px)" },
       },
     },

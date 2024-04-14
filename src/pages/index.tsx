@@ -34,13 +34,15 @@ export default function Home() {
           />
         </AnimatePresence>
       </motion.div>
-      <AnimatePresence mode="wait">
-        {currentDataSource === "projects" ? (
-          <ProjectContainer key="projects-container" />
-        ) : (
-          <Timeline key="timeline-container" />
-        )}
-      </AnimatePresence>
+      <div className="min-h-screen">
+        <AnimatePresence mode="wait">
+          {currentDataSource === "projects" ? (
+            <ProjectContainer key="projects-container" />
+          ) : (
+            <Timeline key="timeline-container" />
+          )}
+        </AnimatePresence>
+      </div>
       {contactModalOpen && (
         <ContactModal setContactModalOpen={setContactModalOpen} />
       )}

@@ -12,7 +12,7 @@ const projectData = [
     deployment: "http://bountree.app/",
     image: "/projects/bountree.webp", // Make sure it's a high res square cropped image
     year: 2023, // dunno if u want this
-    gradientColors: "from-pink-100 via-violet-100 to-white", // The gradient colors for the backdrop of the preview card. You have to use tailwindcss classes here
+    gradientColors: "from-green-100 via-purple-100 to-white", // The gradient colors for the backdrop of the preview card. You have to use tailwindcss classes here
     // pick light shades that match the image ideally
     /**
      * @resource https://tailwindcss.com/docs/background-image#gradient-color-stops
