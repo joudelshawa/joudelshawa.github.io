@@ -21,7 +21,9 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <motion.div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-4 rounded-3xl p-4 transition-colors duration-500 sm:flex-row">
+      <ProjectContainer />
+
+      {/* <motion.div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-4 rounded-3xl p-4 transition-colors duration-500 sm:flex-row">
         <AnimatePresence mode="wait">
           <DataSourceHeading
             key={currentDataSource}
@@ -42,7 +44,7 @@ export default function Home() {
             <Timeline key="timeline-container" />
           )}
         </AnimatePresence>
-      </div>
+      </div> */}
       {contactModalOpen && (
         <ContactModal setContactModalOpen={setContactModalOpen} />
       )}

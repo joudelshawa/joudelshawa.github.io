@@ -5,6 +5,7 @@ import { useProjectContext } from "@/contexts/projectContext"
 import projectData from "@/data/projects"
 import { projectContainerVariants } from "@/utils/framer"
 
+import SectionHeading from "../SectionHeading"
 import ProjectCard from "./ProjectCard"
 import ProjectTitle from "./ProjectTitle"
 
@@ -18,6 +19,7 @@ export default function ProjectContainer() {
       exit={{ opacity: 0 }}
       className="mx-auto my-4  w-full max-w-7xl"
     >
+      <SectionHeading>Projects</SectionHeading>
       <div id="container" className="flex w-full flex-col-reverse md:flex-row">
         <ul id="left/bot" className="w-full overflow-x-hidden px-4 py-[50vh]">
           {projectData.map((project) => (

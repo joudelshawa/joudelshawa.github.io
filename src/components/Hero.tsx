@@ -1,14 +1,13 @@
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef } from 'react'
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef } from "react"
 
-import TextBubbles from '@/components/TextBubbles'
-import { ease } from '@/utils/framer'
+import TextBubbles from "@/components/TextBubbles"
+import { ease } from "@/utils/framer"
 
 export default function Hero() {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({ target: scrollContainerRef })
-  const translateY = useTransform(scrollYProgress, [0, 1], ["-50%", "50%"], {})
 
   return (
     <motion.section

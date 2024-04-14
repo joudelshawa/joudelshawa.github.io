@@ -14,6 +14,10 @@ p {
   @apply tracking-wide;
 }
 
+section {
+  @apply overflow-x-clip;
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
