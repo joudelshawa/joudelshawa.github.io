@@ -18,7 +18,7 @@ export default function IntroContextProvider({
 }: {
   children: React.ReactNode
 }) {
-  const [shouldShowIntro, setShouldShowIntro] = useState(true)
+  const [shouldShowIntro, setShouldShowIntro] = useState(false)
 
   return (
     <IntroContext.Provider value={{ shouldShowIntro, setShouldShowIntro }}>

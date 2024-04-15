@@ -1,16 +1,10 @@
-import {
-  motion,
-  useInView,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-} from "framer-motion"
-import Link from "next/link"
-import { useEffect, useRef } from "react"
+import { motion, useInView, useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
+import Link from 'next/link'
+import { useEffect, useMemo, useRef } from 'react'
 
-import { useProjectContext } from "@/contexts/projectContext"
-import useScreenSize from "@/hooks/use-screen-size"
-import { cn } from "@/utils/misc"
+import { useProjectContext } from '@/contexts/projectContext'
+import useScreenSize from '@/hooks/use-screen-size'
+import { cn } from '@/utils/misc'
 
 type Props = {
   project: Project
@@ -30,8 +24,8 @@ type TransformArrays = {
 const transformArrays: TransformArrays = {
   opacity: {
     sm: [
-      [1, 0], // input
-      [1, 1], // output
+      [0, 1], // input
+      [0, 1], // output
     ],
     lg: [
       [0, 0.3, 0.7, 0.9, 1],
@@ -52,6 +46,7 @@ const transformArrays: TransformArrays = {
 
 export default function ProjectTitle({ project }: Props) {
   const ref = useRef<HTMLDivElement>(null)
+
   const { isMobile } = useScreenSize()
   const { inViewProject, setInViewProject } = useProjectContext()
 
@@ -72,11 +67,10 @@ export default function ProjectTitle({ project }: Props) {
     margin: isMobile ? "-75% 0px -25% 0px" : "-50% 0px -50% 0px",
   })
 
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (project.name === "Culler") {
-      console.log(latest)
-    }
-  })
+  const isInViewProject = useMemo(
+    () => inViewProject?.name === project.name,
+    [isInView, inViewProject]
+  )
 
   useEffect(() => {
     if (isInView) {
@@ -84,20 +78,20 @@ export default function ProjectTitle({ project }: Props) {
     }
     // if (!isInView && inViewProject?.name === project.name) {
     //   setInViewProject(null)
-    // }
+    // } // still buggy
   }, [isInView])
 
   return (
     <motion.div
       style={{ scale, opacity }}
       ref={ref}
-      className="origin-left py-36"
+      className="origin-left py-12 md:py-36"
     >
       <Link href={project.detailsPage}>
         <p
           className={cn(
             "font-mono text-sm transition-all duration-500 ease-in-out",
-            isInView
+            isInViewProject
               ? "translate-x-0 opacity-100 delay-500"
               : "translate-x-1 opacity-0"
           )}
@@ -107,7 +101,7 @@ export default function ProjectTitle({ project }: Props) {
         <p
           className={cn(
             "text-[clamp(1.875rem,1.0356rem+2.8275vw,3.75rem)] font-semibold transition-colors",
-            isInView ? "text-slate-700" : "text-slate-300"
+            isInViewProject ? "text-slate-700" : "text-slate-300"
           )}
         >
           {project.name}
@@ -115,7 +109,7 @@ export default function ProjectTitle({ project }: Props) {
         <p
           className={cn(
             "transition-all duration-500",
-            isInView
+            isInViewProject
               ? "translate-x-0 opacity-100 delay-300"
               : "-translate-x-2 opacity-0"
           )}

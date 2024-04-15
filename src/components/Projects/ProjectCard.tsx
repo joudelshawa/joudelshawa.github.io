@@ -15,7 +15,7 @@ export default function ProjectCard({ project }: Props) {
     <Link
       href={project.detailsPage}
       className={cn(
-        "absolute inset-0 flex h-full w-full items-center justify-center rounded-2xl bg-gradient-to-br p-6 shadow-2xl transition-opacity duration-500",
+        "absolute inset-0 flex h-full w-full items-center justify-center rounded-2xl bg-gradient-to-br  shadow-2xl transition-opacity duration-500",
         project.gradientColors,
         inViewProject?.name === project.name
           ? "opacity-100"
@@ -25,7 +25,7 @@ export default function ProjectCard({ project }: Props) {
       <Image
         src={project.image}
         alt={project.name}
-        className="aspect-square w-full rounded-xl object-cover shadow"
+        className="aspect-square w-full rounded-xl object-cover"
         width={400}
         height={400}
       />

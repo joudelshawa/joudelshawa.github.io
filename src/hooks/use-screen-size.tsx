@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { use, useEffect, useMemo, useState } from "react"
 import resolveConfig from "tailwindcss/resolveConfig"
 
 import tailwindConfig from "../../tailwind.config"
@@ -8,11 +8,15 @@ type Screensize = "sm" | "md" | "lg" | "xl" | "2xl"
 const fullConfig = resolveConfig(tailwindConfig)
 export default function useScreenSize() {
   const [screenSize, setScreenSize] = useState<Screensize>()
-  const [pixelWidth, setPixelWidth] = useState<number>(window.innerWidth)
+  const [pixelWidth, setPixelWidth] = useState<number>()
   const isMobile = useMemo(
     () => screenSize === "sm" || screenSize === "md",
     [screenSize]
   )
+
+  useEffect(() => {
+    setPixelWidth(window.innerWidth)
+  }, [])
 
   const getScreenSize = () => {
     const screens = { ...fullConfig.theme.screens }

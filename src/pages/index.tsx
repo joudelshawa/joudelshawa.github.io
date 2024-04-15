@@ -1,13 +1,10 @@
-import { AnimatePresence, motion } from "framer-motion"
 import { useState } from "react"
 
 import ContactModal from "@/components/ContactModal"
-import DataSourceButton from "@/components/DataSourceButton"
-import DataSourceHeading from "@/components/DataSourceHeading"
 import Hero from "@/components/Hero"
 import Intro from "@/components/Intro"
-import ProjectContainer from "@/components/Projects/ProjectContainer"
-import Timeline from "@/components/Timeline"
+import ProjectSection from "@/components/Projects/ProjectSection"
+import TimelineSection from "@/components/Timeline/TimelineSection"
 import { useDataContext } from "@/contexts/dataContext"
 import { useIntroContext } from "@/contexts/introContext"
 
@@ -21,7 +18,8 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <ProjectContainer />
+      <ProjectSection />
+      <TimelineSection />
 
       {/* <motion.div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-4 rounded-3xl p-4 transition-colors duration-500 sm:flex-row">
         <AnimatePresence mode="wait">
