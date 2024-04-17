@@ -1,8 +1,9 @@
-import { motion, useAnimate, useInView } from 'framer-motion'
-import Link from 'next/link'
-import { useEffect, useRef } from 'react'
+import { motion, useAnimate, useInView } from "framer-motion"
+import Link from "next/link"
+import { useEffect, useRef } from "react"
 
-import { milestoneVariants } from '@/utils/framer'
+import { milestoneVariants } from "@/utils/framer"
+import { cn } from "@/utils/misc"
 
 type Props = {
   milestone: Milestone
@@ -11,26 +12,21 @@ type Props = {
   isLast?: boolean
 }
 
-export default function Milestone({ milestone, isFirst, isLast }: Props) {
+export default function Milestone({ milestone, isFirst }: Props) {
   const [scope, animate] = useAnimate()
-  const isInView = useInView(scope)
+  const isInView = useInView(scope, { once: true })
 
   useEffect(() => {
-    if (isInView) {
-      console.log(milestone.text + " is in view")
-      handleInView()
-    }
+    if (isInView) handleInView()
   }, [isInView])
 
   async function handleInView() {
-    if (!isFirst)
-      await animate(".top-line", { scaleY: [0, 1] }, { duration: 0.5 })
-    await animate(".timeline-middle", { scale: [0, 1] }, { duration: 0.5 })
-    await animate(".timeline-start", { opacity: [0, 1] }, { duration: 0.5 })
-    await animate(".timeline-end", { opacity: [0, 1] }, { duration: 0.5 })
-    if (!isLast)
-      await animate(".bottom-line", { scaleY: [0, 1] }, { duration: 0.5 })
+    if (!isFirst) await animate(".top-line", { scaleY: 1 }, { duration: 0.3 })
+    await animate(".timeline-middle", { scale: 1 }, { duration: 0.3 })
+    await animate(".timeline-start", { opacity: 1 }, { duration: 0.3 })
+    await animate(".timeline-end", { opacity: 1 }, { duration: 0.3 })
   }
+
   return (
     <motion.li
       ref={scope}
@@ -57,10 +53,13 @@ export default function Milestone({ milestone, isFirst, isLast }: Props) {
         <motion.div className="h-3 w-3 rounded-full bg-black" />
       </motion.div>
       <Wrapper milestone={milestone}>{milestone.text}</Wrapper>
-      {!isLast && <motion.hr className="bottom-line" />}
+      <motion.hr className="bottom-line" />
     </motion.li>
   )
 }
+
+const baseTimelineEndClasses =
+  "timeline-end timeline-box text-base md:text-lg xl:text-xl"
 
 const Wrapper = ({
   children,
@@ -71,12 +70,15 @@ const Wrapper = ({
 }) =>
   milestone.href ? (
     <Link
-      className="timeline-end timeline-box cursor-pointer border border-sky-500 transition-colors hover:bg-sky-500 hover:text-white" // @joud change these classes for clickable milestones
+      className={cn(
+        baseTimelineEndClasses,
+        "cursor-pointer border border-rose-400 transition-all hover:bg-rose-500 hover:text-white hover:shadow-xl"
+      )} // @joud change these classes for clickable milestones
       href={milestone.href}
       target="_blank"
     >
       {children}
     </Link>
   ) : (
-    <div className="timeline-end timeline-box">{children}</div>
+    <div className={baseTimelineEndClasses}>{children}</div>
   )

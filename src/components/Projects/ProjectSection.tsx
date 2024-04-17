@@ -1,34 +1,39 @@
 import { motion, useScroll } from "framer-motion"
 import { useRef } from "react"
 
+import { useProjectContext } from "@/contexts/projectContext"
 import projectData from "@/data/projects"
 import { projectContainerVariants } from "@/utils/framer"
+import { cn } from "@/utils/misc"
 
 import SectionHeading from "../SectionHeading"
-import ProjectCard from "./ProjectCard"
+import ProjectImage from "./ProjectImage"
 import ProjectTitle from "./ProjectTitle"
 
 export default function ProjectSection() {
-  const ref = useRef<HTMLDivElement>(null)
-
-  const { scrollYProgress } = useScroll({ target: ref })
+  const { inViewProject } = useProjectContext()
 
   return (
     <motion.section
-      ref={ref}
       key="projects-container"
       initial="hidden"
       animate="visible"
       variants={projectContainerVariants}
       exit={{ opacity: 0 }}
-      className="w-full  px-4"
+      className={cn(
+        "w-full px-4 transition-colors duration-500",
+        inViewProject ? inViewProject.backgroundColor : "bg-white"
+      )}
     >
       <SectionHeading>Projects</SectionHeading>
       <div
         id="container"
         className="mx-auto flex w-full max-w-7xl flex-col-reverse md:flex-row"
       >
-        <ul id="left/bot" className="w-full overflow-x-hidden px-4 py-[50vh]">
+        <ul
+          id="left/bot"
+          className="w-full overflow-x-hidden px-4 py-10 md:py-[50vh]"
+        >
           {projectData.map((project) => (
             <li key={project.name}>
               <ProjectTitle project={project} />
@@ -44,10 +49,10 @@ export default function ProjectSection() {
             className="relative aspect-square max-h-full w-full rounded-2xl bg-gray-100"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ amount: "all" }}
+            viewport={{ amount: "all", margin: "50%" }}
           >
             {projectData.map((project, index) => (
-              <ProjectCard key={index} project={project} />
+              <ProjectImage key={index} project={project} />
             ))}
           </motion.div>
         </div>

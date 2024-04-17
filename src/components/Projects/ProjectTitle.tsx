@@ -1,10 +1,16 @@
-import { motion, useInView, useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
-import Link from 'next/link'
-import { useEffect, useMemo, useRef } from 'react'
+import {
+  motion,
+  useInView,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "framer-motion"
+import Link from "next/link"
+import { useEffect, useMemo, useRef } from "react"
 
-import { useProjectContext } from '@/contexts/projectContext'
-import useScreenSize from '@/hooks/use-screen-size'
-import { cn } from '@/utils/misc'
+import { useProjectContext } from "@/contexts/projectContext"
+import useScreenSize from "@/hooks/use-screen-size"
+import { cn } from "@/utils/misc"
 
 type Props = {
   project: Project
@@ -24,8 +30,8 @@ type TransformArrays = {
 const transformArrays: TransformArrays = {
   opacity: {
     sm: [
-      [0, 1], // input
-      [0, 1], // output
+      [0, 0.2, 1], // input
+      [0, 0, 1], // output
     ],
     lg: [
       [0, 0.3, 0.7, 0.9, 1],
@@ -91,6 +97,8 @@ export default function ProjectTitle({ project }: Props) {
         <p
           className={cn(
             "font-mono text-sm transition-all duration-500 ease-in-out",
+            isInViewProject ? project.textColors.tertiary : "text-neutral-200",
+
             isInViewProject
               ? "translate-x-0 opacity-100 delay-500"
               : "translate-x-1 opacity-0"
@@ -101,7 +109,9 @@ export default function ProjectTitle({ project }: Props) {
         <p
           className={cn(
             "text-[clamp(1.875rem,1.0356rem+2.8275vw,3.75rem)] font-semibold transition-colors",
-            isInViewProject ? "text-slate-700" : "text-slate-300"
+            isInViewProject
+              ? inViewProject?.textColors.primary
+              : "text-neutral-200"
           )}
         >
           {project.name}
@@ -109,6 +119,7 @@ export default function ProjectTitle({ project }: Props) {
         <p
           className={cn(
             "transition-all duration-500",
+            project.textColors.secondary,
             isInViewProject
               ? "translate-x-0 opacity-100 delay-300"
               : "-translate-x-2 opacity-0"

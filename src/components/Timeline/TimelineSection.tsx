@@ -1,11 +1,12 @@
-import { motion, useScroll } from 'framer-motion'
-import { useRef } from 'react'
+import { motion, useScroll } from "framer-motion"
+import { useRef } from "react"
 
-import milestoneData from '@/data/milestones'
-import { milestoneVariants } from '@/utils/framer'
+import milestoneData from "@/data/milestones"
+import { milestoneVariants } from "@/utils/framer"
 
-import SectionHeading from '../SectionHeading'
-import Milestone from './Milestone'
+import SectionHeading from "../SectionHeading"
+import Milestone from "./Milestone"
+import Today from "./Today"
 
 export default function TimelineSection() {
   const ref = useRef<HTMLDivElement>(null)
@@ -48,7 +49,9 @@ export default function TimelineSection() {
             isLast={index === milestoneData.length - 1}
           />
         ))}
+        <Today />
       </motion.ul>
+      <div className="h-screen"> </div>
     </section>
   )
 }

@@ -1,4 +1,4 @@
-import { use, useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import resolveConfig from "tailwindcss/resolveConfig"
 
 import tailwindConfig from "../../tailwind.config"
@@ -6,9 +6,12 @@ import tailwindConfig from "../../tailwind.config"
 type Screensize = "sm" | "md" | "lg" | "xl" | "2xl"
 
 const fullConfig = resolveConfig(tailwindConfig)
+
 export default function useScreenSize() {
   const [screenSize, setScreenSize] = useState<Screensize>()
   const [pixelWidth, setPixelWidth] = useState<number>()
+  const [pixelHeight, setPixelHeight] = useState<number>()
+
   const isMobile = useMemo(
     () => screenSize === "sm" || screenSize === "md",
     [screenSize]
@@ -16,6 +19,7 @@ export default function useScreenSize() {
 
   useEffect(() => {
     setPixelWidth(window.innerWidth)
+    setPixelHeight(window.innerHeight)
   }, [])
 
   const getScreenSize = () => {
@@ -27,6 +31,8 @@ export default function useScreenSize() {
       lg: parseInt(screens.lg),
       xl: parseInt(screens.xl),
     }
+
+    setPixelHeight(window.innerHeight)
 
     const width = window.innerWidth
 
@@ -50,5 +56,5 @@ export default function useScreenSize() {
     return () => window.removeEventListener("resize", handleResize)
   }, [])
 
-  return { screenSize, pixelWidth, isMobile }
+  return { screenSize, pixelWidth, pixelHeight, isMobile }
 }

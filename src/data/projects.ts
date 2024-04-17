@@ -7,17 +7,17 @@ const projectData = [
     blurb: "A short thing about the thing", // Goes under the project name in the previews
     description:
       "Bountree is a global recruitment marketplace for deep tech startup jobs. It crowd-sources job roles to a network of recruiters, allowing anyone to earn rewards for successful referrals.", // Full description of the project
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "MongoDB"], // dunno if u want this
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "MongoDB"],
     github: "https://github.com/mo-shawa/bountree",
     deployment: "http://bountree.app/",
-    image: "/projects/bountree.webp", // Make sure it's a high res square cropped image
-    year: 2023, // dunno if u want this
-    gradientColors: "from-green-100 via-purple-100 to-white", // The gradient colors for the backdrop of the preview card. You have to use tailwindcss classes here
-    // pick light shades that match the image ideally
-    /**
-     * @resource https://tailwindcss.com/docs/background-image#gradient-color-stops
-     * @resrouce https://tailwindcss.com/docs/gradient-color-stops
-     */
+    image: "/projects/bountree.webp",
+    year: 2023,
+    backgroundColor: "bg-white",
+    textColors: {
+      primary: "text-slate-800",
+      secondary: "text-slate-600",
+      tertiary: "text-slate-200",
+    },
   },
   {
     name: "Culler",
@@ -30,7 +30,12 @@ const projectData = [
     deployment: "http://npmjs.com/package/culler",
     image: "/projects/bountree.webp",
     year: 2023,
-    gradientColors: "from-slate-200 via-emerald-100 to-blue-200",
+    backgroundColor: "bg-rose-50",
+    textColors: {
+      primary: "text-rose-950",
+      secondary: "text-rose-800",
+      tertiary: "text-rose-200",
+    },
   },
   {
     name: "sahba.space",
@@ -43,7 +48,12 @@ const projectData = [
     deployment: "http://sahba.space",
     year: 2023,
     image: "/projects/sahba.webp",
-    gradientColors: "from-blue-200 via-violet-200 to-white",
+    backgroundColor: "bg-emerald-50", //
+    textColors: {
+      primary: "text-emerald-900",
+      secondary: "text-emerald-700",
+      tertiary: "text-emeral-200",
+    },
   },
   {
     name: "Ask GPT",
@@ -56,7 +66,12 @@ const projectData = [
     deployment: "http://openai-ama.herokuapp.com/",
     image: "/projects/askgpt3.webp",
     year: 2022,
-    gradientColors: "from-violet-200 via-blue-200 to-slate-100",
+    backgroundColor: "bg-blue-100", //
+    textColors: {
+      primary: "text-blue-900",
+      secondary: "text-blue-700",
+      tertiary: "text-blue-200",
+    },
   },
   {
     name: "test 1",
@@ -69,7 +84,12 @@ const projectData = [
     deployment: "http://openai-ama.herokuapp.com/",
     image: "/projects/askgpt3.webp",
     year: 2022,
-    gradientColors: "from-violet-200 via-blue-200 to-slate-100",
+    backgroundColor: "bg-yellow-50", //
+    textColors: {
+      primary: "text-yellow-800",
+      secondary: "text-yellow-600",
+      tertiary: "text-yellow-200",
+    },
   },
   {
     name: "test 2",
@@ -82,7 +102,12 @@ const projectData = [
     deployment: "http://openai-ama.herokuapp.com/",
     image: "/projects/askgpt3.webp",
     year: 2022,
-    gradientColors: "from-violet-200 via-blue-200 to-emerald-100",
+    backgroundColor: "bg-indigo-100", //
+    textColors: {
+      primary: "text-indigo-800",
+      secondary: "text-indigo-600",
+      tertiary: "text-indigo-200",
+    },
   },
   {
     name: "test 3",
@@ -95,7 +120,12 @@ const projectData = [
     deployment: "http://openai-ama.herokuapp.com/",
     image: "/projects/askgpt3.webp",
     year: 2022,
-    gradientColors: "from-stone-200 via-blue-200 to-slate-100",
+    backgroundColor: "bg-slate-100", //
+    textColors: {
+      primary: "text-slate-800",
+      secondary: "text-slate-600",
+      tertiary: "text-slate-300",
+    },
   },
   {
     name: "test 4",
@@ -108,7 +138,12 @@ const projectData = [
     deployment: "http://openai-ama.herokuapp.com/",
     image: "/projects/askgpt3.webp",
     year: 2022,
-    gradientColors: "from-violet-200 via-green-200 to-slate-100",
+    backgroundColor: "bg-white", //
+    textColors: {
+      primary: "text-slate-800",
+      secondary: "text-slate-600",
+      tertiary: "text-slate-300",
+    },
   },
 ]
 export default projectData
