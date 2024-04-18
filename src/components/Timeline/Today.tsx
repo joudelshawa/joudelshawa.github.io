@@ -1,16 +1,23 @@
 import {
   motion,
+  MotionValue,
   useAnimate,
   useInView,
   useScroll,
   useTransform,
 } from "framer-motion"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import useScreenSize from "@/hooks/use-screen-size"
+import { ease } from "@/utils/framer"
 import { cn } from "@/utils/misc"
 
-export default function Today() {
+type Props = {
+  sectionInView: boolean
+  sectionScrollProgress: MotionValue<number>
+}
+
+export default function Today({ sectionInView, sectionScrollProgress }: Props) {
   const expandRef = useRef<HTMLDivElement>(null)
   const [scope, animate] = useAnimate()
   const isInView = useInView(scope, { margin: "0px 0px -50% 0px" })
@@ -29,7 +36,7 @@ export default function Today() {
   }
 
   const { scrollYProgress } = useScroll({
-    target: expandRef,
+    target: scope,
     offset: ["start start", "center center"],
   })
 
@@ -41,13 +48,12 @@ export default function Today() {
     vMax = maxValue / 12
   }
 
-  // const scale = useTransform(scrollYProgress, [1, 0], ["12px", vMax])
   const scale = useTransform(scrollYProgress, [1, 0], [1, vMax])
 
   return (
     <motion.li
       ref={scope}
-      className=" min-h-[6rem] grid-cols-[1fr_min-content_2fr] md:grid-cols-[1fr_min-content_6fr] " // @joud change this value [10rem] to set the gap between milestones
+      className=" min-h-[6rem] grid-cols-[1fr_min-content_2fr] md:grid-cols-[1fr_min-content_6fr] "
     >
       <motion.div
         className="timeline-start justify-self-start"
@@ -64,23 +70,23 @@ export default function Today() {
       />
 
       <motion.div className="timeline-middle z-0">
-        <motion.div
-          // style={{
-          //   scale,
-          // }}
-          ref={expandRef}
-          className="min-h-3 min-w-3 rounded-full"
-        />
+        <motion.div ref={expandRef} className="min-h-3 min-w-3 rounded-full" />
         <motion.div
           layout
+          transition={{
+            layout: {
+              duration: 0.5,
+              ease,
+            },
+          }}
           style={{ scale }}
           className={cn(
             "h-3 w-3 rounded-full bg-amber-500 filter",
-            isInView
+            isInView || (!sectionInView && sectionScrollProgress.get() > 0.5)
               ? "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
               : "static -mt-3"
           )}
-        />
+        ></motion.div>
       </motion.div>
     </motion.li>
   )

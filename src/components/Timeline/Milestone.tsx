@@ -30,7 +30,7 @@ export default function Milestone({ milestone, isFirst }: Props) {
   return (
     <motion.li
       ref={scope}
-      key={milestone.date}
+      key={milestone.text}
       className="min-h-[6rem] grid-cols-[1fr_min-content_2fr] md:grid-cols-[1fr_min-content_6fr]" // @joud change this value [10rem] to set the gap between milestones
     >
       <div className="timeline-start justify-self-start" style={{ opacity: 0 }}>

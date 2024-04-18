@@ -1,4 +1,9 @@
-import { motion, useScroll } from "framer-motion"
+import {
+  motion,
+  useInView,
+  useMotionValueEvent,
+  useScroll,
+} from "framer-motion"
 import { useRef } from "react"
 
 import milestoneData from "@/data/milestones"
@@ -10,6 +15,12 @@ import Today from "./Today"
 
 export default function TimelineSection() {
   const ref = useRef<HTMLDivElement>(null)
+
+  const isInView = useInView(ref)
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+  })
 
   return (
     <section ref={ref} className="relative px-4 pt-36">
@@ -38,20 +49,22 @@ export default function TimelineSection() {
       </ul> */}
       <motion.ul
         key="milestones-container"
-        className="timeline timeline-vertical mx-auto w-full max-w-7xl py-[50vh]"
+        className="timeline timeline-vertical mx-auto w-full max-w-7xl pt-[50vh]"
       >
         {milestoneData.map((milestone, index) => (
           <Milestone
-            key={milestone.date}
+            key={milestone.text}
             milestone={milestone}
             index={index}
             isFirst={index === 0}
             isLast={index === milestoneData.length - 1}
           />
         ))}
-        <Today />
+        <Today
+          sectionInView={isInView}
+          sectionScrollProgress={scrollYProgress}
+        />
       </motion.ul>
-      <div className="h-screen"> </div>
     </section>
   )
 }

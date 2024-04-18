@@ -17,6 +17,18 @@ export const textBubbleVariants: AnimationProps["variants"] = {
   },
 }
 
+export const contactModalVariants: AnimationProps["variants"] = {
+  initial: { borderRadius: 500, zIndex: 100 },
+  animate: {
+    borderRadius: 500,
+    zIndex: 100,
+    transition: {
+      duration: 0.5,
+      ease,
+    },
+  },
+}
+
 export const heroCardVariants: AnimationProps["variants"] = {
   hidden: {
     opacity: 0,

@@ -1,7 +1,13 @@
+import ContactDetails from "./ContactDetails"
+
 export default function ContactSection() {
   return (
-    <section className="z-50 flex h-screen items-center justify-center bg-black">
-      <h1 className="text-5xl text-white">Contact me</h1>
+    <section className="inner relative flex h-full min-h-screen w-full flex-col items-center justify-center gap-4 px-4">
+      <h1 className="text-[clamp(3rem,1.0356rem+2.8275vw,4.75rem)] font-semibold tracking-tighter text-white">
+        Contact me
+      </h1>
+
+      <ContactDetails />
     </section>
   )
 }
