@@ -1,8 +1,9 @@
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
 
-import TextBubbles from "@/components/TextBubbles"
 import { ease } from "@/utils/framer"
+
+import TextBubbles from "./TextBubbles"
 
 export default function Hero() {
   const scrollContainerRef = useRef<HTMLDivElement>(null)

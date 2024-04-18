@@ -6,12 +6,12 @@ import {
   useState,
 } from "react"
 
-export const ProjectContext = createContext<ProjectContextType | null>(null)
-
-export type ProjectContextType = {
+type ProjectContextType = {
   inViewProject: Project | null
   setInViewProject: Dispatch<SetStateAction<Project | null>>
 }
+
+const ProjectContext = createContext<ProjectContextType | null>(null)
 
 export default function ProjectContextProvider({
   children,

@@ -1,9 +1,3 @@
-export type Milestone = {
-  text: string
-  date: string
-  href?: string
-}
-
 const milestones: Milestone[] = [
   {
     text: "Participated in the AI4Good Lab",

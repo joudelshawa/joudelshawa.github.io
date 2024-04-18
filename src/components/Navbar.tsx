@@ -1,17 +1,21 @@
+import { gen } from "culler"
 // import Link from "next/link"
 import { AnimatePresence, motion, useAnimate } from "framer-motion"
 // import { DataContext, DataContextType } from "@/contexts/dataContext"
-import { Plus_Jakarta_Sans } from "next/font/google"
+import { Inter } from "next/font/google"
 import { useContext, useEffect, useState } from "react"
 
-import { IntroContext, IntroContextType } from "@/contexts/introContext"
-import { genGradient } from "@/utils/culler"
+import {
+  IntroContext,
+  IntroContextType,
+  useIntroContext,
+} from "@/contexts/introContext"
 // import { useRouter } from "next/router"
 import { ease } from "@/utils/framer"
 
 import TextMask from "./TextMask"
 
-const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"] })
 
 export default function Navbar() {
   {
@@ -20,13 +24,9 @@ export default function Navbar() {
   // const router = useRouter()
   // const [logoHovered, setLogoHovered] = useState<boolean>(false)
   const [scope, animate] = useAnimate()
-  const { shouldShowIntro } = useContext(IntroContext) as IntroContextType
-  // const { currentDataSource, setCurrentDataSource } = useContext(
-  //   DataContext
-  // ) as DataContextType
-  const [gradient, setGradient] = useState<string>(
-    genGradient({
-      direction: "to bottom right",
+  const { shouldShowIntro } = useIntroContext()
+  const [color, setColor] = useState<string>(
+    gen({
       type: "rgb",
       minB: 212,
       minG: 212,
@@ -44,9 +44,8 @@ export default function Navbar() {
       },
     })
 
-    setGradient(
-      genGradient({
-        direction: "to bottom right",
+    setColor(
+      gen({
         type: "rgb",
         minB: 200,
         minG: 200,
@@ -82,7 +81,7 @@ export default function Navbar() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ ease, delay: shouldShowIntro ? 2 : 0, duration: 1 }}
-      className={`fixed top-0 z-50 h-16 w-full text-slate-800  ${plusJakartaSans.className} flex items-center`}
+      className={`fixed top-0 z-50 h-16 w-full text-slate-800  ${inter.className} flex items-center`}
     >
       <motion.div className="relative mx-auto flex max-w-7xl items-center justify-center">
         <div className="flex items-center gap-2 rounded-3xl bg-white/70 p-4  filter backdrop-blur-xl">
@@ -96,7 +95,7 @@ export default function Navbar() {
             layoutId="orb"
             className="orb inset-0 aspect-square h-5 w-5 cursor-pointer rounded-full active:cursor-grabbing"
             style={{
-              background: gradient,
+              background: color,
             }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

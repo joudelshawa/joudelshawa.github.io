@@ -4,11 +4,7 @@ import TwitterSVG from "/public/twitter.svg"
 import { AnimatePresence, motion } from "framer-motion"
 import { useState } from "react"
 
-import {
-  contactModalVariants,
-  ease,
-  socialsContainerVariants,
-} from "@/utils/framer"
+import { ease, socialsContainerVariants } from "@/utils/framer"
 
 import SocialButton from "./SocialButton"
 
@@ -23,10 +19,7 @@ export default function ContactDetails() {
 
   return (
     <>
-      <motion.div
-        variants={contactModalVariants}
-        className="relative flex max-w-3xl flex-col gap-4 py-12 sm:gap-8 lg:bg-scroll"
-      >
+      <motion.div className="relative flex max-w-3xl flex-col gap-4 py-12 sm:gap-8 lg:bg-scroll">
         <motion.p
           className="text-2xl font-light text-white"
           initial={{ opacity: 0 }}
