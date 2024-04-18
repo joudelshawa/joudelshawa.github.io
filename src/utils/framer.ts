@@ -1,6 +1,6 @@
 import { AnimationProps } from "framer-motion"
 
-export const ease = [0.6, 0.01, 0.05, 0.95]
+export const ease = [0.6, 0.01, 0.05, 0.95] as const
 
 export const textBubbleVariants: AnimationProps["variants"] = {
   hidden: {
@@ -10,6 +10,18 @@ export const textBubbleVariants: AnimationProps["variants"] = {
   visible: {
     opacity: 1,
     x: 0,
+    transition: {
+      duration: 0.5,
+      ease,
+    },
+  },
+}
+
+export const contactModalVariants: AnimationProps["variants"] = {
+  initial: { borderRadius: 500, zIndex: 100 },
+  animate: {
+    borderRadius: 500,
+    zIndex: 100,
     transition: {
       duration: 0.5,
       ease,
@@ -145,16 +157,6 @@ export const projectPreviewVariants: AnimationProps["variants"] = {
   },
 }
 
-export const milestonesContainerVariants: AnimationProps["variants"] = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-}
-
 export const milestoneVariants: AnimationProps["variants"] = {
   hidden: {
     opacity: 0,
@@ -166,7 +168,7 @@ export const milestoneVariants: AnimationProps["variants"] = {
     y: 0,
     scale: 1,
     transition: {
-      duration: 0.8,
+      // duration: 0.8,
       ease,
     },
   },

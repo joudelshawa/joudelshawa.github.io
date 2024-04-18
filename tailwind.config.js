@@ -5,6 +5,7 @@ module.exports = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/data/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -13,6 +14,10 @@ module.exports = {
         linkedin: "#0077B5",
         github: "#181717",
         twitter: "#1DA1F2",
+      },
+      screens: {
+        xs: "475px",
+        short: { raw: "(max-height: 700px) and (max-width: 600px)" },
       },
     },
   },

@@ -4,13 +4,18 @@
 
 body {
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: clip;
   overflow-y: auto;
   scrollbar-width: none;
+  overscroll-behavior-y: none;
 }
 
 p {
   @apply tracking-wide;
+}
+
+section {
+  @apply overflow-x-clip;
 }
 
 .no-scrollbar::-webkit-scrollbar {
