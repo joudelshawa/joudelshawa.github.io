@@ -1,9 +1,9 @@
-import { motion, useAnimate, useInView } from "framer-motion"
-import Link from "next/link"
-import { useEffect, useRef } from "react"
+import { motion, useAnimate, useInView } from 'framer-motion'
+import Link from 'next/link'
+import { useEffect, useRef } from 'react'
 
-import { milestoneVariants } from "@/utils/framer"
-import { cn } from "@/utils/misc"
+import { milestoneVariants } from '@/utils/framer'
+import { cn } from '@/utils/misc'
 
 type Props = {
   milestone: Milestone
@@ -12,7 +12,7 @@ type Props = {
   isLast?: boolean
 }
 
-export default function Milestone({ milestone, isFirst }: Props) {
+export default function Milestone({ milestone, isFirst, isLast }: Props) {
   const [scope, animate] = useAnimate()
   const isInView = useInView(scope, { once: true })
 
@@ -53,7 +53,7 @@ export default function Milestone({ milestone, isFirst }: Props) {
         <motion.div className="h-3 w-3 rounded-full bg-black" />
       </motion.div>
       <Wrapper milestone={milestone}>{milestone.text}</Wrapper>
-      <motion.hr className="bottom-line" />
+      {!isLast && <motion.hr className="bottom-line" />}
     </motion.li>
   )
 }
@@ -72,7 +72,7 @@ const Wrapper = ({
     <Link
       className={cn(
         baseTimelineEndClasses,
-        "cursor-pointer border border-rose-400 transition-all hover:bg-rose-500 hover:text-white hover:shadow-xl"
+        "cursor-pointer border border-emerald-400 transition-all hover:bg-emerald-500 hover:text-white hover:shadow-xl"
       )} // @joud change these classes for clickable milestones
       href={milestone.href}
       target="_blank"
