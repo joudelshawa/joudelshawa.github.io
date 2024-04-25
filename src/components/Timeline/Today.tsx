@@ -1,9 +1,9 @@
-import { motion, MotionValue, useAnimate, useInView, useScroll, useTransform } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { motion, MotionValue, useScroll, useTransform } from "framer-motion"
+import { useRef } from "react"
 
-import useScreenSize from '@/hooks/use-screen-size'
-import { ease } from '@/utils/framer'
-import { cn } from '@/utils/misc'
+import useScreenSize from "@/hooks/use-screen-size"
+import { ease } from "@/utils/framer"
+import { cn } from "@/utils/misc"
 
 type Props = {
   sectionInView: boolean
@@ -18,14 +18,6 @@ export default function Today({ sectionInView, sectionScrollProgress }: Props) {
     target: expandRef,
     offset: ["start start", "center center"],
   })
-
-  let vMax
-
-  if (pixelWidth && pixelHeight) {
-    const maxValue = Math.max(pixelWidth, pixelHeight) * 1.5
-
-    vMax = maxValue
-  }
 
   const scale = useTransform(scrollYProgress, [1, 0], [0, 1])
 

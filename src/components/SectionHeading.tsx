@@ -1,7 +1,13 @@
-import { cubicBezier, motion, useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
-import { useRef } from 'react'
+import {
+  cubicBezier,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "framer-motion"
+import { useRef } from "react"
 
-import { ease } from '@/utils/framer'
+import { ease } from "@/utils/framer"
 
 type Props = {
   children: React.ReactNode
@@ -23,7 +29,11 @@ export default function SectionHeading({ children }: Props) {
   })
 
   return (
-    <motion.h1 style={{ x, opacity }} className="text-[9vmax]" ref={ref}>
+    <motion.h1
+      style={{ x, opacity }}
+      className="text-5xl md:text-[9vmax]"
+      ref={ref}
+    >
       {children}
     </motion.h1>
   )

@@ -6,6 +6,7 @@ import Head from "next/head"
 import { useEffect } from "react"
 
 import Navbar from "@/components/Navbar"
+import ContactContextProvider from "@/contexts/contactContext"
 import IntroContextProvider, { IntroContext } from "@/contexts/introContext"
 import ProjectContextProvider from "@/contexts/projectContext"
 import Lenis from "@studio-freight/lenis"
@@ -33,31 +34,33 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <IntroContextProvider>
         <ProjectContextProvider>
-          <Navbar />
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={Component.name}
-              initial="pageInitial"
-              animate="pageAnimate"
-              exit="pageExit"
-              className={`${interFont.className}`}
-              variants={{
-                pageInitial: {
-                  opacity: 0,
-                },
-                pageAnimate: {
-                  opacity: 1,
-                },
-                pageExit: {
-                  opacity: 0,
-                },
-              }}
-            >
-              <main className={`${interFont.className}`}>
-                <Component {...pageProps} />
-              </main>
-            </motion.div>
-          </AnimatePresence>
+          <ContactContextProvider>
+            <Navbar />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={Component.name}
+                initial="pageInitial"
+                animate="pageAnimate"
+                exit="pageExit"
+                className={`${interFont.className}`}
+                variants={{
+                  pageInitial: {
+                    opacity: 0,
+                  },
+                  pageAnimate: {
+                    opacity: 1,
+                  },
+                  pageExit: {
+                    opacity: 0,
+                  },
+                }}
+              >
+                <main className={`${interFont.className}`}>
+                  <Component {...pageProps} />
+                </main>
+              </motion.div>
+            </AnimatePresence>
+          </ContactContextProvider>
         </ProjectContextProvider>
       </IntroContextProvider>
     </>
