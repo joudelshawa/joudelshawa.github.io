@@ -1,11 +1,9 @@
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion } from "framer-motion"
 
-import { useContactContext } from '@/contexts/contactContext'
-import useScreenSize from '@/hooks/use-screen-size'
-import { ease } from '@/utils/framer'
-import { cn } from '@/utils/misc'
+import { useContactContext } from "@/contexts/contactContext"
+import { ease } from "@/utils/framer"
 
-import styles from './Contact.module.css'
+import styles from "./Contact.module.css"
 
 export default function ContactButton() {
   const { modalOpen, setModalOpen } = useContactContext()
@@ -23,7 +21,7 @@ export default function ContactButton() {
       >
         <motion.div
           animate={{
-            top: modalOpen ? "-100%" : "0",
+            y: modalOpen ? "-100%" : "0",
           }}
           transition={{ duration: 0.5, ease }}
           className="relative h-full"
