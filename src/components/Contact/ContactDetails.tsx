@@ -1,12 +1,12 @@
-import GithubSVG from "/public/github.svg"
-import LinkedInSVG from "/public/linkedin.svg"
-import TwitterSVG from "/public/twitter.svg"
-import { AnimatePresence, motion } from "framer-motion"
-import { useState } from "react"
+import GithubSVG from '/public/github.svg'
+import LinkedInSVG from '/public/linkedin.svg'
+import TwitterSVG from '/public/twitter.svg'
+import { AnimatePresence, motion } from 'framer-motion'
+import { useState } from 'react'
 
-import { ease, socialsContainerVariants } from "@/utils/framer"
+import { ease, socialsContainerVariants } from '@/utils/framer'
 
-import SocialButton from "./SocialButton"
+import SocialButton from './SocialButton'
 
 export default function ContactDetails() {
   const [emailCopied, setEmailCopied] = useState(false)
@@ -19,7 +19,7 @@ export default function ContactDetails() {
 
   return (
     <>
-      <motion.div className="relative flex max-w-3xl flex-col gap-4 py-12 sm:gap-8 lg:bg-scroll">
+      <motion.div className="relative flex w-full max-w-[min(90vw,768px)] flex-col gap-4 py-12 sm:gap-8 lg:bg-scroll">
         <motion.p
           className="text-2xl font-light text-white"
           initial={{ opacity: 0 }}
@@ -76,7 +76,7 @@ export default function ContactDetails() {
             className="flex items-center"
           >
             <a
-              className="flex items-center justify-center gap-2 rounded-3xl border-2 border-white px-5 py-3 text-xl text-white transition-colors hover:bg-white/20"
+              className="flex items-center justify-center gap-2 rounded-3xl border border-white px-5 py-3 text-xl text-white transition-colors hover:bg-white/20"
               download="Joud_Shawa-Resume"
               href="/resume.pdf"
             >
@@ -149,7 +149,7 @@ export default function ContactDetails() {
           >
             <motion.a
               href="mailto:mahmoud@shawa.dev"
-              className="flex items-center justify-center gap-2 rounded-3xl border-2 border-white px-5 py-3 text-xl text-white transition-colors hover:bg-white/20"
+              className="flex items-center justify-center gap-2 rounded-3xl border border-white px-5 py-3 text-xl text-white transition-colors hover:bg-white/20"
             >
               Email me
               <svg

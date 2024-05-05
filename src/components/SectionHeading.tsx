@@ -1,10 +1,4 @@
-import {
-  cubicBezier,
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-} from "framer-motion"
+import { cubicBezier, motion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
 
 import { ease } from "@/utils/framer"
@@ -21,7 +15,7 @@ export default function SectionHeading({ children }: Props) {
     offset: ["start end", "end start"],
   })
 
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "50%"], {
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "40%"], {
     ease: cubicBezier(...ease),
   })
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0], {
@@ -31,7 +25,7 @@ export default function SectionHeading({ children }: Props) {
   return (
     <motion.h1
       style={{ x, opacity }}
-      className="text-5xl md:text-[9vmax]"
+      className="text-5xl md:text-[8vmax]"
       ref={ref}
     >
       {children}

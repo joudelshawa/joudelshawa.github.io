@@ -18,7 +18,7 @@ export default function ContactContextProvider({
 }: {
   children: React.ReactNode
 }) {
-  const [modalOpen, setModalOpen] = useState(true)
+  const [modalOpen, setModalOpen] = useState(false)
 
   return (
     <ContactContext.Provider value={{ modalOpen, setModalOpen }}>
