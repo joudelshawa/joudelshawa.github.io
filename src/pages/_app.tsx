@@ -36,30 +36,30 @@ export default function App({ Component, pageProps }: AppProps) {
         <ProjectContextProvider>
           <ContactContextProvider>
             <Navbar />
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={Component.name}
-                initial="pageInitial"
-                animate="pageAnimate"
-                exit="pageExit"
-                className={`${interFont.className}`}
-                variants={{
-                  pageInitial: {
-                    opacity: 0,
-                  },
-                  pageAnimate: {
-                    opacity: 1,
-                  },
-                  pageExit: {
-                    opacity: 0,
-                  },
-                }}
-              >
-                <main className={`${interFont.className}`}>
-                  <Component {...pageProps} />
-                </main>
-              </motion.div>
-            </AnimatePresence>
+            {/* <AnimatePresence mode="wait"> */}
+            <motion.div
+              key={Component.name}
+              initial="pageInitial"
+              animate="pageAnimate"
+              exit="pageExit"
+              className={`${interFont.className}`}
+              variants={{
+                pageInitial: {
+                  opacity: 0,
+                },
+                pageAnimate: {
+                  opacity: 1,
+                },
+                pageExit: {
+                  opacity: 0,
+                },
+              }}
+            >
+              <main className={`${interFont.className}`}>
+                <Component {...pageProps} />
+              </main>
+            </motion.div>
+            {/* </AnimatePresence> */}
           </ContactContextProvider>
         </ProjectContextProvider>
       </IntroContextProvider>

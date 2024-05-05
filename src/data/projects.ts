@@ -75,7 +75,7 @@ const projectData = [
   },
   {
     name: "test 1",
-    detailsPage: "/projects/askgpt3",
+    detailsPage: "/projects/test1",
     blurb: "A short thing about the thing", // Goes under the project name in the previews
     description:
       "Ask an advanced AI a question and get a response! Your questions and answers are saved locally in your browser, so you can come back to them later.",
@@ -93,7 +93,7 @@ const projectData = [
   },
   {
     name: "test 2",
-    detailsPage: "/projects/askgpt3",
+    detailsPage: "/projects/test2",
     blurb: "A short thing about the thing", // Goes under the project name in the previews
     description:
       "Ask an advanced AI a question and get a response! Your questions and answers are saved locally in your browser, so you can come back to them later.",
@@ -111,7 +111,7 @@ const projectData = [
   },
   {
     name: "test 3",
-    detailsPage: "/projects/askgpt3",
+    detailsPage: "/projects/test3",
     blurb: "A short thing about the thing", // Goes under the project name in the previews
     description:
       "Ask an advanced AI a question and get a response! Your questions and answers are saved locally in your browser, so you can come back to them later.",
@@ -129,7 +129,7 @@ const projectData = [
   },
   {
     name: "test 4",
-    detailsPage: "/projects/askgpt3",
+    detailsPage: "/projects/test4",
     blurb: "A short thing about the thing", // Goes under the project name in the previews
     description:
       "Ask an advanced AI a question and get a response! Your questions and answers are saved locally in your browser, so you can come back to them later.",

@@ -106,7 +106,10 @@ export default function ProjectTitle({ project }: Props) {
         >
           {project.year}
         </p>
-        <p
+        <motion.span
+          key={project.name}
+          layoutId={project.name}
+          layout="position"
           className={cn(
             "text-[clamp(1.875rem,1.0356rem+2.8275vw,3.75rem)] font-semibold transition-colors",
             isInViewProject
@@ -115,7 +118,7 @@ export default function ProjectTitle({ project }: Props) {
           )}
         >
           {project.name}
-        </p>
+        </motion.span>
         <p
           className={cn(
             "transition-all duration-500",

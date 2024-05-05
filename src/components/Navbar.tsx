@@ -86,13 +86,11 @@ export default function Navbar() {
       <motion.div className="relative mx-auto flex max-w-7xl items-center justify-center">
         <div className="flex items-center gap-2 rounded-3xl bg-white/70 p-4  filter backdrop-blur-xl">
           <motion.div
-            drag
             onClick={orbAnimation}
             dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
             whileDrag={{ scale: 2.1 }}
             dragElastic={0.1}
             ref={scope}
-            layoutId="orb"
             className="orb inset-0 aspect-square h-5 w-5 cursor-pointer rounded-full active:cursor-grabbing"
             style={{
               background: color,

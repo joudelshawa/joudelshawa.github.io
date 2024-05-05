@@ -42,14 +42,14 @@ export default function Milestone({ milestone, isFirst, isLast }: Props) {
       className="min-h-[6rem] grid-cols-[1fr_min-content_2fr] md:grid-cols-[1fr_min-content_6fr]" // @joud change this value [10rem] to set the gap between milestones
     >
       <div
-        className="timeline-start justify-self-start text-end font-mono text-sm md:text-lg"
+        className="md:text-md timeline-start justify-self-start text-end font-mono text-sm"
         style={{ opacity: 0 }}
       >
         {Array.isArray(milestone.date) ? (
           <>
-            <span className="text-green-800">+ {milestone.date[0]}</span>
+            <span className="text-emerald-800">+ {milestone.date[0]}</span>
             <br />
-            <span className="text-red-800">- {milestone.date[1]}</span>
+            <span className="text-rose-800">- {milestone.date[1]}</span>
           </>
         ) : (
           <span>{milestone.date}</span>
@@ -57,7 +57,7 @@ export default function Milestone({ milestone, isFirst, isLast }: Props) {
       </div>
       {!isFirst && (
         <motion.hr
-          className="top-line"
+          className="top-line bg-slate-100"
           style={{
             scaleY: 0,
           }}
@@ -69,10 +69,10 @@ export default function Milestone({ milestone, isFirst, isLast }: Props) {
           scale: 0,
         }}
       >
-        <motion.div className="h-3 w-3 rounded-full bg-black" />
+        <motion.div className="size-2 rounded-full bg-slate-700 md:size-3" />
       </motion.div>
       <Wrapper milestone={milestone}>{milestone.text}</Wrapper>
-      {!isLast && <motion.hr className="bottom-line" />}
+      {!isLast && <motion.hr className="bottom-line bg-slate-100" />}
     </motion.li>
   )
 }
@@ -91,7 +91,7 @@ const Wrapper = ({
     <Link
       className={cn(
         baseTimelineEndClasses,
-        "cursor-pointer border-emerald-400 shadow-lg shadow-emerald-100 transition-all hover:bg-emerald-500 hover:text-white "
+        "cursor-pointer border-transparent shadow-lg shadow-rose-100 transition-all hover:bg-sky-500 hover:text-white "
       )} // @joud change these classes for clickable milestones
       href={milestone.href}
       target="_blank"
