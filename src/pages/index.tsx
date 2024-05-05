@@ -1,7 +1,8 @@
 import { AnimatePresence } from "framer-motion"
 
 import ContactButton from "@/components/Contact/ContactButton"
-import ContactSection from "@/components/Contact/ContactModal"
+import ContactModal from "@/components/Contact/ContactModal"
+import Footer from "@/components/Footer/Footer"
 import Hero from "@/components/Hero/Hero"
 import Intro from "@/components/Hero/Intro"
 import ProjectSection from "@/components/Projects/ProjectSection"
@@ -21,7 +22,8 @@ export default function Home() {
       <ProjectSection />
       <TimelineSection />
       <ContactButton />
-      <AnimatePresence>{modalOpen && <ContactSection />}</AnimatePresence>
+      <AnimatePresence>{modalOpen && <ContactModal />}</AnimatePresence>
+      <Footer />
     </>
   )
 }

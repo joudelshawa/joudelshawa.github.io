@@ -7,7 +7,7 @@ declare global {
 
   type Milestone = {
     text: string
-    date: string
+    date: string | [string, string]
     href?: string
   }
 }

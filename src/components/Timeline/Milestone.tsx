@@ -1,9 +1,8 @@
-import { motion, useAnimate, useInView } from 'framer-motion'
-import Link from 'next/link'
-import { useEffect, useRef } from 'react'
+import { motion, useAnimate, useInView } from "framer-motion"
+import Link from "next/link"
+import { useEffect } from "react"
 
-import { milestoneVariants } from '@/utils/framer'
-import { cn } from '@/utils/misc'
+import { cn } from "@/utils/misc"
 
 type Props = {
   milestone: Milestone
@@ -14,10 +13,11 @@ type Props = {
 
 export default function Milestone({ milestone, isFirst, isLast }: Props) {
   const [scope, animate] = useAnimate()
-  const isInView = useInView(scope, { once: true })
+  const isInView = useInView(scope, { once: false })
 
   useEffect(() => {
     if (isInView) handleInView()
+    else handleOutView()
   }, [isInView])
 
   async function handleInView() {
@@ -27,14 +27,33 @@ export default function Milestone({ milestone, isFirst, isLast }: Props) {
     await animate(".timeline-end", { opacity: 1 }, { duration: 0.3 })
   }
 
+  async function handleOutView() {
+    if (!isFirst)
+      await animate(".top-line", { scaleY: 0 }, { duration: 0.0000001 })
+    await animate(".timeline-middle", { scale: 0 }, { duration: 0.0000001 })
+    await animate(".timeline-start", { opacity: 0 }, { duration: 0.0000001 })
+    await animate(".timeline-end", { opacity: 0 }, { duration: 0.0000001 })
+  }
+
   return (
     <motion.li
       ref={scope}
       key={milestone.text}
       className="min-h-[6rem] grid-cols-[1fr_min-content_2fr] md:grid-cols-[1fr_min-content_6fr]" // @joud change this value [10rem] to set the gap between milestones
     >
-      <div className="timeline-start justify-self-start" style={{ opacity: 0 }}>
-        {milestone.date}
+      <div
+        className="timeline-start justify-self-start text-end font-mono text-sm md:text-lg"
+        style={{ opacity: 0 }}
+      >
+        {Array.isArray(milestone.date) ? (
+          <>
+            <span className="text-green-800">+ {milestone.date[0]}</span>
+            <br />
+            <span className="text-red-800">- {milestone.date[1]}</span>
+          </>
+        ) : (
+          <span>{milestone.date}</span>
+        )}
       </div>
       {!isFirst && (
         <motion.hr
@@ -59,7 +78,7 @@ export default function Milestone({ milestone, isFirst, isLast }: Props) {
 }
 
 const baseTimelineEndClasses =
-  "timeline-end timeline-box text-base md:text-lg xl:text-xl"
+  "timeline-end timeline-box text-base text-md md:text-xl border"
 
 const Wrapper = ({
   children,
@@ -72,7 +91,7 @@ const Wrapper = ({
     <Link
       className={cn(
         baseTimelineEndClasses,
-        "cursor-pointer border border-emerald-400 transition-all hover:bg-emerald-500 hover:text-white hover:shadow-xl"
+        "cursor-pointer border-emerald-400 shadow-lg shadow-emerald-100 transition-all hover:bg-emerald-500 hover:text-white "
       )} // @joud change these classes for clickable milestones
       href={milestone.href}
       target="_blank"
@@ -80,5 +99,9 @@ const Wrapper = ({
       {children}
     </Link>
   ) : (
-    <div className={baseTimelineEndClasses}>{children}</div>
+    <div
+      className={cn(baseTimelineEndClasses, "border-transparent shadow-none")}
+    >
+      {children}
+    </div>
   )
