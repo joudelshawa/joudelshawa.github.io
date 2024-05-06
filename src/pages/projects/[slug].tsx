@@ -1,6 +1,7 @@
 import { motion } from "framer-motion"
 import { useRouter } from "next/router"
 
+import ProjectDetailImage from "@/components/Projects/ProjectDetailImage"
 import projectData from "@/data/projects"
 
 export default function ProjectDetailPage() {
@@ -18,16 +19,18 @@ export default function ProjectDetailPage() {
     )
 
   return (
-    <div>
-      <motion.span
-        key={project.name}
-        layoutId={project.name}
-        layout="position"
-        className="text-[clamp(1.875rem,1.0356rem+2.8275vw,3.75rem)] font-semibold transition-colors"
-      >
-        {project.name}
-      </motion.span>
-      <p>Slug: {JSON.stringify(project)}</p>
+    <div className="relative mx-auto grid w-full max-w-7xl px-4 pt-36 md:grid-cols-12">
+      <div className="col-span-4">
+        <motion.span
+          key={project.name}
+          layoutId={project.name}
+          layout="position"
+          className="text-[clamp(1.875rem,1.0356rem+2.8275vw,3.75rem)] font-semibold transition-colors"
+        >
+          {project.name}
+        </motion.span>
+        <ProjectDetailImage project={project} />
+      </div>
     </div>
   )
 }

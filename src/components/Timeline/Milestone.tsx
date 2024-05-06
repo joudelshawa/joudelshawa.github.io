@@ -91,7 +91,7 @@ const Wrapper = ({
     <Link
       className={cn(
         baseTimelineEndClasses,
-        "cursor-pointer border-transparent shadow-lg shadow-rose-100 transition-all hover:bg-sky-500 hover:text-white "
+        "cursor-pointer border-transparent shadow-lg shadow-rose-100 transition-all hover:bg-rose-500 hover:text-white "
       )} // @joud change these classes for clickable milestones
       href={milestone.href}
       target="_blank"

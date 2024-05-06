@@ -7,7 +7,7 @@ import { projectContainerVariants } from "@/utils/framer"
 import { cn } from "@/utils/misc"
 
 import SectionHeading from "../SectionHeading"
-import ProjectImage from "./ProjectImage"
+import ProjectPreviewImage from "./ProjectPreviewImage"
 import ProjectTitle from "./ProjectTitle"
 
 export default function ProjectSection() {
@@ -52,7 +52,7 @@ export default function ProjectSection() {
             viewport={{ amount: "all", margin: "50%" }}
           >
             {projectData.map((project, index) => (
-              <ProjectImage key={index} project={project} />
+              <ProjectPreviewImage key={index} project={project} />
             ))}
           </motion.div>
         </div>
