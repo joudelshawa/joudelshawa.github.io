@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useContactContext } from '@/contexts/contactContext'
 import { ease } from '@/utils/framer'
 
-import styles from './Contact.module.css'
+import styles from './ContactButton.module.css'
 
 export default function ContactButton() {
   const { modalOpen, setModalOpen } = useContactContext()
@@ -26,7 +26,7 @@ export default function ContactButton() {
         <div className="flex size-full items-center justify-center bg-slate-900 text-white">
           <PerspectiveText>Contact</PerspectiveText>
         </div>
-        <div className="absolute flex size-full items-center justify-center bg-rose-100">
+        <div className="absolute flex size-full items-center justify-center bg-white">
           <PerspectiveText>Close</PerspectiveText>
         </div>
       </motion.div>

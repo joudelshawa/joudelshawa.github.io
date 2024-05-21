@@ -1,15 +1,16 @@
-import { motion } from "framer-motion"
-import { useRef } from "react"
+import { motion } from 'framer-motion'
+import { useRef } from 'react'
 
-import milestoneData from "@/data/milestones"
+import milestoneData from '@/data/milestones'
 
-import SectionHeading from "../SectionHeading"
-import Milestone from "./Milestone"
+import SectionHeading from '../SectionHeading'
+import Milestone from './Milestone'
 
 export default function TimelineSection() {
   const ref = useRef<HTMLDivElement>(null)
 
-  const milestones = [...milestoneData].reverse()
+  // const milestones = [...milestoneData].reverse()
+  const milestones = milestoneData
 
   return (
     <section id="milestones" ref={ref} className="relative px-4 pb-24">

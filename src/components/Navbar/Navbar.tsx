@@ -7,6 +7,7 @@ import useScreenSize from '@/hooks/use-screen-size'
 import { ease } from '@/utils/framer'
 
 import ContactButton from '../Contact/ContactButton'
+import ContactModal from '../Contact/ContactModal'
 import Navlink from './Navlink'
 import Orb from './Orb'
 
@@ -18,7 +19,7 @@ export default function Navbar() {
   const { scrollY } = useScroll()
 
   const lastScrollY = useRef(0)
-  const [expanded, setExpanded] = useState<boolean>(false)
+  const [expanded, setExpanded] = useState<boolean>(true)
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (latest > lastScrollY.current && expanded === false) {
@@ -39,12 +40,12 @@ export default function Navbar() {
     <motion.nav
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ ease, delay: shouldShowIntro ? 2 : 0, duration: 1 }}
-      className={`fixed top-1 z-50 h-16 w-full text-slate-800  ${inter.className} flex items-center px-4`}
+      transition={{ ease, delay: shouldShowIntro ? 3.5 : 0, duration: 1 }}
+      className={`fixed top-2 z-50 h-16 w-full text-slate-800  ${inter.className} flex items-center px-4 md:px-8`}
     >
       <motion.div
         layout
-        className="mx-auto flex max-w-7xl items-center gap-2 border-2 bg-white/80 py-4 filter backdrop-blur-xl"
+        className="mx-auto flex max-w-7xl items-center gap-2 bg-white/80 py-4 filter backdrop-blur-xl"
         style={{
           width: expanded ? "100%" : "min-content",
           paddingInline: expanded && !isMobile ? "2rem" : "1rem",
@@ -61,7 +62,10 @@ export default function Navbar() {
           >
             <Navlink href="#projects">Projects</Navlink>
             <Navlink href="#milestones">Milestones</Navlink>
-            <ContactButton />
+            <div className="relative h-8 w-20  md:w-24">
+              <ContactModal />
+              <ContactButton />
+            </div>
           </motion.div>
         )}
       </motion.div>
@@ -73,6 +77,7 @@ const linkContainerVariants: AnimationProps["variants"] = {
   hidden: {},
   visible: {
     transition: {
+      delayChildren: 0.1,
       staggerChildren: 0.1,
       staggerDirection: -1,
     },
