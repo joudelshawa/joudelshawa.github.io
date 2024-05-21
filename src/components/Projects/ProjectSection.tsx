@@ -16,6 +16,7 @@ export default function ProjectSection() {
   return (
     <motion.section
       key="projects-container"
+      id="projects"
       initial="hidden"
       animate="visible"
       variants={projectContainerVariants}

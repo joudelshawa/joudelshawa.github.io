@@ -1,4 +1,4 @@
-import { AnimationProps } from "framer-motion"
+import { AnimationProps } from 'framer-motion'
 
 export const ease = [0.6, 0.01, 0.05, 0.95] as const
 
@@ -71,7 +71,7 @@ export const milestoneVariants: AnimationProps["variants"] = {
 export const textMaskVariants: AnimationProps["variants"] = {
   hidden: {
     opacity: 0,
-    y: 30,
+    y: 10,
     scale: 0.98,
   },
   visible: {
