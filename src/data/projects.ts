@@ -119,6 +119,78 @@ const projectData = [
     ],
     link: "https://www.ai4goodlab.com/news/2021/10/04/social-media-is-a-no-go-without-soquo/",
     image: "/projects/soquo.webp",
+    year: 2022,
+  },
+  {
+    name: "ViewTheWorld - Software Engineering Course Group Project",
+    slug: "viewtheworld",
+
+    blurb:
+      "Led an Agile team to develop a program that retrieves and visualizes environmental and health data from the World Bank’s data repository for selected countries.",
+    description: `Led a team of five using an Agile software development approach to create a program that retrieves and visualizes environmental and health data for selected countries from the World Bank’s data repository. 
+
+    Working in sprints, we delivered the specification, design, implementation, and testing of the system. Our design process included creating UML diagrams with design patterns such as Singleton, Strategy, Factory, Proxy, and Observer. For implementation and testing, we used Java and HTTP GET requests, ensuring a robust and efficient solution.
+    
+    Note: this project was done as part of a course group project. Grade received: 100%
+    `,
+    technologies: [
+      "Dasha AI",
+      "Figma",
+      "Google Cloud Platform",
+      "MySQL",
+      "JavaScript",
+      "Node.js",
+    ],
+    link: "https://www.ai4goodlab.com/news/2021/10/04/social-media-is-a-no-go-without-soquo/",
+    image: "/projects/soquo.webp",
+    year: 2021,
+  },
+  {
+    name: "[Mentorship] PlatePal - AI4Good Lab Project + Edmonton Accelerator Award 2023 Winner",
+    slug: "platepal",
+
+    blurb: `"Spice Up, Save Up" revolutionizes student nutrition, offering affordable and wholesome meal choices to combat food insecurity in Canada.`,
+    description: `The Plate Pal project aims to address food insecurity by developing a user-friendly website that helps individuals with limited access to affordable groceries.
+
+    Plate Pal is designed to generate a curated list of the most budget-friendly grocery options based on the user's postal code and specific dietary restrictions. The platform creates a seamless and empowering experience, enabling users to make informed decisions about their food choices. 
+    
+    Key features include:
+    - Compiling a comprehensive list of weekly offers from nearby grocery stores.
+    - Optimizing users' purchasing power.
+    - Providing a stress-free, personalized grocery plan.
+    
+    Goals:
+    - Improve the affordability of food.
+    - Address food insecurity.
+    - Promote healthier eating habits through tailored recommendations based on location, dietary needs, and budget constraints.
+    
+    As a mentor, I guided the project team in achieving these objectives, ensuring the development of a practical and impactful solution for food insecurity, as well as ensuring their pitch was engaging and informative.`,
+    technologies: [
+      "Dasha AI",
+      "Figma",
+      "Google Cloud Platform",
+      "MySQL",
+      "JavaScript",
+      "Node.js",
+    ],
+    link: "https://www.ai4goodlab.com/news/project-reports/2024/02/15/plate-pal-2023-edmonton-accelerator-award-winner/",
+    image: "/projects/platepal.jpg",
+    year: 2021,
+  },
+  {
+    name: "[Mentorship] Your Perfect Closet - Women+ in Technology Society ADA Program Project + Winner of Most Creative and Best JAM3 Project",
+    slug: "perfect-closet",
+
+    blurb: `A Chrome extension that enhances online shopping by allowing users to create a personalized, interactive virtual closet, winning awards for Most Creative Project and Best JAM3 Project.`,
+    description: `As part of the Women+ in Technology Society’s Ada Mentorship Program, six first- and second-year female undergraduate students developed "Your Perfect Closet," a Chrome extension designed to enhance online shopping experiences. The project addressed the challenges faced by users who struggle with the overwhelming number of choices and the difficulty in visualizing how clothes will look together when shopping online. The extension allows users to save items from websites like H&M into a single, interactive drag-and-drop interface, where they can mix and match outfits on a personalized avatar. This streamlined process reduces the hassle of multiple open tabs and improves confidence in online purchases.
+
+    The project used tools like Figma for wireframing and JavaScript for the Chrome extension. As a mentor, I guided the team through the Agile process, helped them with technical challenges, and inspired them to pursue careers in technology. 
+    
+    This project won two awards: Most Creative Project and Best JAM3 Project (for building a product that helps a company leverage technology to improve their customer experience).
+    `,
+    technologies: ["Figma", "JavaScript"],
+
+    image: "/projects/perfect-closet.png",
     year: 2021,
   },
 ]

@@ -1,20 +1,15 @@
-import {
-  AnimationProps,
-  motion,
-  useMotionValueEvent,
-  useScroll,
-} from "framer-motion"
-import { Inter } from "next/font/google"
-import { useRef, useState } from "react"
+import { AnimationProps, motion, useMotionValueEvent, useScroll } from 'framer-motion'
+import { Inter } from 'next/font/google'
+import { useRef, useState } from 'react'
 
-import { useIntroContext } from "@/contexts/introContext"
-import useScreenSize from "@/hooks/use-screen-size"
-import { ease } from "@/utils/framer"
+import { useIntroContext } from '@/contexts/introContext'
+import useScreenSize from '@/hooks/use-screen-size'
+import { ease } from '@/utils/framer'
 
-import ContactButton from "../Contact/ContactButton"
-import ContactModal from "../Contact/ContactModal"
-import Navlink from "./Navlink"
-import Orb from "./Orb"
+import ContactButton from '../Contact/ContactButton'
+import ContactModal from '../Contact/ContactModal'
+import Navlink from './Navlink'
+import Orb from './Orb'
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -27,6 +22,7 @@ export default function Navbar() {
   const [expanded, setExpanded] = useState<boolean>(true)
 
   // TODO: Reimplement with safari fix
+  // ? could be a matter of css will-change or translateZ(0)
   // useMotionValueEvent(scrollY, "change", (latest) => {
   //   if (latest > lastScrollY.current && expanded === false) {
   //     lastScrollY.current = latest
@@ -51,7 +47,7 @@ export default function Navbar() {
     >
       <motion.div
         layout
-        className="flex max-w-7xl items-center gap-2 bg-white/80 filter backdrop-blur-xl"
+        className="flex max-w-7xl items-center gap-2 bg-white"
         style={{
           width: expanded ? "100%" : "min-content",
           marginInline: "auto",
