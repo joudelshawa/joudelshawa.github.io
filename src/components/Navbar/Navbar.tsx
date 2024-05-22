@@ -1,15 +1,20 @@
-import { AnimationProps, motion, useMotionValueEvent, useScroll } from 'framer-motion'
-import { Inter } from 'next/font/google'
-import { useRef, useState } from 'react'
+import {
+  AnimationProps,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+} from "framer-motion"
+import { Inter } from "next/font/google"
+import { useRef, useState } from "react"
 
-import { useIntroContext } from '@/contexts/introContext'
-import useScreenSize from '@/hooks/use-screen-size'
-import { ease } from '@/utils/framer'
+import { useIntroContext } from "@/contexts/introContext"
+import useScreenSize from "@/hooks/use-screen-size"
+import { ease } from "@/utils/framer"
 
-import ContactButton from '../Contact/ContactButton'
-import ContactModal from '../Contact/ContactModal'
-import Navlink from './Navlink'
-import Orb from './Orb'
+import ContactButton from "../Contact/ContactButton"
+import ContactModal from "../Contact/ContactModal"
+import Navlink from "./Navlink"
+import Orb from "./Orb"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -21,20 +26,21 @@ export default function Navbar() {
   const lastScrollY = useRef(0)
   const [expanded, setExpanded] = useState<boolean>(true)
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    if (latest > lastScrollY.current && expanded === false) {
-      lastScrollY.current = latest
-      return
-    } else if (latest < lastScrollY.current && expanded === true) {
-      lastScrollY.current = latest
-      return
-    }
+  // TODO: Reimplement with safari fix
+  // useMotionValueEvent(scrollY, "change", (latest) => {
+  //   if (latest > lastScrollY.current && expanded === false) {
+  //     lastScrollY.current = latest
+  //     return
+  //   } else if (latest < lastScrollY.current && expanded === true) {
+  //     lastScrollY.current = latest
+  //     return
+  //   }
 
-    if (latest > lastScrollY.current) setExpanded(false)
-    else setExpanded(true)
+  //   if (latest > lastScrollY.current) setExpanded(false)
+  //   else setExpanded(true)
 
-    lastScrollY.current = latest
-  })
+  //   lastScrollY.current = latest
+  // })
 
   return (
     <motion.nav
@@ -45,10 +51,13 @@ export default function Navbar() {
     >
       <motion.div
         layout
-        className="mx-auto flex max-w-7xl items-center gap-2 bg-white/80 py-4 filter backdrop-blur-xl"
+        className="flex max-w-7xl items-center gap-2 bg-white/80 filter backdrop-blur-xl"
         style={{
           width: expanded ? "100%" : "min-content",
+          marginInline: "auto",
+          // width: "100%",
           paddingInline: expanded && !isMobile ? "2rem" : "1rem",
+          paddingBlock: "1rem",
           borderRadius: "9999px",
         }}
       >

@@ -22,8 +22,8 @@ export default function ProjectSection() {
       variants={projectContainerVariants}
       exit={{ opacity: 0 }}
       className={cn(
-        "w-full px-4 transition-colors duration-500",
-        inViewProject ? inViewProject.backgroundColor : "bg-white"
+        "w-full px-4 transition-colors duration-500"
+        // inViewProject ? inViewProject.backgroundColor : "bg-white"
       )}
     >
       <SectionHeading>Projects</SectionHeading>
@@ -47,7 +47,7 @@ export default function ProjectSection() {
         >
           <motion.div
             id="inner"
-            className="relative aspect-square max-h-full w-full rounded-2xl bg-gray-100"
+            className="relative aspect-video max-h-full w-full rounded-2xl bg-gray-100"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ amount: "all", margin: "50%" }}

@@ -89,15 +89,16 @@ export default function ProjectTitle({ project }: Props) {
 
   return (
     <motion.div
-      style={{ scale, opacity }}
+      // style={{ scale, opacity }}
       ref={ref}
       className="origin-left py-12 md:py-36"
     >
-      <Link href={project.detailsPage}>
+      <Link href={project.slug} className="space-y-5">
         <p
           className={cn(
             "font-mono text-sm transition-all duration-500 ease-in-out",
-            isInViewProject ? project.textColors.tertiary : "text-neutral-200",
+            // isInViewProject ? project.textColors.tertiary : "text-neutral-200",
+            isInViewProject ? "text-slate-400" : "text-slate-200",
 
             isInViewProject
               ? "translate-x-0 opacity-100 delay-500"
@@ -111,10 +112,11 @@ export default function ProjectTitle({ project }: Props) {
           layoutId={project.name}
           layout="position"
           className={cn(
-            "text-[clamp(1.875rem,1.0356rem+2.8275vw,3.75rem)] font-semibold transition-colors",
-            isInViewProject
-              ? inViewProject?.textColors.primary
-              : "text-neutral-200"
+            "text-[clamp(1.875rem,1.0356rem+2.8275vw,2.75rem)] font-semibold leading-none tracking-tighter transition-colors",
+            isInViewProject ? "text-slate-900" : "text-slate-200"
+            // isInViewProject
+            //   ? inViewProject?.textColors.primary
+            //   : "text-slate-200"
           )}
         >
           {project.name}
@@ -122,7 +124,8 @@ export default function ProjectTitle({ project }: Props) {
         <p
           className={cn(
             "transition-all duration-500",
-            project.textColors.secondary,
+            "text-justify text-slate-600",
+            // project.textColors.secondary,
             isInViewProject
               ? "translate-x-0 opacity-100 delay-300"
               : "-translate-x-2 opacity-0"

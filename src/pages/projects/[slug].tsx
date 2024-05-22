@@ -8,7 +8,7 @@ export default function ProjectDetailPage() {
   const router = useRouter()
 
   const project = projectData.find(
-    (p) => p.detailsPage === "/projects/" + router.query.slug
+    (p) => p.slug === "/projects/" + router.query.slug
   )
 
   if (!project)

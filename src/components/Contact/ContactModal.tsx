@@ -1,11 +1,17 @@
-import { AnimatePresence, AnimationProps, motion, MotionProps, useAnimate } from 'framer-motion'
+import {
+  AnimatePresence,
+  AnimationProps,
+  motion,
+  MotionProps,
+  useAnimate,
+} from "framer-motion"
 
-import { useContactContext } from '@/contexts/contactContext'
-import useScreenSize from '@/hooks/use-screen-size'
-import { ease } from '@/utils/framer'
+import { useContactContext } from "@/contexts/contactContext"
+import useScreenSize from "@/hooks/use-screen-size"
+import { ease } from "@/utils/framer"
 
-import ContactDetails from './ContactDetails'
-import styles from './ContactModal.module.css'
+import ContactDetails from "./ContactDetails"
+import styles from "./ContactModal.module.css"
 
 export default function ContactModal() {
   const { isMobile, pixelWidth, pixelHeight } = useScreenSize()
@@ -46,7 +52,7 @@ export default function ContactModal() {
       variants={variants}
       animate={modalOpen ? "open" : "closed"}
       initial="closed"
-      className={styles.menu}
+      className="absolute right-0 top-0 h-8 w-20 overflow-hidden rounded-[25px] bg-slate-900 text-xs uppercase md:w-24 md:text-sm"
     >
       <AnimatePresence>{modalOpen && <ContactDetails />}</AnimatePresence>
     </motion.div>

@@ -13,10 +13,10 @@ export default function ProjectPreviewImage({ project }: Props) {
 
   return (
     <Link
-      href={project.detailsPage}
+      href={project.slug}
       scroll={false}
       className={cn(
-        "absolute inset-0 flex h-full w-full items-center justify-center rounded-2xl bg-gradient-to-br  shadow-2xl transition-opacity duration-500",
+        "absolute inset-0 flex h-min w-full items-center justify-center rounded-2xl bg-gradient-to-br  shadow-2xl transition-opacity duration-500",
         inViewProject?.name === project.name
           ? "opacity-100"
           : "pointer-events-none opacity-0"
@@ -25,9 +25,9 @@ export default function ProjectPreviewImage({ project }: Props) {
       <Image
         src={project.image}
         alt={project.name}
-        className="aspect-square w-full rounded-xl object-cover"
+        className="aspect-video w-full rounded-xl object-contain"
         width={400}
-        height={400}
+        height={200}
       />
     </Link>
   )

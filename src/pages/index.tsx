@@ -1,17 +1,15 @@
-import { AnimatePresence, motion } from 'framer-motion'
-import { useEffect } from 'react'
+import { AnimatePresence, motion } from "framer-motion"
+import { useEffect } from "react"
 
-import ContactButton from '@/components/Contact/ContactButton'
-import ContactModal from '@/components/Contact/ContactModal'
-import Footer from '@/components/Footer/Footer'
-import Hero from '@/components/Hero/Hero'
-import Intro from '@/components/Hero/Intro'
-import MilestoneSection from '@/components/Milestones/MilestoneSection'
-import ProjectSection from '@/components/Projects/ProjectSection'
-import { useContactContext } from '@/contexts/contactContext'
-import { useIntroContext } from '@/contexts/introContext'
-import useScreenSize from '@/hooks/use-screen-size'
-import { useLenis } from '@studio-freight/react-lenis'
+import Footer from "@/components/Footer/Footer"
+import Hero from "@/components/Hero/Hero"
+import Intro from "@/components/Hero/Intro"
+import MilestoneSection from "@/components/Milestones/MilestoneSection"
+import ProjectSection from "@/components/Projects/ProjectSection"
+import { useContactContext } from "@/contexts/contactContext"
+import { useIntroContext } from "@/contexts/introContext"
+import useScreenSize from "@/hooks/use-screen-size"
+import { useLenis } from "@studio-freight/react-lenis"
 
 export default function Home() {
   const { isMobile } = useScreenSize()
