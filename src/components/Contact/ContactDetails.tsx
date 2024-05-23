@@ -1,19 +1,13 @@
-import GithubSVG from '/public/github.svg'
-import LinkedInSVG from '/public/linkedin.svg'
-import TwitterSVG from '/public/twitter.svg'
-import { AnimatePresence, AnimationProps, motion } from 'framer-motion'
+import { AnimationProps, motion } from 'framer-motion'
 import { useState } from 'react'
 
-import { useContactContext } from '@/contexts/contactContext'
-import { ease, socialsContainerVariants } from '@/utils/framer'
-
-import SocialButton from './SocialButton'
+import { ease } from '@/utils/framer'
 
 export default function ContactDetails() {
   const [emailCopied, setEmailCopied] = useState(false)
 
   const copyEmail = () => {
-    navigator.clipboard.writeText("joud@shawa.dev")
+    navigator.clipboard.writeText("jelshawa@gmail.com")
     setEmailCopied(true)
     setTimeout(() => setEmailCopied(false), 2000)
   }
@@ -23,7 +17,7 @@ export default function ContactDetails() {
       style={{
         textTransform: "none",
       }}
-      className="flex h-full flex-col justify-between p-4 text-white"
+      className="flex h-full flex-col justify-between p-10 text-white"
     >
       <p className="text-slate-500">Get in touch</p>
       <motion.ul
@@ -33,15 +27,30 @@ export default function ContactDetails() {
         exit="hidden"
         className="space-y-12 text-5xl font-medium"
       >
-        <motion.li variants={liVariants}>Email</motion.li>
-        <motion.li variants={liVariants}>LinkedIn</motion.li>
-        <motion.li variants={liVariants}>Resume</motion.li>
+        <motion.li className="relative" variants={liVariants}>
+          <a href="mailto:jelshawa@gmail.com">Email</a>
+          <span
+            onClick={copyEmail}
+            className="absolute -bottom-5 left-0 text-base font-light text-slate-500"
+          >
+            jelshawa@gmail.com{" "}
+            {emailCopied && <span className="text-blue-200"> - copied!</span>}
+          </span>
+        </motion.li>
+        <motion.li variants={liVariants}>
+          <a href="https://www.linkedin.com/in/joudelshawa">LinkedIn</a>
+        </motion.li>
+        <motion.li variants={liVariants}>
+          <a download="Joud_ElShawa-Resume" href="/resume.pdf">
+            Resume
+          </a>
+        </motion.li>
       </motion.ul>
-      <div className="footer grid grid-cols-2 grid-rows-2 p-4">
-        <div>Lorem </div>
-        <div>Lorem </div>
-        <div>Lorem </div>
-        <div>Lorem </div>
+      <div className="footer grid grid-cols-2  grid-rows-2 border-y border-slate-700 p-4">
+        {/* <div>lorem</div>
+        <div>lorem</div>
+        <div>lorem</div>
+        <div>lorem</div> */}
       </div>
     </div>
   )
