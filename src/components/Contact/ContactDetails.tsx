@@ -17,41 +17,54 @@ export default function ContactDetails() {
       style={{
         textTransform: "none",
       }}
-      className="flex h-full flex-col justify-between gap-8 p-10 text-white"
+      className="flex h-full flex-col justify-between gap-8 px-10 pb-16 pt-24 text-white"
     >
-      <p className="text-slate-500">Get in touch</p>
+      <motion.div exit="hidden" variants={liVariants}>
+        <p className="text-slate-500">Get in touch</p>
+        <p className="text-xl text-slate-300">
+          I'm open to new opportunities and connections, please don't hesitate
+          to contact me!
+        </p>
+      </motion.div>
       <motion.ul
         variants={ulVariants}
         initial="hidden"
         animate="visible"
         exit="hidden"
-        className="space-y-12 text-5xl font-medium"
+        className="space-y-10 text-5xl font-medium"
       >
-        <motion.li className="relative" variants={liVariants}>
-          <a href="mailto:jelshawa@gmail.com">Email</a>
-          <span
-            onClick={copyEmail}
-            className="absolute -bottom-5 left-0 cursor-pointer text-base font-light text-slate-500 transition-colors duration-200 hover:text-blue-200"
-          >
-            jelshawa@gmail.com{" "}
-            {emailCopied && <span className="text-blue-200"> - copied!</span>}
-          </span>
+        <motion.li variants={liVariants}>
+          <a target="_blank" href="https://www.linkedin.com/in/joudelshawa">
+            LinkedIn
+          </a>
         </motion.li>
         <motion.li variants={liVariants}>
-          <a href="https://www.linkedin.com/in/joudelshawa">LinkedIn</a>
-        </motion.li>
-        <motion.li variants={liVariants}>
-          <a download="Joud_ElShawa-Resume" href="/resume.pdf">
+          <a target="_blank" download="Joud_ElShawa-Resume" href="/resume.pdf">
             Resume
           </a>
         </motion.li>
+        <motion.li variants={liVariants}>
+          <a target="_blank" href="https://github.com/joudelshawa">
+            Github
+          </a>
+        </motion.li>
+        <motion.li className="relative" variants={liVariants}>
+          <a target="_blank" href="mailto:jelshawa@gmail.com">
+            Email
+          </a>
+        </motion.li>
       </motion.ul>
-      <div className="footer grid grid-cols-2  grid-rows-2 border-y border-slate-700 p-4">
-        {/* <div>lorem</div>
-        <div>lorem</div>
-        <div>lorem</div>
-        <div>lorem</div> */}
-      </div>
+
+      <span>
+        If you prefer to just copy my email, click here -&gt;{" "}
+        <span
+          onClick={copyEmail}
+          className="cursor-pointer text-base font-light text-slate-500 transition-colors duration-200 hover:text-blue-200"
+        >
+          jelshawa@gmail.com{" "}
+          {emailCopied && <span className="text-blue-200"> - copied!</span>}
+        </span>
+      </span>
     </div>
   )
 }

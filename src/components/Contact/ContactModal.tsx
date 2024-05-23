@@ -18,10 +18,10 @@ export default function ContactModal() {
 
   const variants: AnimationProps["variants"] = {
     open: {
-      height: isMobile ? mobileSizes.height : 650,
+      height: isMobile ? mobileSizes.height : 800,
       width: isMobile ? mobileSizes.width : 480,
       top: isMobile ? "-1rem" : "-10px",
-      right: isMobile ? "-3rem" : "-10px",
+      right: isMobile ? "-2rem" : "-10px",
       borderRadius: isMobile ? 0 : 24,
       transition: {
         duration: 0.7,
