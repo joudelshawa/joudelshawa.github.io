@@ -43,7 +43,7 @@ export default function ProjectSection() {
         </ul>
         <div
           id="right/top"
-          className="sticky top-0 flex h-[50vh] w-full items-center p-4 pt-24 md:h-screen md:pt-4"
+          className="sticky top-0 flex aspect-video w-full items-center p-4 pt-24 md:aspect-auto md:h-screen md:pt-4"
         >
           <motion.div
             id="inner"
