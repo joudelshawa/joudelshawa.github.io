@@ -1,10 +1,12 @@
 import { gen } from 'culler'
 import { motion, useAnimate } from 'framer-motion'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 import { useIntroContext } from '@/contexts/introContext'
 import useScreenSize from '@/hooks/use-screen-size'
 import { ease } from '@/utils/framer'
+import { useLenis } from '@studio-freight/react-lenis'
 
 import TextMask from '../TextMask'
 
@@ -13,6 +15,8 @@ type Props = {
 }
 
 export default function Orb({ expanded }: Props) {
+  const router = useRouter()
+  const lenis = useLenis()
   const [scope, animate] = useAnimate()
   const { isMobile } = useScreenSize()
   const { shouldShowIntro } = useIntroContext()
@@ -52,13 +56,18 @@ export default function Orb({ expanded }: Props) {
     })
   }
 
+  function handleNavigate() {
+    if (router.pathname === "/") {
+      lenis?.scrollTo(0)
+    }
+
+    router.push("/")
+  }
+
   return (
-    <motion.div layout="position" className="flex ">
+    <motion.div onClick={handleNavigate} layout="position" className="flex ">
       <motion.div
-        onClick={orbAnimation}
-        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-        whileDrag={{ scale: 2.1 }}
-        dragElastic={0.1}
+        onPointerEnter={orbAnimation}
         ref={scope}
         className="orb inset-0 aspect-square h-5 w-5 cursor-pointer rounded-full shadow active:cursor-grabbing"
         style={{
@@ -68,7 +77,7 @@ export default function Orb({ expanded }: Props) {
         animate={{ opacity: 1 }}
       />
       <motion.div className="relative flex  items-start px-2">
-        <div onClick={orbAnimation}>
+        <div onPointerEnter={orbAnimation}>
           <TextMask
             type="letter"
             className="whitespace-nowrap text-sm font-semibold tracking-widest"

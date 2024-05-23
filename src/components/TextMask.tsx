@@ -1,6 +1,7 @@
-import { motion } from "framer-motion"
-import { textMaskVariants, textMaskChildVariants } from "@/utils/framer"
-import { useState } from "react"
+import { motion } from 'framer-motion'
+import { useState } from 'react'
+
+import { textMaskChildVariants, textMaskVariants } from '@/utils/framer'
 
 type TextMaskProps = {
   children: string

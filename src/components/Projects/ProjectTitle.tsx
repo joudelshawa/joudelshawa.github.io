@@ -1,16 +1,10 @@
-import {
-  motion,
-  useInView,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-} from "framer-motion"
-import Link from "next/link"
-import { useEffect, useMemo, useRef } from "react"
+import { motion, useInView, useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
+import Link from 'next/link'
+import { useEffect, useMemo, useRef } from 'react'
 
-import { useProjectContext } from "@/contexts/projectContext"
-import useScreenSize from "@/hooks/use-screen-size"
-import { cn } from "@/utils/misc"
+import { useProjectContext } from '@/contexts/projectContext'
+import useScreenSize from '@/hooks/use-screen-size'
+import { cn } from '@/utils/misc'
 
 type Props = {
   project: Project
@@ -93,7 +87,7 @@ export default function ProjectTitle({ project }: Props) {
       ref={ref}
       className="origin-left py-12 md:py-36"
     >
-      <Link href={project.slug} className="space-y-5">
+      <Link href={`projects/${project.slug}`} className="space-y-5">
         <p
           className={cn(
             "font-mono text-sm transition-all duration-500 ease-in-out",

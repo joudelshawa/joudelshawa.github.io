@@ -1,6 +1,4 @@
-import Image from "next/image"
-
-import { cn } from "@/utils/misc"
+import Image from 'next/image'
 
 type Props = {
   project: Project
@@ -8,17 +6,13 @@ type Props = {
 
 export default function ProjectDetailImage({ project }: Props) {
   return (
-    <div
-      className={cn(
-        "flex h-full w-full items-center justify-center rounded-2xl "
-      )}
-    >
+    <div className="relative aspect-video w-full rounded-2xl bg-slate-100">
       <Image
         src={project.image}
         alt={project.name}
-        className="aspect-square w-full rounded-xl object-cover"
+        className="aspect-video w-full rounded-xl object-contain"
         width={400}
-        height={400}
+        height={200}
       />
     </div>
   )

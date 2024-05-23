@@ -1,5 +1,6 @@
 import { AnimationProps, motion, useMotionValueEvent, useScroll } from 'framer-motion'
 import { Inter } from 'next/font/google'
+import { useRouter } from 'next/router'
 import { useRef, useState } from 'react'
 
 import { useIntroContext } from '@/contexts/introContext'
@@ -11,10 +12,13 @@ import ContactModal from '../Contact/ContactModal'
 import Navlink from './Navlink'
 import Orb from './Orb'
 
-const inter = Inter({ subsets: ["latin"] })
+type Props = {
+  navLinks: { href: string; text: string }[]
+}
 
-export default function Navbar() {
+export default function Navbar({ navLinks }: Props) {
   const { isMobile } = useScreenSize()
+  const router = useRouter()
   const { shouldShowIntro } = useIntroContext()
   const { scrollY } = useScroll()
 
@@ -38,23 +42,25 @@ export default function Navbar() {
   //   lastScrollY.current = latest
   // })
 
+  const shouldDelay = shouldShowIntro && router.pathname === "/"
+
   return (
     <motion.nav
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ ease, delay: shouldShowIntro ? 3.5 : 0, duration: 1 }}
-      className={`fixed top-2 z-50 h-16 w-full text-slate-800  ${inter.className} flex items-center px-4 md:px-8`}
+      transition={{ ease, delay: shouldDelay ? 3.5 : 0, duration: 1 }}
+      className={`fixed top-0 z-50 flex h-16 w-full  items-center px-4 text-slate-800 md:px-8`}
     >
       <motion.div
         layout
-        className="flex max-w-7xl items-center gap-2 bg-white"
+        className="flex max-w-7xl items-center gap-2 rounded-b-xl bg-white"
         style={{
           width: expanded ? "100%" : "min-content",
           marginInline: "auto",
           // width: "100%",
           paddingInline: expanded && !isMobile ? "2rem" : "1rem",
           paddingBlock: "1rem",
-          borderRadius: "9999px",
+          // borderRadius: "9999px",
         }}
       >
         <Orb expanded={expanded} />
@@ -65,8 +71,11 @@ export default function Navbar() {
             animate="visible"
             className="ml-auto flex items-center gap-4"
           >
-            <Navlink href="#projects">Projects</Navlink>
-            <Navlink href="#milestones">Milestones</Navlink>
+            {navLinks.map((link) => (
+              <Navlink key={link.href} href={link.href}>
+                {link.text}
+              </Navlink>
+            ))}
             <div className="relative h-8 w-20  md:w-24">
               <ContactModal />
               <ContactButton />
