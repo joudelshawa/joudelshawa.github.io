@@ -44,15 +44,16 @@ export default function Navbar({ navLinks }: Props) {
 
   return (
     <motion.nav
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      variants={navbarVariants}
+      initial={introComplete ? "visible" : "hidden"}
+      animate={introComplete ? "visible" : "hidden"}
       transition={{ ease, delay: introComplete ? 0 : 1.5, duration: 1 }}
-      className={`fixed top-0 z-50 flex h-16 w-full  items-center px-4 text-slate-800 `}
+      className={`fixed top-0 z-50 flex h-16 w-full  items-center px-2 text-slate-800 md:px-4 `}
     >
       <div className="mx-auto w-full max-w-7xl">
         <motion.div
           layout
-          className="mx-auto flex w-[calc(100%-2rem)] items-center gap-2 rounded-b-xl bg-white"
+          className="mx-auto flex w-[calc(100%-1rem)] items-center gap-2 rounded-b-xl bg-white md:w-[calc(100%-2rem)]"
           style={{
             // width: expanded ? "100%" : "min-content",
             // marginInline: "auto",
@@ -85,6 +86,11 @@ export default function Navbar({ navLinks }: Props) {
       </div>
     </motion.nav>
   )
+}
+
+const navbarVariants: AnimationProps["variants"] = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
 }
 
 const linkContainerVariants: AnimationProps["variants"] = {
