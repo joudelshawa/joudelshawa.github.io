@@ -44,6 +44,12 @@ export default function Navbar({ navLinks }: Props) {
 
   const shouldDelay = shouldShowIntro && router.pathname === "/"
 
+  console.log({
+    shouldDelay,
+    shouldShowIntro,
+    pathname: router.pathname,
+  })
+
   return (
     <motion.nav
       initial={{ opacity: 0 }}

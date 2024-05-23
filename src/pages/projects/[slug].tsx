@@ -27,9 +27,9 @@ export default function ProjectDetailPage() {
   return (
     <>
       <Navbar navLinks={[]} />
-      <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 py-36">
+      <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 py-24">
         <button
-          className="text-md group flex w-min items-center justify-center rounded-2xl border  border-gray-300 py-3 pl-4 pr-5 font-medium text-gray-700 "
+          className="text-md group flex w-min items-center justify-center rounded-2xl  bg-gradient-to-tr from-slate-100 to-slate-50 py-3 pl-4 pr-5 font-medium text-slate-700"
           type="button"
           onClick={() => router.back()}
         >
@@ -69,7 +69,7 @@ export default function ProjectDetailPage() {
           </Link>
         )}
 
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-4">
           {project.technologies.map((tech, index) => (
             <TechPill key={tech} index={index}>
               {tech}

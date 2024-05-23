@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
 
+import Footer from '@/components/Footer/Footer'
 import Navbar from '@/components/Navbar/Navbar'
 import ContactContextProvider from '@/contexts/contactContext'
 import IntroContextProvider, { IntroContext } from '@/contexts/introContext'
@@ -24,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <ProjectContextProvider>
           <ContactContextProvider>
             {/* <ReactLenis root> */}
-            <AnimatePresence mode="wait">
+            {/* <AnimatePresence mode="wait">
               <motion.div
                 key={Component.name}
                 initial="pageInitial"
@@ -42,12 +43,14 @@ export default function App({ Component, pageProps }: AppProps) {
                     opacity: 0,
                   },
                 }}
-              >
-                <main className={`${interFont.className}`}>
-                  <Component {...pageProps} />
-                </main>
-              </motion.div>
-            </AnimatePresence>
+              > */}
+            <main className={`${interFont.className}`}>
+              <Component {...pageProps} />
+            </main>
+            <Footer />
+
+            {/* </motion.div> */}
+            {/* </AnimatePresence> */}
             {/* </ReactLenis> */}
           </ContactContextProvider>
         </ProjectContextProvider>

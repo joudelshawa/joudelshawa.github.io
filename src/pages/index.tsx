@@ -40,7 +40,6 @@ export default function Home() {
       <Hero />
       <ProjectSection />
       <MilestoneSection />
-      <Footer />
       <AnimatePresence>
         {modalOpen && !isMobile && (
           <motion.div
