@@ -1,5 +1,6 @@
 import { gen } from 'culler'
 import { motion, useAnimate } from 'framer-motion'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
@@ -56,36 +57,38 @@ export default function Orb({ expanded }: Props) {
     })
   }
 
-  function handleNavigate() {
-    if (router.pathname === "/") {
-      lenis?.scrollTo(0)
+  function handleNavigate(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+    if (router.pathname !== "/") {
+      e.preventDefault()
+      console.log("scrolling to top")
+      router.push("/")
     }
-
-    router.push("/")
   }
 
   return (
-    <motion.div onClick={handleNavigate} layout="position" className="flex ">
-      <motion.div
-        onPointerEnter={orbAnimation}
-        ref={scope}
-        className="orb inset-0 aspect-square h-5 w-5 cursor-pointer rounded-full shadow active:cursor-grabbing"
-        style={{
-          background: color,
-        }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-      />
-      <motion.div className="relative flex  items-start px-2">
-        <div onPointerEnter={orbAnimation}>
-          <TextMask
-            type="letter"
-            className="whitespace-nowrap text-sm font-semibold tracking-widest"
-          >
-            {isMobile && expanded ? "" : "JOUD.SHAWA.DEV"}
-          </TextMask>
-        </div>
+    <Link href="#hero" onClick={handleNavigate}>
+      <motion.div layout="position" className="flex">
+        <motion.div
+          onPointerEnter={orbAnimation}
+          ref={scope}
+          className="orb inset-0 aspect-square h-5 w-5 cursor-pointer rounded-full shadow active:cursor-grabbing"
+          style={{
+            background: color,
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        />
+        <motion.div className="relative flex  items-start px-2">
+          <div onPointerEnter={orbAnimation}>
+            <TextMask
+              type="letter"
+              className="whitespace-nowrap text-sm font-semibold tracking-widest"
+            >
+              {isMobile && expanded ? "" : "JOUD.SHAWA.DEV"}
+            </TextMask>
+          </div>
+        </motion.div>
       </motion.div>
-    </motion.div>
+    </Link>
   )
 }

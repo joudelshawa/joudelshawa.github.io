@@ -16,7 +16,7 @@ export default function Navlink({ href, children }: Props) {
     <motion.a
       href={href}
       variants={linkVariants}
-      onClick={() => lenis?.scrollTo(href)}
+      // onClick={() => lenis?.scrollTo(href)}
       className={styles.button}
     >
       <div className="flex size-full items-center justify-center text-slate-900">

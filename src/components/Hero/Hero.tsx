@@ -17,6 +17,7 @@ export default function Hero() {
     <motion.section
       ref={scrollContainerRef}
       className="h-[300vh] overflow-x-clip px-4"
+      id="hero"
     >
       <motion.div
         initial={{

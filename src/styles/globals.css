@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  /* TODO: Remove once lenis reimplemented */
+  scroll-behavior: smooth;
+}
 body {
   min-height: 100vh;
   overflow-x: clip;
