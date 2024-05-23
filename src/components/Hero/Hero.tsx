@@ -1,14 +1,17 @@
-import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef } from "react"
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef } from 'react'
 
-import { ease } from "@/utils/framer"
+import { useIntroContext } from '@/contexts/introContext'
+import { ease } from '@/utils/framer'
 
-import TextBubbles from "./TextBubbles"
+import TextBubbles from './TextBubbles'
 
 export default function Hero() {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({ target: scrollContainerRef })
+
+  const { introComplete, setIntroComplete } = useIntroContext()
 
   return (
     <motion.section
@@ -21,7 +24,11 @@ export default function Hero() {
         }}
         animate={{
           opacity: 1,
-          transition: { ease: "linear", delay: 1, duration: 2 },
+          transition: {
+            ease: "linear",
+            delay: introComplete ? 0 : 1,
+            duration: introComplete ? 0.4 : 2,
+          },
         }}
         className="absolute left-0 top-0 z-[-1] h-[300vh] w-full bg-gradient-to-b from-pink-100 via-violet-100 to-white"
       />
@@ -34,6 +41,10 @@ export default function Hero() {
               duration: 1,
               ease,
             },
+          }}
+          onLayoutAnimationComplete={() => {
+            console.log("intro layout animation complete")
+            setIntroComplete(true)
           }}
           style={{
             borderRadius: 20,

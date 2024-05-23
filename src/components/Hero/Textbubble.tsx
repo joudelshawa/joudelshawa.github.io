@@ -1,6 +1,6 @@
-import { motion } from "framer-motion"
+import { motion } from 'framer-motion'
 
-import { ease, textBubbleVariants } from "@/utils/framer"
+import { ease, textBubbleVariants } from '@/utils/framer'
 
 type Props = {
   children: React.ReactNode
@@ -19,7 +19,7 @@ export default function TextBubble({ children, visible, index }: Props) {
         variants={textBubbleVariants}
         initial={index === 0 ? "visible" : "hidden"}
         animate={visible || index === 0 ? "visible" : "hidden"}
-        className="sm chat-bubble max-w-lg bg-slate-800 text-lg text-white before:h-4 before:w-4 before:-translate-x-px md:text-[clamp(0.875rem,0.3242rem+1.1475vw,1.4rem);] short:text-base"
+        className="sm chat-bubble max-w-lg bg-slate-800 text-lg font-light text-slate-100 before:h-4 before:w-4 before:-translate-x-px md:text-[clamp(0.875rem,0.3242rem+1.1475vw,1.4rem);] short:text-base"
         transition={{
           layout: {
             duration: 1.2,

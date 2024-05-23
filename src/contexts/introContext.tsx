@@ -1,16 +1,12 @@
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useState,
-} from "react"
+import { createContext, Dispatch, SetStateAction, useContext, useState } from 'react'
 
 export const IntroContext = createContext<IntroContextType | null>(null)
 
 export type IntroContextType = {
   shouldShowIntro: boolean
   setShouldShowIntro: Dispatch<SetStateAction<boolean>>
+  introComplete: boolean
+  setIntroComplete: Dispatch<SetStateAction<boolean>>
 }
 
 export default function IntroContextProvider({
@@ -19,9 +15,17 @@ export default function IntroContextProvider({
   children: React.ReactNode
 }) {
   const [shouldShowIntro, setShouldShowIntro] = useState(true)
+  const [introComplete, setIntroComplete] = useState(false)
 
   return (
-    <IntroContext.Provider value={{ shouldShowIntro, setShouldShowIntro }}>
+    <IntroContext.Provider
+      value={{
+        shouldShowIntro,
+        setShouldShowIntro,
+        introComplete,
+        setIntroComplete,
+      }}
+    >
       {children}
     </IntroContext.Provider>
   )

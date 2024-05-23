@@ -19,7 +19,7 @@ type Props = {
 export default function Navbar({ navLinks }: Props) {
   const { isMobile } = useScreenSize()
   const router = useRouter()
-  const { shouldShowIntro } = useIntroContext()
+  const { introComplete } = useIntroContext()
   const { scrollY } = useScroll()
 
   const lastScrollY = useRef(0)
@@ -42,53 +42,47 @@ export default function Navbar({ navLinks }: Props) {
   //   lastScrollY.current = latest
   // })
 
-  const shouldDelay = shouldShowIntro && router.pathname === "/"
-
-  console.log({
-    shouldDelay,
-    shouldShowIntro,
-    pathname: router.pathname,
-  })
-
   return (
     <motion.nav
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ ease, delay: shouldDelay ? 3.5 : 0, duration: 1 }}
-      className={`fixed top-0 z-50 flex h-16 w-full  items-center px-4 text-slate-800 md:px-8`}
+      transition={{ ease, delay: introComplete ? 0 : 1.5, duration: 1 }}
+      className={`fixed top-0 z-50 flex h-16 w-full  items-center px-4 text-slate-800 `}
     >
-      <motion.div
-        layout
-        className="flex max-w-7xl items-center gap-2 rounded-b-xl bg-white"
-        style={{
-          width: expanded ? "100%" : "min-content",
-          marginInline: "auto",
-          // width: "100%",
-          paddingInline: expanded && !isMobile ? "2rem" : "1rem",
-          paddingBlock: "1rem",
-          // borderRadius: "9999px",
-        }}
-      >
-        <Orb expanded={expanded} />
-        {expanded && (
-          <motion.div
-            variants={linkContainerVariants}
-            initial="hidden"
-            animate="visible"
-            className="ml-auto flex items-center gap-4"
-          >
-            {navLinks.map((link) => (
-              <Navlink key={link.href} href={link.href}>
-                {link.text}
-              </Navlink>
-            ))}
-            <div className="relative h-8 w-20  md:w-24">
-              <ContactModal />
-              <ContactButton />
-            </div>
-          </motion.div>
-        )}
-      </motion.div>
+      <div className="mx-auto w-full max-w-7xl">
+        <motion.div
+          layout
+          className="mx-auto flex w-[calc(100%-2rem)] items-center gap-2 rounded-b-xl bg-white"
+          style={{
+            // width: expanded ? "100%" : "min-content",
+            // marginInline: "auto",
+            // width: "100%",
+            paddingInline: expanded && !isMobile ? "2rem" : "1rem",
+            paddingBlock: "1rem",
+            // borderRadius: "9999px",
+          }}
+        >
+          <Orb expanded={expanded} />
+          {expanded && (
+            <motion.div
+              variants={linkContainerVariants}
+              initial="hidden"
+              animate="visible"
+              className="ml-auto flex items-center gap-4"
+            >
+              {navLinks.map((link) => (
+                <Navlink key={link.href} href={link.href}>
+                  {link.text}
+                </Navlink>
+              ))}
+              <div className="relative h-8 w-20  md:w-24">
+                <ContactModal />
+                <ContactButton />
+              </div>
+            </motion.div>
+          )}
+        </motion.div>
+      </div>
     </motion.nav>
   )
 }
