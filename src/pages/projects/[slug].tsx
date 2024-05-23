@@ -8,10 +8,29 @@ import ProjectDetailImage from '@/components/Projects/ProjectDetailImage'
 import projectData from '@/data/projects'
 import { cn } from '@/utils/misc'
 
-export default function ProjectDetailPage() {
-  const router = useRouter()
+import type { InferGetStaticPropsType, GetStaticProps } from "next"
 
-  const project = projectData.find((p) => p.slug === router.query.slug)
+export const getStaticProps = (async (context) => {
+  const slug = context.params?.slug as string
+  const repo = projectData.find((project) => project.slug === slug)!
+
+  return { props: { project: repo } }
+}) satisfies GetStaticProps<{
+  project: Project
+}>
+
+export const getStaticPaths = () => {
+  const paths = projectData.map((project) => ({
+    params: { slug: project.slug },
+  }))
+
+  return { paths, fallback: false }
+}
+
+export default function ProjectDetailPage({
+  project,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+  const router = useRouter()
 
   useEffect(() => {
     window.scrollTo(0, 0)
