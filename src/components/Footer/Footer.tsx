@@ -1,9 +1,11 @@
+import ContactDetails from '../Contact/ContactDetails'
+
 export default function Footer() {
   return (
-    <footer className="relative -z-10 h-[800px] bg-slate-950">
-      <div className="fixed bottom-0  flex h-[800px] w-full items-center justify-center">
-        <span className="text-7xl text-white/90">Joud</span>
-      </div>
+    <footer className=" w-full bg-gradient-to-br from-slate-50 to-white px-4 py-16">
+      <span className="ml-auto p-10 text-center font-mono text-lg tracking-tighter text-slate-500">
+        © 2021 Joud El-Shawa
+      </span>
     </footer>
   )
 }

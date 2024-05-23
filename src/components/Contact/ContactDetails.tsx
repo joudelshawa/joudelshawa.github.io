@@ -17,7 +17,7 @@ export default function ContactDetails() {
       style={{
         textTransform: "none",
       }}
-      className="flex h-full flex-col justify-between p-10 text-white"
+      className="flex h-full flex-col justify-between gap-8 p-10 text-white"
     >
       <p className="text-slate-500">Get in touch</p>
       <motion.ul
