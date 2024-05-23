@@ -5,7 +5,9 @@ import { IntroContext, IntroContextType } from '@/contexts/introContext'
 import { ease, textBubbleVariants } from '@/utils/framer'
 
 export default function Intro() {
-  const { setShouldShowIntro } = useContext(IntroContext) as IntroContextType
+  const { setShouldShowIntro, setIntroComplete } = useContext(
+    IntroContext
+  ) as IntroContextType
   const text = "Hi, I'm Joud!"
 
   return (

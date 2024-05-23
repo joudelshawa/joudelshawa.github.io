@@ -43,10 +43,6 @@ export default function Hero() {
               ease,
             },
           }}
-          onLayoutAnimationComplete={() => {
-            console.log("intro layout animation complete")
-            setIntroComplete(true)
-          }}
           style={{
             borderRadius: 20,
           }}

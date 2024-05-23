@@ -12,8 +12,6 @@ const projectData = [
       
       The novelty of our work lies in modeling temporal relationships in GEMINI clinical data using RNNs, with significant implications for both theoretical and practical aspects of healthcare. 
       
-      This project has since been updated and is in progress as I continue this research as a research intern at the Vector Institute. We are now exploring novel methods such as using natural language processing to generate predictions and improve embeddings, aiming to further enhance the system's performance and integration into real-world healthcare settings.
-      
       Note: This project has been updated and is in progress as I continue this research as a research intern at the Vector Institute, where we are exploring novel methods to enhance the system's performance and integration. I will be presenting our preliminary results at the Vector/GEMINI Research Day event on June 24, 2024 from 8:30 to 11:30 am.
       `,
     technologies: ["Python", "Keras", "TensorFlow", "GEMINI Dataset"],
@@ -28,12 +26,12 @@ const projectData = [
     // },
   },
   {
-    name: "Unsupervised Anomaly Detection in Magnetic Resonance Images - NSERC Award 2023",
+    name: "Unsupervised Anomaly Detection in Magnetic Resonance Images - NSERC USRA 2023",
     slug: "unsupervised-anomaly",
 
     blurb:
       "The project aimed to develop an automated deterministic segmentation solution for accurately identifying brain tumor boundaries in MRI images using and improving upon existing Denoising Autoencoder and U-net models.",
-    description: `Natural Sciences and Engineering Research Council of Canada (NSERC) Award Project - Done under the supervision of Dr. Yalda Mohsenzadeh, Associate Professor at Western University and Faculty Member at the Vector Institute
+    description: `Natural Sciences and Engineering Research Council of Canada (NSERC) Undergraduate Student Research Award Project - Done under the supervision of Dr. Yalda Mohsenzadeh, Associate Professor at Western University and Faculty Member at the Vector Institute
 
     Manual detection and tracing of tumor boundaries are impractical due to their tedious, time-consuming, and subjective nature, leading to inconsistencies and inefficiencies in clinical applications. To overcome these challenges, we explored and aimed to improve existing automated segmentation methods using machine learning. We focused on addressing the challenges in accurately identifying brain tumor boundaries in MRI images, particularly for Glioblastoma (GBM) and diffuse astrocytic glioma, the most aggressive malignant primary tumors of the central nervous system.
     
@@ -43,7 +41,7 @@ const projectData = [
     
     Note: This project was shelved to prioritize ML4Labs, my undergraduate thesis research project.
     `,
-    technologies: ["Python", "Keras", "TensorFlow", "GEMINI Dataset"],
+    technologies: ["Python", "Keras", "TensorFlow", "Brats2021 Dataset"],
     link: "https://www.canva.com/design/DAGCoUIZ760/JZb2TjEkTySAwU1DVs3Log/view?utm_content=DAGCoUIZ760&utm_campaign=designshare&utm_medium=link&utm_source=editor",
     image: "/projects/unsupervised-anomaly.webp",
     year: 2023,
@@ -82,14 +80,7 @@ const projectData = [
     In collaboration with IBM Centre for Advanced Studies and as part of my Western University Undergraduate Student Research Internship (USRI) under the supervision of Dr. Konstantinos Kontogiannis, I investigated the risk prediction of software system failures and evaluated the stability of machine learning models for software bug prediction. Large software systems, implemented using various programming languages and scripts, have complex dependencies that are difficult to extract and understand solely through source code analysis. By utilizing process-related metrics, such as maintenance frequency, co-commitment with other components, bug-fixing activities, and lines of code altered, we trained a machine learning model to predict the risk of future failures due to maintenance activities. 
     
     A poster was created to summarize the findings and provide future direction. This was presented at the Western University Undergraduate Student Research Showcase.`,
-    technologies: [
-      "Dasha AI",
-      "Figma",
-      "Google Cloud Platform",
-      "MySQL",
-      "JavaScript",
-      "Node.js",
-    ],
+    technologies: ["Python", "Git"],
     link: "https://ir.lib.uwo.ca/usri/usri2021/researchoutputshowcase/132/",
     image: "/projects/ibm-uwo-research.webp",
     year: 2022,
@@ -108,14 +99,7 @@ const projectData = [
     
     Keywords: Mental health, natural language processing (NLP), emotions, machine learning (ML), topic classification, topic modelling, sentiment analysis, user interface (UI)/ user experience (UX), artificial intelligence (AI), random forest
     `,
-    technologies: [
-      "Dasha AI",
-      "Figma",
-      "Google Cloud Platform",
-      "MySQL",
-      "JavaScript",
-      "Node.js",
-    ],
+    technologies: ["Python", "NLP"],
     link: "https://www.ai4goodlab.com/news/2021/10/04/social-media-is-a-no-go-without-soquo/",
     image: "/projects/soquo.webp",
     year: 2022,
@@ -132,14 +116,7 @@ const projectData = [
     
     Note: this project was done as part of a course group project. Grade received: 100%
     `,
-    technologies: [
-      "Dasha AI",
-      "Figma",
-      "Google Cloud Platform",
-      "MySQL",
-      "JavaScript",
-      "Node.js",
-    ],
+    technologies: ["Python", "World Bank API"],
     link: "https://www.ai4goodlab.com/news/2021/10/04/social-media-is-a-no-go-without-soquo/",
     image: "/projects/view-the-world.webp",
     year: 2021,
@@ -165,7 +142,7 @@ const projectData = [
     
     As a mentor, I guided the project team in achieving these objectives, ensuring the development of a practical and impactful solution for food insecurity, as well as ensuring their pitch was engaging and informative.`,
     technologies: [
-      "Dasha AI",
+      "Python",
       "Figma",
       "Google Cloud Platform",
       "MySQL",
@@ -187,7 +164,7 @@ const projectData = [
     
     This project won two awards: Most Creative Project and Best JAM3 Project (for building a product that helps a company leverage technology to improve their customer experience).
     `,
-    technologies: ["Figma", "JavaScript"],
+    technologies: ["Figma", "JavaScript", "Python"],
 
     image: "/projects/perfect-closet.webp",
     year: 2021,

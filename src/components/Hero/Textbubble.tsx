@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 
+import { useIntroContext } from '@/contexts/introContext'
 import { ease, textBubbleVariants } from '@/utils/framer'
 
 type Props = {
@@ -9,13 +10,21 @@ type Props = {
 }
 
 export default function TextBubble({ children, visible, index }: Props) {
+  const { setIntroComplete, setShouldShowIntro } = useIntroContext()
   return (
     <motion.div
       key={children?.toString()}
       className="chat-end flex gap-3 self-end py-1"
     >
       <motion.div
-        {...(index === 0 && { layoutId: "hello" })}
+        {...(index === 0 && {
+          layoutId: "hello",
+          onLayoutAnimationComplete: () => {
+            console.log("layout animation complete")
+            setIntroComplete(true)
+            setShouldShowIntro(false)
+          },
+        })}
         variants={textBubbleVariants}
         initial={index === 0 ? "visible" : "hidden"}
         animate={visible || index === 0 ? "visible" : "hidden"}
