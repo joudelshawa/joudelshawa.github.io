@@ -86,7 +86,6 @@ const milestones: Milestone[] = [
   {
     text: "Marketing Director for the Women+ in Technology Society",
     date: ["May 2022", "Apr 2023"],
-    href: "https://google.com",
   },
   {
     text: "Won HackWestern 8's Best Use of DashaAI for BankYeller 🥳",
@@ -103,7 +102,6 @@ const milestones: Milestone[] = [
   {
     text: "Mentor for the Women in Technology's Ada Mentorship Program",
     date: ["Sep 2021", "Apr 2022"],
-    href: "https://google.com",
   },
   {
     text: "Won the Edmonton Accelerator Award for SoQuo in the AI4Good Lab 🥳",
@@ -116,7 +114,6 @@ const milestones: Milestone[] = [
   {
     text: "Participated in the AI4Good Lab",
     date: "May 2021", // ! Single date
-    href: "https://google.com",
   },
 ]
 
