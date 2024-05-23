@@ -18,7 +18,7 @@ const projectData = [
       `,
     technologies: ["Python", "Keras", "TensorFlow", "GEMINI Dataset"],
     link: "https://www.canva.com/design/DAGCoUIZ760/JZb2TjEkTySAwU1DVs3Log/view?utm_content=DAGCoUIZ760&utm_campaign=designshare&utm_medium=link&utm_source=editor",
-    image: "/projects/ml4labs.png",
+    image: "/projects/ml4labs.webp",
     year: 2024,
     // backgroundColor: "bg-white",
     // textColors: {
@@ -45,7 +45,7 @@ const projectData = [
     `,
     technologies: ["Python", "Keras", "TensorFlow", "GEMINI Dataset"],
     link: "https://www.canva.com/design/DAGCoUIZ760/JZb2TjEkTySAwU1DVs3Log/view?utm_content=DAGCoUIZ760&utm_campaign=designshare&utm_medium=link&utm_source=editor",
-    image: "/projects/unsupervised-anomaly.png",
+    image: "/projects/unsupervised-anomaly.webp",
     year: 2023,
   },
   {
@@ -68,7 +68,7 @@ const projectData = [
       "Node.js",
     ],
     link: "https://devpost.com/software/bank-yeller",
-    image: "/projects/bank-yeller.jpg",
+    image: "/projects/bank-yeller.webp",
     year: 2022,
   },
   {
@@ -91,7 +91,7 @@ const projectData = [
       "Node.js",
     ],
     link: "https://ir.lib.uwo.ca/usri/usri2021/researchoutputshowcase/132/",
-    image: "/projects/ibm-uwo-research.png",
+    image: "/projects/ibm-uwo-research.webp",
     year: 2022,
   },
   {
@@ -141,7 +141,7 @@ const projectData = [
       "Node.js",
     ],
     link: "https://www.ai4goodlab.com/news/2021/10/04/social-media-is-a-no-go-without-soquo/",
-    image: "/projects/soquo.webp",
+    image: "/projects/view-the-world.webp",
     year: 2021,
   },
   {
@@ -173,7 +173,7 @@ const projectData = [
       "Node.js",
     ],
     link: "https://www.ai4goodlab.com/news/project-reports/2024/02/15/plate-pal-2023-edmonton-accelerator-award-winner/",
-    image: "/projects/platepal.jpg",
+    image: "/projects/platepal.webp",
     year: 2021,
   },
   {
@@ -189,7 +189,7 @@ const projectData = [
     `,
     technologies: ["Figma", "JavaScript"],
 
-    image: "/projects/perfect-closet.png",
+    image: "/projects/perfect-closet.webp",
     year: 2021,
   },
 ]
