@@ -58,8 +58,7 @@ const projectData = [
     Bank Yeller is a program that allows users to voice chat with an AI assistant to get their latest bank account information and be able to pay their bills vocally. We also deployed an SQL Database on Google Cloud Platform to mimic a bank’s database and demonstrate how this would work in everyday life.
     
     Bank Yeller was created to address the concern that people who are visually impaired and/or not tech-savvy might struggle as consumers are having to increasingly rely on Web-based banking and financial systems. By using Bank Yeller, consumers will be able to access their bank information using their voice, without having to deal with any confusing interfaces!
-    
-    ORRR Today’s technological advances have resulted in many consumers having to increasingly rely on Web-based banking and financial systems. Consumers often overlooked as we make this transition include the visually impaired and/or the less tech-savvy populations (e.g. elderly). It is critical that we guarantee that systems give equal and complete access to everyone, and none are disregarded. Some may point out that paper billing is an option, but on top of not being eco-friendly, paper billing is not an ideal way of getting the latest information about your records on the go.`,
+   `,
     technologies: [
       "Dasha AI",
       "Figma",

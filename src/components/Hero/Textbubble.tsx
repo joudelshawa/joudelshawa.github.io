@@ -49,7 +49,7 @@ export default function TextBubble({ children, visible, index }: Props) {
         }}
       >
         <div className="w-10 rounded-full">
-          <img alt="Tailwind CSS chat bubble component" src="/me.jpg" />
+          <img alt="Tailwind CSS chat bubble component" src="/me.webp" />
         </div>
       </motion.div>
     </motion.div>
