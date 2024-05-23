@@ -1,9 +1,21 @@
-import projectData from "./data/projects"
+import projectData from './data/projects'
 
 // export {}
 
 declare global {
-  type Project = (typeof projectData)[number]
+  type Project = {
+    name: string
+    slug: string
+    blurb: string
+    description: string
+    technologies: string[]
+    image: string
+    year: number
+    links?: {
+      text: string
+      href: string
+    }[]
+  }
 
   type Milestone = {
     text: string

@@ -1,4 +1,5 @@
 import { AnimationProps, motion } from 'framer-motion'
+import Link from 'next/link'
 
 import { ease } from '@/utils/framer'
 import { useLenis } from '@studio-freight/react-lenis'
@@ -13,16 +14,17 @@ export default function Navlink({ href, children }: Props) {
   const lenis = useLenis()
 
   return (
-    <motion.a
-      href={href}
-      variants={linkVariants}
-      // onClick={() => lenis?.scrollTo(href)}
-      className={styles.button}
-    >
-      <div className="flex size-full items-center justify-center text-slate-900">
-        <PerspectiveText>{children}</PerspectiveText>
-      </div>
-    </motion.a>
+    <Link href={href}>
+      <motion.span
+        variants={linkVariants}
+        // onClick={() => lenis?.scrollTo(href)}
+        className={styles.button}
+      >
+        <div className="flex size-full items-center justify-center text-slate-900">
+          <PerspectiveText>{children}</PerspectiveText>
+        </div>
+      </motion.span>
+    </Link>
   )
 }
 

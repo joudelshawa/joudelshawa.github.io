@@ -1,5 +1,5 @@
 // * Joud: This is the data for the projects section of the site.
-const projectData = [
+const projectData: Project[] = [
   {
     name: "ML4Labs - Undergraduate Thesis Research & Ongoing Research at the Vector Institute",
     slug: "ml4labs", // The path to the standalone project page
@@ -15,7 +15,12 @@ const projectData = [
       Note: This project has been updated and is in progress as I continue this research as a research intern at the Vector Institute, where we are exploring novel methods to enhance the system's performance and integration. I will be presenting our preliminary results at the Vector/GEMINI Research Day event on June 24, 2024 from 8:30 to 11:30 am.
       `,
     technologies: ["Python", "Keras", "TensorFlow", "GEMINI Dataset"],
-    link: "https://www.canva.com/design/DAGCoUIZ760/JZb2TjEkTySAwU1DVs3Log/view?utm_content=DAGCoUIZ760&utm_campaign=designshare&utm_medium=link&utm_source=editor",
+    links: [
+      {
+        text: "Thesis Slides",
+        href: "https://www.canva.com/design/DAGCoUIZ760/JZb2TjEkTySAwU1DVs3Log/view?utm_content=DAGCoUIZ760&utm_campaign=designshare&utm_medium=link&utm_source=editor",
+      },
+    ],
     image: "/projects/ml4labs.webp",
     year: 2024,
     // backgroundColor: "bg-white",
@@ -42,7 +47,16 @@ const projectData = [
     Note: This project was shelved to prioritize ML4Labs, my undergraduate thesis research project.
     `,
     technologies: ["Python", "Keras", "TensorFlow", "Brats2021 Dataset"],
-    link: "https://www.canva.com/design/DAGCoUIZ760/JZb2TjEkTySAwU1DVs3Log/view?utm_content=DAGCoUIZ760&utm_campaign=designshare&utm_medium=link&utm_source=editor",
+    links: [
+      {
+        text: "BraTs",
+        href: "https://www.med.upenn.edu/cbica/brats2021/",
+      },
+      {
+        text: "DenoisingAE",
+        href: "https://github.com/AntanasKascenas/DenoisingAE",
+      },
+    ],
     image: "/projects/unsupervised-anomaly.webp",
     year: 2023,
   },
@@ -65,7 +79,20 @@ const projectData = [
       "JavaScript",
       "Node.js",
     ],
-    link: "https://devpost.com/software/bank-yeller",
+    links: [
+      {
+        href: "https://devpost.com/software/bank-yeller",
+        text: "Devpost",
+      },
+      {
+        href: "https://www.youtube.com/watch?v=e6nFVn0LKjY",
+        text: "Demo",
+      },
+      {
+        href: "https://github.com/joudelshawa/HW8-bank-assist",
+        text: "GitHub",
+      },
+    ],
     image: "/projects/bank-yeller.webp",
     year: 2022,
   },
@@ -81,7 +108,12 @@ const projectData = [
     
     A poster was created to summarize the findings and provide future direction. This was presented at the Western University Undergraduate Student Research Showcase.`,
     technologies: ["Python", "Git"],
-    link: "https://ir.lib.uwo.ca/usri/usri2021/researchoutputshowcase/132/",
+    links: [
+      {
+        href: "https://ir.lib.uwo.ca/usri/usri2021/researchoutputshowcase/132/",
+        text: "Poster",
+      },
+    ],
     image: "/projects/ibm-uwo-research.webp",
     year: 2022,
   },
@@ -100,7 +132,16 @@ const projectData = [
     Keywords: Mental health, natural language processing (NLP), emotions, machine learning (ML), topic classification, topic modelling, sentiment analysis, user interface (UI)/ user experience (UX), artificial intelligence (AI), random forest
     `,
     technologies: ["Python", "NLP"],
-    link: "https://www.ai4goodlab.com/news/2021/10/04/social-media-is-a-no-go-without-soquo/",
+    links: [
+      {
+        href: "https://www.ai4goodlab.com/news/2021/10/04/social-media-is-a-no-go-without-soquo/",
+        text: "AI4Good Lab Article",
+      },
+      {
+        href: "https://www.canva.com/design/DAEh-FkYcsk/2VQuWn8jZWi8PKiKQJwHdg/view?utm_content=DAEh-FkYcsk&utm_campaign=designshare&utm_medium=link&utm_source=editor",
+        text: "Slides",
+      },
+    ],
     image: "/projects/soquo.webp",
     year: 2022,
   },
@@ -117,7 +158,6 @@ const projectData = [
     Note: this project was done as part of a course group project. Grade received: 100%
     `,
     technologies: ["Python", "World Bank API"],
-    link: "https://www.ai4goodlab.com/news/2021/10/04/social-media-is-a-no-go-without-soquo/",
     image: "/projects/view-the-world.webp",
     year: 2021,
   },
@@ -149,7 +189,12 @@ const projectData = [
       "JavaScript",
       "Node.js",
     ],
-    link: "https://www.ai4goodlab.com/news/project-reports/2024/02/15/plate-pal-2023-edmonton-accelerator-award-winner/",
+    links: [
+      {
+        href: "https://www.ai4goodlab.com/news/project-reports/2024/02/15/plate-pal-2023-edmonton-accelerator-award-winner/",
+        text: "AI4Good Lab Article",
+      },
+    ],
     image: "/projects/platepal.webp",
     year: 2021,
   },

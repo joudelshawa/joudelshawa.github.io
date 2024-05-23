@@ -60,14 +60,15 @@ export default function ProjectDetailPage() {
         <p className="whitespace-pre-line text-justify text-slate-600">
           {project.description}
         </p>
-        {project.link && (
-          <Link
-            className="font-mono text-blue-700 underline"
-            href={project.link}
-          >
-            Relevant Link
-          </Link>
-        )}
+        {project.links &&
+          project.links.map((link) => (
+            <Link
+              className="font-mono text-blue-700 underline"
+              href={link.href}
+            >
+              {link.text}
+            </Link>
+          ))}
 
         <div className="flex flex-wrap gap-4">
           {project.technologies.map((tech, index) => (
