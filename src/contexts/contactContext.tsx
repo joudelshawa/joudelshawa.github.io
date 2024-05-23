@@ -1,10 +1,4 @@
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useState,
-} from "react"
+import { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
 
 export const ContactContext = createContext<ContactContextType | null>(null)
 
@@ -19,6 +13,15 @@ export default function ContactContextProvider({
   children: React.ReactNode
 }) {
   const [modalOpen, setModalOpen] = useState(false)
+
+  useEffect(() => {
+    // TODO: replace with lenis equivalent once lenis is implemented
+    if (modalOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = "auto"
+    }
+  }, [modalOpen])
 
   return (
     <ContactContext.Provider value={{ modalOpen, setModalOpen }}>
