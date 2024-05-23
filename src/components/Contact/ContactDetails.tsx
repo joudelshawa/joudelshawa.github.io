@@ -22,8 +22,8 @@ export default function ContactDetails() {
       <motion.div exit="hidden" variants={liVariants}>
         <p className="text-slate-500">Get in touch</p>
         <p className="text-xl text-slate-300">
-          I'm open to new opportunities and connections, please don't hesitate
-          to contact me!
+          I&apos;m open to new opportunities and connections, please don&apos;t
+          hesitate to contact me!
         </p>
       </motion.div>
       <motion.ul
