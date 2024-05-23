@@ -65,6 +65,7 @@ export default function ProjectDetailPage() {
             <Link
               className="font-mono text-blue-700 underline"
               href={link.href}
+              key={link.text}
             >
               {link.text}
             </Link>
