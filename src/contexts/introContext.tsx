@@ -1,4 +1,5 @@
-import { createContext, Dispatch, SetStateAction, useContext, useState } from 'react'
+import { useRouter } from 'next/router'
+import { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
 
 export const IntroContext = createContext<IntroContextType | null>(null)
 
@@ -17,6 +18,14 @@ export default function IntroContextProvider({
   const [shouldShowIntro, setShouldShowIntro] = useState(true)
   const [introComplete, setIntroComplete] = useState(false)
 
+  const router = useRouter()
+
+  useEffect(() => {
+    if (router.pathname !== "/") {
+      setShouldShowIntro(false)
+      setIntroComplete(true)
+    }
+  }, [])
   return (
     <IntroContext.Provider
       value={{
