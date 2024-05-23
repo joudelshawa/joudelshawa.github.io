@@ -31,7 +31,7 @@ export default function ContactDetails() {
           <a href="mailto:jelshawa@gmail.com">Email</a>
           <span
             onClick={copyEmail}
-            className="absolute -bottom-5 left-0 text-base font-light text-slate-500"
+            className="absolute -bottom-5 left-0 cursor-pointer text-base font-light text-slate-500 transition-colors duration-200 hover:text-blue-200"
           >
             jelshawa@gmail.com{" "}
             {emailCopied && <span className="text-blue-200"> - copied!</span>}

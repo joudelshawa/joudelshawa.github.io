@@ -1,17 +1,11 @@
-import {
-  AnimatePresence,
-  AnimationProps,
-  motion,
-  MotionProps,
-  useAnimate,
-} from "framer-motion"
+import { AnimatePresence, AnimationProps, motion, MotionProps, useAnimate } from 'framer-motion'
 
-import { useContactContext } from "@/contexts/contactContext"
-import useScreenSize from "@/hooks/use-screen-size"
-import { ease } from "@/utils/framer"
+import { useContactContext } from '@/contexts/contactContext'
+import useScreenSize from '@/hooks/use-screen-size'
+import { ease } from '@/utils/framer'
 
-import ContactDetails from "./ContactDetails"
-import styles from "./ContactModal.module.css"
+import ContactDetails from './ContactDetails'
+import styles from './ContactModal.module.css'
 
 export default function ContactModal() {
   const { isMobile, pixelWidth, pixelHeight } = useScreenSize()
@@ -26,8 +20,8 @@ export default function ContactModal() {
     open: {
       height: isMobile ? mobileSizes.height : 650,
       width: isMobile ? mobileSizes.width : 480,
-      top: isMobile ? "-1.5rem" : "-10px",
-      right: isMobile ? "-2rem" : "-10px",
+      top: isMobile ? "-1rem" : "-10px",
+      right: isMobile ? "-3rem" : "-10px",
       borderRadius: isMobile ? 0 : 24,
       transition: {
         duration: 0.7,
