@@ -1,4 +1,4 @@
-import projectData from './data/projects'
+import projectData from "./data/projects"
 
 // export {}
 
@@ -21,5 +21,6 @@ declare global {
     text: string
     date: string | [string, string]
     href?: string
+    hoverImage?: string
   }
 }

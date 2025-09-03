@@ -1,8 +1,9 @@
-import { motion, useAnimate, useInView } from 'framer-motion'
-import Link from 'next/link'
-import { useEffect } from 'react'
+import { motion, useAnimate, useInView } from "framer-motion"
+import Link from "next/link"
+import { useEffect, useState } from "react"
 
-import { cn } from '@/utils/misc'
+import { cn } from "@/utils/misc"
+import MilestoneHoverImage from "./MilestoneHoverImage"
 
 type Props = {
   milestone: Milestone
@@ -14,6 +15,7 @@ type Props = {
 export default function Milestone({ milestone, isFirst, isLast }: Props) {
   const [scope, animate] = useAnimate()
   const isInView = useInView(scope, { once: false })
+  const [isHoveringMilestone, setIsHoveringMilestone] = useState(false)
 
   useEffect(() => {
     if (isInView) handleInView()
@@ -36,44 +38,56 @@ export default function Milestone({ milestone, isFirst, isLast }: Props) {
   }
 
   return (
-    <motion.li
-      ref={scope}
-      key={milestone.text}
-      className="min-h-[6rem] grid-cols-[2fr_min-content_5fr] md:grid-cols-[1fr_min-content_6fr]"
-    >
-      <div
-        className="md:text-md timeline-start justify-self-start text-end font-mono text-sm"
-        style={{ opacity: 0 }}
+    <>
+      {/* Hover Image */}
+
+      <motion.li
+        ref={scope}
+        key={milestone.text}
+        className="relative min-h-[6rem] grid-cols-[2fr_min-content_5fr] md:grid-cols-[1fr_min-content_6fr]"
+        onMouseEnter={() => setIsHoveringMilestone(true)}
+        onMouseLeave={() => setIsHoveringMilestone(false)}
       >
-        {Array.isArray(milestone.date) ? (
-          <>
-            <span className="text-emerald-800">+ {milestone.date[0]}</span>
-            <br />
-            <span className="text-rose-800">- {milestone.date[1]}</span>
-          </>
-        ) : (
-          <span>{milestone.date}</span>
+        {milestone.hoverImage && (
+          <MilestoneHoverImage
+            imageSrc={milestone.hoverImage}
+            isVisible={isHoveringMilestone}
+          />
         )}
-      </div>
-      {!isFirst && (
-        <motion.hr
-          className="top-line bg-slate-100"
+        <div
+          className="md:text-md timeline-start justify-self-start text-end font-mono text-sm"
+          style={{ opacity: 0 }}
+        >
+          {Array.isArray(milestone.date) ? (
+            <>
+              <span className="text-emerald-800">+ {milestone.date[0]}</span>
+              <br />
+              <span className="text-rose-800">- {milestone.date[1]}</span>
+            </>
+          ) : (
+            <span>{milestone.date}</span>
+          )}
+        </div>
+        {!isFirst && (
+          <motion.hr
+            className="top-line bg-slate-100"
+            style={{
+              scaleY: 0,
+            }}
+          />
+        )}
+        <motion.div
+          className="timeline-middle"
           style={{
-            scaleY: 0,
+            scale: 0,
           }}
-        />
-      )}
-      <motion.div
-        className="timeline-middle"
-        style={{
-          scale: 0,
-        }}
-      >
-        <motion.div className="size-2 rounded-full bg-slate-700 md:size-3" />
-      </motion.div>
-      <Wrapper milestone={milestone}>{milestone.text}</Wrapper>
-      {!isLast && <motion.hr className="bottom-line bg-slate-100" />}
-    </motion.li>
+        >
+          <motion.div className="size-2 rounded-full bg-slate-700 md:size-3" />
+        </motion.div>
+        <Wrapper milestone={milestone}>{milestone.text}</Wrapper>
+        {!isLast && <motion.hr className="bottom-line bg-slate-100" />}
+      </motion.li>
+    </>
   )
 }
 
