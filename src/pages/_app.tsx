@@ -3,7 +3,6 @@ import "@/styles/globals.css"
 import { AnimatePresence, motion } from "framer-motion"
 import { Inter } from "next/font/google"
 import Head from "next/head"
-import dynamic from "next/dynamic"
 
 import Footer from "@/components/Footer/Footer"
 import Navbar from "@/components/Navbar/Navbar"

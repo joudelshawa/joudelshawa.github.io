@@ -1,54 +1,102 @@
 import { motion, useMotionValue, useSpring } from "framer-motion"
 import { useEffect, useState } from "react"
+import { gen } from "culler"
+
+interface TrailParticle {
+  id: number
+  x: number
+  y: number
+  color: string
+  createdAt: number
+}
+
+const PARTICLE_SIZE = 24 // 16px = h-4 w-4 in Tailwind
 
 export default function MouseTrail() {
-  const [mounted, setMounted] = useState(false)
-  const [isHovering, setIsHovering] = useState(false)
+  const [trailParticles, setTrailParticles] = useState<TrailParticle[]>([])
 
-  // Motion values - start offscreen
   const mouseX = useMotionValue(-100)
   const mouseY = useMotionValue(-100)
 
-  // Smooth spring animation
-  const cursorX = useSpring(mouseX, { damping: 25, stiffness: 700 })
-  const cursorY = useSpring(mouseY, { damping: 25, stiffness: 700 })
-
   useEffect(() => {
+    let lastParticleTime = 0
+    const throttleDelay = 25
+
     const updateMousePosition = (e: MouseEvent) => {
-      console.log(e.clientX, e.clientY)
-      mouseX.set(e.clientX)
-      mouseY.set(e.clientY)
+      mouseX.set(e.clientX - 12) // Center the 6x6 (24px) cursor
+      mouseY.set(e.clientY - 12)
+
+      // Throttle particle creation
+      const now = Date.now()
+      if (now - lastParticleTime > throttleDelay) {
+        const newParticle: TrailParticle = {
+          id: Date.now() + Math.random(),
+          x: e.clientX,
+          y: e.clientY,
+          color: gen({
+            type: "rgb",
+            minR: 212,
+            minG: 212,
+            minB: 212,
+          }),
+          createdAt: now,
+        }
+
+        setTrailParticles((prev) => [...prev, newParticle])
+        lastParticleTime = now
+      }
     }
 
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement
-      const isInteractive =
-        target.closest('a, button, [role="button"]') !== null
-      setIsHovering(isInteractive)
-    }
+    console.log("rerender")
 
     window.addEventListener("mousemove", updateMousePosition)
-    document.addEventListener("mouseover", handleMouseOver)
 
     return () => {
       window.removeEventListener("mousemove", updateMousePosition)
-      document.removeEventListener("mouseover", handleMouseOver)
     }
   }, [mouseX, mouseY])
 
+  // Clean up old particles
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = Date.now()
+      setTrailParticles((prev) =>
+        prev.filter((particle) => now - particle.createdAt < 1000)
+      )
+    }, 500) // Clean up every 500ms
+
+    return () => clearInterval(interval)
+  }, [])
+
   return (
-    <motion.div
-      className="pointer-events-none fixed z-[9999] h-6 w-6 rounded-full bg-black"
-      style={{
-        left: cursorX,
-        top: cursorY,
-      }}
-      animate={{
-        scale: isHovering ? 1.5 : 1,
-      }}
-      transition={{
-        scale: { type: "spring", damping: 20, stiffness: 300 },
-      }}
-    />
+    <>
+      {trailParticles.map((particle) => {
+        return (
+          <motion.div
+            key={particle.id}
+            className="pointer-events-none fixed z-[9998] rounded-full"
+            style={{
+              left: particle.x - PARTICLE_SIZE / 2,
+              top: particle.y - PARTICLE_SIZE / 2,
+              width: PARTICLE_SIZE,
+              height: PARTICLE_SIZE,
+              backgroundColor: particle.color,
+            }}
+            initial={{
+              scale: 1.1,
+              opacity: 0.8,
+            }}
+            animate={{
+              scale: 0,
+              opacity: 0,
+            }}
+            transition={{
+              duration: 1,
+              ease: "easeOut",
+            }}
+          />
+        )
+      })}
+    </>
   )
 }
