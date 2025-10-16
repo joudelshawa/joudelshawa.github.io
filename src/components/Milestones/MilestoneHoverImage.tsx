@@ -20,6 +20,8 @@ export default function MilestoneHoverImage({
   imageSrc,
   isVisible,
 }: MilestoneHoverImageProps) {
+  return null // Disable hover images for now
+
   const motionX = useMotionValue(0)
 
   useEffect(() => {

@@ -45,15 +45,15 @@ export default function Milestone({ milestone, isFirst, isLast }: Props) {
         ref={scope}
         key={milestone.text}
         className="relative min-h-[6rem] grid-cols-[2fr_min-content_5fr] md:grid-cols-[1fr_min-content_6fr]"
-        onMouseEnter={() => setIsHoveringMilestone(true)}
-        onMouseLeave={() => setIsHoveringMilestone(false)}
+        // onMouseEnter={() => setIsHoveringMilestone(true)}
+        // onMouseLeave={() => setIsHoveringMilestone(false)}
       >
-        {milestone.hoverImage && (
+        {/* {milestone.hoverImage && (
           <MilestoneHoverImage
             imageSrc={milestone.hoverImage}
             isVisible={isHoveringMilestone}
           />
-        )}
+        )} */}
         <div
           className="md:text-md timeline-start justify-self-start text-end font-mono text-sm"
           style={{ opacity: 0 }}

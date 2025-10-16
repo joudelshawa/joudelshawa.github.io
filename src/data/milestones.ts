@@ -6,12 +6,10 @@ const milestones: Milestone[] = [
   {
     text: "Presented Research at the Vector/GEMINI Research Day🤓",
     date: "Jun 2024",
-    hoverImage: "/projects/view-the-world.webp", // Example image
   },
   {
     text: "Officially graduated! B.Sc. Honours with a Specialization in Computer Science from Western University 🎓",
     date: "Jun 2024",
-    hoverImage: "/projects/ml4labs.webp", // Example image
   },
   {
     text: "Began my research internship at the Vector Institute!",
@@ -44,7 +42,6 @@ const milestones: Milestone[] = [
   {
     text: "Received the NSERC Undergraduate Student Research Award! Began unsupervised anomaly detection research project under the supervision of Dr. Yalda Mohsenzadeh.",
     date: ["May 2023", "Aug 2023"],
-    hoverImage: "/projects/unsupervised-anomaly.webp",
   },
   {
     text: "Became a Co-Vice President of Marketing at the Women+ in Technology Society",
@@ -93,7 +90,6 @@ const milestones: Milestone[] = [
   {
     text: "Won HackWestern 8's Best Use of DashaAI for BankYeller 🥳",
     date: "Nov 2021",
-    hoverImage: "/projects/bank-yeller.webp",
   },
   {
     text: "Received the RBC Scholarship in Data Science 🥳",
@@ -110,12 +106,10 @@ const milestones: Milestone[] = [
   {
     text: "Won the Edmonton Accelerator Award for SoQuo in the AI4Good Lab 🥳",
     date: "Jun 2021",
-    hoverImage: "/projects/soquo.webp",
   },
   {
     text: "Conducted research with IBM in collaboration with Western University under the supervision of Dr. Kostas Kontogiannis",
     date: ["May 2021", "Aug 2021"],
-    hoverImage: "/projects/ibm-uwo-research.webp",
   },
   {
     text: "Participated in the AI4Good Lab",
