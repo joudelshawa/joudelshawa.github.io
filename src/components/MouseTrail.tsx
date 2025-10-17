@@ -1,102 +1,98 @@
-import { motion, useMotionValue, useSpring } from "framer-motion"
-import { useEffect, useState } from "react"
+import { useEffect, useRef } from "react"
 import { gen } from "culler"
 
-interface TrailParticle {
-  id: number
-  x: number
-  y: number
-  color: string
-  createdAt: number
-}
-
-const PARTICLE_SIZE = 24 // 16px = h-4 w-4 in Tailwind
+const PARTICLE_SIZE = 28
+const SPAWN_DISTANCE = 32
+const PARTICLE_DURATION = 1000
 
 export default function MouseTrail() {
-  const [trailParticles, setTrailParticles] = useState<TrailParticle[]>([])
-
-  const mouseX = useMotionValue(-100)
-  const mouseY = useMotionValue(-100)
+  const lastSpawnRef = useRef<{ x: number; y: number } | null>(null)
+  const containerRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    let lastParticleTime = 0
-    const throttleDelay = 25
+    const container = containerRef.current
+    if (!container) return
 
-    const updateMousePosition = (e: MouseEvent) => {
-      mouseX.set(e.clientX - 12) // Center the 6x6 (24px) cursor
-      mouseY.set(e.clientY - 12)
+    const spawnParticle = (x: number, y: number, color: string) => {
+      const particle = document.createElement("div")
+      particle.className = "pointer-events-none absolute rounded-full"
+      particle.style.cssText = `
+        left: ${x - PARTICLE_SIZE / 2}px;
+        top: ${y - PARTICLE_SIZE / 2}px;
+        width: ${PARTICLE_SIZE}px;
+        height: ${PARTICLE_SIZE}px;
+        background-color: ${color};
+      `
 
-      // Throttle particle creation
-      const now = Date.now()
-      if (now - lastParticleTime > throttleDelay) {
-        const newParticle: TrailParticle = {
-          id: Date.now() + Math.random(),
-          x: e.clientX,
-          y: e.clientY,
-          color: gen({
-            type: "rgb",
-            minR: 212,
-            minG: 212,
-            minB: 212,
-          }),
-          createdAt: now,
+      container.appendChild(particle)
+
+      particle
+        .animate(
+          [
+            { transform: "scale(1.1)", opacity: 0.8 },
+            { transform: "scale(0)", opacity: 0 },
+          ],
+          { duration: PARTICLE_DURATION, easing: "ease-out", fill: "forwards" }
+        )
+        .finished.then(() => particle.remove())
+    }
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX: x, clientY: y } = e
+
+      if (!lastSpawnRef.current) {
+        lastSpawnRef.current = { x, y }
+        const color = gen({
+          type: "rgba",
+          minR: 155,
+          minG: 155,
+          minB: 155,
+          a: 0.4,
+        })
+        spawnParticle(x, y, color)
+        return
+      }
+
+      const lastSpawn = lastSpawnRef.current
+      const deltaX = x - lastSpawn.x
+      const deltaY = y - lastSpawn.y
+      const distance = Math.hypot(deltaX, deltaY)
+
+      if (distance >= SPAWN_DISTANCE) {
+        const steps = Math.floor(distance / SPAWN_DISTANCE)
+        const unitX = deltaX / distance
+        const unitY = deltaY / distance
+
+        for (let step = 1; step <= steps; step++) {
+          const spawnX = lastSpawn.x + unitX * SPAWN_DISTANCE * step
+          const spawnY = lastSpawn.y + unitY * SPAWN_DISTANCE * step
+          const color = gen({
+            type: "rgba",
+            minR: 155,
+            minG: 155,
+            minB: 155,
+            a: 0.4,
+          })
+          spawnParticle(spawnX, spawnY, color)
         }
 
-        setTrailParticles((prev) => [...prev, newParticle])
-        lastParticleTime = now
+        lastSpawnRef.current = { x, y }
       }
     }
 
-    console.log("rerender")
-
-    window.addEventListener("mousemove", updateMousePosition)
+    window.addEventListener("mousemove", handleMouseMove)
 
     return () => {
-      window.removeEventListener("mousemove", updateMousePosition)
+      window.removeEventListener("mousemove", handleMouseMove)
+      lastSpawnRef.current = null
     }
-  }, [mouseX, mouseY])
-
-  // Clean up old particles
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const now = Date.now()
-      setTrailParticles((prev) =>
-        prev.filter((particle) => now - particle.createdAt < 1000)
-      )
-    }, 500) // Clean up every 500ms
-
-    return () => clearInterval(interval)
   }, [])
 
   return (
-    <>
-      {trailParticles.map((particle) => {
-        return (
-          <motion.div
-            key={particle.id}
-            className="pointer-events-none fixed z-[9998] rounded-full"
-            style={{
-              left: particle.x - PARTICLE_SIZE / 2,
-              top: particle.y - PARTICLE_SIZE / 2,
-              width: PARTICLE_SIZE,
-              height: PARTICLE_SIZE,
-              backgroundColor: particle.color,
-            }}
-            initial={{
-              scale: 1.1,
-              opacity: 0.8,
-            }}
-            animate={{
-              scale: 0,
-              opacity: 0,
-            }}
-            transition={{
-              duration: 1,
-              ease: "easeOut",
-            }}
-          />
-        )
-      })}
-    </>
+    <div
+      ref={containerRef}
+      className="pointer-events-none fixed inset-0 z-[9998]"
+      aria-hidden
+    />
   )
 }
