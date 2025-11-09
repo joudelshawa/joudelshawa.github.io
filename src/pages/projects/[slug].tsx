@@ -79,7 +79,7 @@ export default function ProjectDetailPage({
         <p className="whitespace-pre-line text-justify text-slate-600">
           {project.description}
         </p>
-        {project.links &&
+        {/* {project.links &&
           project.links.map((link) => (
             <Link
               className="font-mono text-blue-700 underline"
@@ -88,7 +88,23 @@ export default function ProjectDetailPage({
             >
               {link.text}
             </Link>
-          ))}
+          ))} */}
+        {project.links && (
+            <p className="font-mono text-blue-700">
+              {project.links.map((link, i) => (
+                <>
+                  <Link
+                    className="underline"
+                    href={link.href}
+                    key={link.text}
+                  >
+                    {link.text}
+                  </Link>
+                  {i < project.links.length - 1 && ', '}
+                </>
+              ))}
+            </p>
+          )}
 
         <div className="flex flex-wrap gap-4">
           {project.technologies.map((tech, index) => (
