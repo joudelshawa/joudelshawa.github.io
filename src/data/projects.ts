@@ -1,35 +1,129 @@
 // * Joud: This is the data for the projects section of the site.
 const projectData: Project[] = [
+
   {
-    name: "ML4Labs - Undergraduate Thesis Research & Ongoing Research at the Vector Institute",
-    slug: "ml4labs", // The path to the standalone project page
-
+    name: "Localized Heatwave Forecasting with Graph Neural Networks",
+    slug: "gnn-heatwave-forecasting",
+  
     blurb:
-      "A research project that aims to use recurrent neural networks for real-time prediction of laboratory test requirements, reducing unnecessary tests and improving healthcare efficiency", // Goes under the project name in the previews
-    description: `Unnecessary laboratory tests contribute to healthcare waste, increased costs, and risks such as hospital-acquired anemia. Our research seeks to address this by using Recurrent Neural Networks (RNNs) (currently Long Short-Term Memory (LSTM) networks) for real-time prediction of laboratory test requirements, focusing on efficiently determining the necessity and timing of tests. 
-
-      By applying deep learning techniques to clinical data, we aim to enhance decision-making for healthcare professionals. Using Python, Keras, TensorFlow, and the GEMINI dataset, we built a system that predicts glucose test occurrences, achieving an accuracy of 76%, which is a 23% improvement over our baseline model. 
-      
-      The novelty of our work lies in modeling temporal relationships in GEMINI clinical data using RNNs, with significant implications for both theoretical and practical aspects of healthcare. 
-      
-      Note: This project has been updated and is in progress as I continue this research as a research intern at the Vector Institute, where we are exploring novel methods to enhance the system's performance and integration. I will be presenting our preliminary results at the Vector/GEMINI Research Day event on June 24, 2024 from 8:30 to 11:30 am.
-      `,
-    technologies: ["Python", "Keras", "TensorFlow", "GEMINI Dataset"],
+      "A graph neural network framework for localized, high-resolution temperature forecasting and equitable early-warning systems. Accepted to the NeurIPS 2025 Workshop on Tackling Climate Change with Machine Learning",
+  
+    description: `Heatwaves are intensifying worldwide and disproportionately affect marginalized communities in the Global South, where limited infrastructure and data availability hinder early-warning systems. This project introduces a Graph Neural Network (GNN) framework for high-resolution temperature forecasting, capturing spatial dependencies across thousands of grid points in Southwestern Ontario.
+  
+    By learning spatial relationships through adjacency graphs, the model achieves a mean absolute error (MAE) of 1.93 °C (1–48 h forecasts) and 2.93 °C at 48 h, significantly improving upon traditional numerical weather prediction models. The framework is designed for transfer learning, enabling adaptation to data-limited regions.
+  
+    This work was **accepted to the NeurIPS 2025 Workshop on Tackling Climate Change with Machine Learning**, where I presented a poster and recorded a short talk. The project lays the foundation for localized, equitable forecasting in resource-constrained settings.`,
+  
+    technologies: ["PyTorch Geometric", "Graph Neural Networks", "NOAA URMA", "Python", "ClimateBERT", "Satellite Embeddings"],
     links: [
       {
-        text: "Thesis Slides",
-        href: "https://www.canva.com/design/DAGCoUIZ760/JZb2TjEkTySAwU1DVs3Log/view?utm_content=DAGCoUIZ760&utm_campaign=designshare&utm_medium=link&utm_source=editor",
+        text: "NeurIPS Workshop Poster",
+        href: "https://google.com", // jtodo replace with actual link
+      },
+      {
+        text: "Paper",
+        href: "https://google.com", // jtodo replace with actual link
+      },
+      {
+        text: "Talk",
+        href: "#", // jtodo replace with actual link
+      },
+      {
+        text: "Slides",
+        href: "https://www.canva.com/design/DAG3jpaBZCg/ZMhMLCqysaNfpm8vviJaew/view?utm_content=DAG3jpaBZCg&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h4fe2b9be28", 
       },
     ],
-    image: "/projects/ml4labs.webp",
-    year: 2024,
-    // backgroundColor: "bg-white",
-    // textColors: {
-    //   primary: "text-slate-800",
-    //   secondary: "text-slate-600",
-    //   tertiary: "text-slate-200",
-    // },
+    image: "/projects/gnn-heatwave.webp",
+    year: 2025,
   },
+  {
+    name: "Hermes – A Modular Multi-Agent System for Structuring Clinical Text",
+    slug: "hermes-clinical-nlp",
+  
+    blurb:
+      "A large-language-model-driven multi-agent system that transforms unstructured clinical notes into structured reports and knowledge graphs. Accepted and presented at the AAAI SecureAI4Health 2025 Symposium.",
+  
+    description: `Unstructured clinical text poses major challenges for automation and interpretability in healthcare. **Hermes** is a **multi-agent large language model (LLM) framework** that sequentially converts discharge summaries into structured **SOAP-format reports** and **knowledge graphs**.
+  
+    The system integrates four specialized agents — Hermes-R (report generation), Hermes-G (graph construction), Hermes-Q (question-answer generation), and Hermes-A (answer validation) — that collaborate through **iterative refinement and semantic validation loops** to enhance factual accuracy and consistency.
+  
+    **Accepted and presented at the AAAI SecureAI4Health 2025 Symposium** (poster + lightning talk), Hermes demonstrates how coordinated LLM agents can improve the reliability and interpretability of clinical natural language processing.`,
+  
+    technologies: ["Python", "Large Language Models", "MIMIC-IV", "Ollama", "Deepseek R1", "LLama"],
+    links: [
+      {
+        text: "AAAI SecureAI4Health Poster",
+        href: "https://aaai.org/fall-symposium/secureai4health/", // jtodo replace with actual link
+      },
+      {
+        text: "Paper",
+        href: "#", // jtodo replace with actual link
+      },
+      {
+        text: "Slides",
+        href: "https://www.canva.com/design/DAG3TYSBrK4/8J1viIPpVURMWsEKYrlLBQ/view?utm_content=DAG3TYSBrK4&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=he25515b9bf",
+      },
+    ],
+    image: "/projects/hermes.png",
+    year: 2025,
+  },
+  
+  {
+    name: "ML4Labs - Predicting Glucose Test Ordering in Hospitals",
+    slug: "glucose-prediction",
+  
+    blurb:
+      "A multi-modal deep learning system using Clinical BioBERT and LSTM models to predict laboratory test ordering across multiple hospitals. Accepted and presented at the AAAI SecureAI4Health 2025 Symposium.",
+  
+    description: `Excessive laboratory testing contributes to significant healthcare costs and patient burden. This project develops a deep learning framework that predicts whether a glucose test will be ordered in the next AM/PM time bin, using the GEMINI dataset.
+  
+    The model integrates **Clinical BioBERT embeddings** for unstructured notes with **Long Short-Term Memory (LSTM)** networks for temporal modeling, achieving **ROC-AUC 0.92**, **PR-AUC 0.67**, and **cross-hospital generalization 0.84 ROC-AUC**. Temporal recency cues further enhanced predictive stability.
+  
+    The project was **presented at the AAAI SecureAI4Health Symposium 2025** (poster + lightning talk) and showcased at **Vector Remarkable 2025**, marking progress toward real-time decision support for reducing unnecessary lab tests.`,
+  
+    technologies: ["Python", "Keras", "Tensorflow", "SQLAlchemy", "Clinical BioBERT", "GEMINI Dataset", "LSTM"],
+    links: [
+      {
+        text: "AAAI SecureAI4Health Poster",
+        href: "https://aaai.org/fall-symposium/secureai4health/", // jtodo replace with actual link
+      },
+      {
+        text: "Paper",
+        href: "https://aaai.org/fall-symposium/secureai4health/", // jtodo replace with actual link
+      },
+      {
+        text: "Slides",
+        href: "https://www.canva.com/design/DAG3TLvU31o/V4_Q2W_gjuzsPXY9QHWqgQ/view?utm_content=DAG3TLvU31o&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h361faae11e", 
+      },
+    ],
+    image: "/projects/glucose-prediction.webp",
+    year: 2025,
+  },
+  
+  // {
+  //   name: "ML4Labs - Undergraduate Thesis Research & Ongoing Research at the Vector Institute",
+  //   slug: "ml4labs", // The path to the standalone project page
+
+  //   blurb:
+  //     "A research project that aims to use recurrent neural networks for real-time prediction of laboratory test requirements, reducing unnecessary tests and improving healthcare efficiency", // Goes under the project name in the previews
+  //   description: `Unnecessary laboratory tests contribute to healthcare waste, increased costs, and risks such as hospital-acquired anemia. Our research seeks to address this by using Recurrent Neural Networks (RNNs) (currently Long Short-Term Memory (LSTM) networks) for real-time prediction of laboratory test requirements, focusing on efficiently determining the necessity and timing of tests. 
+
+  //     By applying deep learning techniques to clinical data, we aim to enhance decision-making for healthcare professionals. Using Python, Keras, TensorFlow, and the GEMINI dataset, we built a system that predicts glucose test occurrences, achieving an accuracy of 76%, which is a 23% improvement over our baseline model. 
+      
+  //     The novelty of our work lies in modeling temporal relationships in GEMINI clinical data using RNNs, with significant implications for both theoretical and practical aspects of healthcare. 
+      
+  //     Note: This project has been updated and is in progress as I continue this research as a research intern at the Vector Institute, where we are exploring novel methods to enhance the system's performance and integration. I will be presenting our preliminary results at the Vector/GEMINI Research Day event on June 24, 2024 from 8:30 to 11:30 am.
+  //     `,
+  //   technologies: ["Python", "Keras", "TensorFlow", "GEMINI Dataset"],
+  //   links: [
+  //     {
+  //       text: "Thesis Slides",
+  //       href: "https://www.canva.com/design/DAGCoUIZ760/JZb2TjEkTySAwU1DVs3Log/view?utm_content=DAGCoUIZ760&utm_campaign=designshare&utm_medium=link&utm_source=editor",
+  //     },
+  //   ],
+  //   image: "/projects/ml4labs.webp",
+  //   year: 2024,
+  // },
   {
     name: "Unsupervised Anomaly Detection in Magnetic Resonance Images - NSERC USRA 2023",
     slug: "unsupervised-anomaly",
@@ -162,7 +256,7 @@ const projectData: Project[] = [
     year: 2021,
   },
   {
-    name: "[Mentorship] PlatePal - AI4Good Lab Project + Edmonton Accelerator Award 2023 Winner",
+    name: "[Mentoring] PlatePal - AI4Good Lab Project + Edmonton Accelerator Award 2023 Winner",
     slug: "platepal",
 
     blurb: `"Spice Up, Save Up" revolutionizes student nutrition, offering affordable and wholesome meal choices to combat food insecurity in Canada.`,
@@ -199,7 +293,7 @@ const projectData: Project[] = [
     year: 2021,
   },
   {
-    name: "[Mentorship] Your Perfect Closet - Women+ in Technology Society ADA Program Project + Winner of Most Creative and Best JAM3 Project",
+    name: "[Mentoring] Your Perfect Closet - Women+ in Technology Society ADA Program Project + Winner of Most Creative and Best JAM3 Project",
     slug: "perfect-closet",
 
     blurb: `A Chrome extension that enhances online shopping by allowing users to create a personalized, interactive virtual closet, winning awards for Most Creative Project and Best JAM3 Project.`,
