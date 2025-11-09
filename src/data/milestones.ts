@@ -4,11 +4,55 @@
 
 const milestones: Milestone[] = [
   {
-    text: "Presented Research at the Vector/GEMINI Research Day🤓",
+    text: "Attended and presented two papers at the AAAI Secure AI4H Fall Symposium in Arlington, VA!",
+    date: "Nov 2025",
+  },
+  {
+    text: "Presented ongoing climate work at the Global AI Alliance for Climate Action showcase event in Toronto",
+    date: "May 2025",
+  },
+  {
+    text: "Presented a poster and talk of ongoing research at the Western Research Forum",
+    date: "Mar 2025",
+  },
+  {
+    text: "Presented a poster of ongoing research at Vector Remarkable",
+    date: "Mar 2025",
+  },
+  {
+    text: "Started a new climate project with an NGO from the Global South as part of the Global AI Alliance for Climate Action!",
+    date: "Jan 2025",
+  },
+  {
+    text: "Organized and volunteered at Brainhack Western 2025 🧠",
+    date: ["Jan 2025", "Mar 2025"],
+  },
+  {
+    text: "Organized the Western University Research in Computer Science (UWORCS) Conference",
+    date: ["Dec 2024", "Apr 2025"],
+  },
+  {
+    text: "Attended the AI for Climate Summit in Istanbul, Turkiye 🇹🇷",
+    date: "Nov 2024",
+  },
+  {
+    text: "Joined the Vector Institute's Global AI Alliance for Climate Action ☔️",
+    date: "Oct 2024",
+  },
+  {
+    text: "Started my MSc in Computer Science - Vector Collaborative Specialization in AI under the supervision of Dr. Yalda Mohsenzadeh",
+    date: "Sept 2024",
+  },
+  {
+    text: "Presented Research at the Vector/GEMINI Research Day 🤓",
     date: "Jun 2024",
   },
   {
-    text: "Officially graduated! B.Sc. Honours with a Specialization in Computer Science from Western University 🎓",
+    text: "Received the Western Gold Medal for the highest standing in the Honors Specialization degree 🥇",
+    date: "Jun 2024",
+  },
+  {
+    text: "Officially graduated! B.Sc. Honors with a Specialization in Computer Science from Western University 🎓",
     date: "Jun 2024",
   },
   {
