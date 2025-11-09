@@ -46,7 +46,7 @@ export default function Hero() {
           style={{
             borderRadius: 20,
           }}
-          className="z-0 hidden aspect-square w-full min-w-[25rem] max-w-[40%]  bg-[url('/me.webp')]  bg-cover bg-top md:block"
+          className="z-0 hidden aspect-square w-full min-w-[25rem] max-w-[40%]  bg-[url('/me.jpg')]  bg-cover bg-top md:block"
         />
       </motion.div>
     </motion.section>

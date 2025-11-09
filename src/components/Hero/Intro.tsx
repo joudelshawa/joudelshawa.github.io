@@ -56,7 +56,7 @@ export default function Intro() {
           }}
         >
           <div className="w-10 rounded-full">
-            <img alt="Tailwind CSS chat bubble component" src="/me.webp" />
+            <img alt="Tailwind CSS chat bubble component" src="/me.jpg" />
           </div>
         </motion.div>
 
@@ -77,7 +77,7 @@ export default function Intro() {
           style={{
             borderRadius: 50,
           }}
-          className="z-0 hidden h-10 w-10 bg-[url('/me.webp')] bg-cover bg-center md:block"
+          className="z-0 hidden h-10 w-10 bg-[url('/me.jpg')] bg-cover bg-center md:block"
         ></motion.div>
       </motion.div>
     </motion.div>

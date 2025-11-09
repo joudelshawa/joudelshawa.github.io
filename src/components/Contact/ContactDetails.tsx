@@ -20,10 +20,9 @@ export default function ContactDetails() {
       className="flex h-full flex-col justify-between gap-8 px-10 pb-16 pt-24 text-white"
     >
       <motion.div exit="hidden" variants={liVariants}>
-        <p className="text-slate-500">Get in touch</p>
+        <p className="text-slate-500">Get in touch!</p>
         <p className="text-xl text-slate-300">
-          I&apos;m open to new opportunities and connections, please don&apos;t
-          hesitate to contact me!
+          Feel free to reach out, I&apos;m always excited to learn, collaborate, and contribute to impactful projects! 💬
         </p>
       </motion.div>
       <motion.ul
