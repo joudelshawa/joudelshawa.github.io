@@ -2,6 +2,8 @@ import "@/styles/globals.css"
 
 import { AnimatePresence, motion } from "framer-motion"
 import { Inter } from "next/font/google"
+import { Poppins } from "next/font/google"
+
 import Head from "next/head"
 
 import Footer from "@/components/Footer/Footer"
@@ -16,12 +18,17 @@ import MouseTrail from "@/components/MouseTrail"
 
 const interFont = Inter({ subsets: ["latin"] })
 
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"], // optional
+})
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Joud El-Shawa&apos;s Portfolio</title>
-        <meta name="description" content="Joud El-Shawa's Portfolio" />
+        <title>Joud El-Shawa</title>
+        <meta name="description" content="Joud El-Shawa" />
       </Head>
       <IntroContextProvider>
         <ProjectContextProvider>
@@ -47,7 +54,7 @@ export default function App({ Component, pageProps }: AppProps) {
                   },
                 }}
               > */}
-            <main className={`${interFont.className}`}>
+            <main className={`${poppins.className}`}>
               <Component {...pageProps} />
             </main>
             <Footer />
