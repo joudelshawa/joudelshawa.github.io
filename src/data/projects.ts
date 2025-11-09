@@ -2,11 +2,11 @@
 const projectData: Project[] = [
 
   {
-    name: "Localized Heatwave Forecasting with Graph Neural Networks",
+    name: "FairCast",
     slug: "gnn-heatwave-forecasting",
   
     blurb:
-      "A graph neural network framework for localized, high-resolution temperature forecasting and equitable early-warning systems. Accepted to the NeurIPS 2025 Workshop on Tackling Climate Change with Machine Learning",
+      "Accepted to the NeurIPS 2025 Workshop on Tackling Climate Change with Machine Learning. A graph neural network framework for localized, high-resolution temperature forecasting and equitable early-warning systems.",
   
     description: `Heatwaves are intensifying worldwide and disproportionately affect marginalized communities in the Global South, where limited infrastructure and data availability hinder early-warning systems. This project introduces a Graph Neural Network (GNN) framework for high-resolution temperature forecasting, capturing spatial dependencies across thousands of grid points in Southwestern Ontario.
   
@@ -18,11 +18,11 @@ const projectData: Project[] = [
     links: [
       {
         text: "NeurIPS Workshop Poster",
-        href: "https://google.com", // jtodo replace with actual link
+        href: "#", // jtodo replace with actual link
       },
       {
         text: "Paper",
-        href: "https://google.com", // jtodo replace with actual link
+        href: "#", // jtodo replace with actual link
       },
       {
         text: "Talk",
@@ -33,15 +33,15 @@ const projectData: Project[] = [
         href: "https://www.canva.com/design/DAG3jpaBZCg/ZMhMLCqysaNfpm8vviJaew/view?utm_content=DAG3jpaBZCg&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h4fe2b9be28", 
       },
     ],
-    image: "/projects/gnn-heatwave.webp",
+    image: "/projects/gnn.png",
     year: 2025,
   },
   {
-    name: "Hermes – A Modular Multi-Agent System for Structuring Clinical Text",
+    name: "Hermes",
     slug: "hermes-clinical-nlp",
   
     blurb:
-      "A large-language-model-driven multi-agent system that transforms unstructured clinical notes into structured reports and knowledge graphs. Accepted and presented at the AAAI SecureAI4Health 2025 Symposium.",
+      "Accepted and presented at the AAAI SecureAI4Health 2025 Symposium. A large-language-model-driven multi-agent system that transforms unstructured clinical notes into structured reports and knowledge graphs.",
   
     description: `Unstructured clinical text poses major challenges for automation and interpretability in healthcare. **Hermes** is a **multi-agent large language model (LLM) framework** that sequentially converts discharge summaries into structured **SOAP-format reports** and **knowledge graphs**.
   
@@ -53,7 +53,7 @@ const projectData: Project[] = [
     links: [
       {
         text: "AAAI SecureAI4Health Poster",
-        href: "https://aaai.org/fall-symposium/secureai4health/", // jtodo replace with actual link
+        href: "#", // jtodo replace with actual link
       },
       {
         text: "Paper",
@@ -69,11 +69,11 @@ const projectData: Project[] = [
   },
   
   {
-    name: "ML4Labs - Predicting Glucose Test Ordering in Hospitals",
+    name: "ML4Labs",
     slug: "glucose-prediction",
   
     blurb:
-      "A multi-modal deep learning system using Clinical BioBERT and LSTM models to predict laboratory test ordering across multiple hospitals. Accepted and presented at the AAAI SecureAI4Health 2025 Symposium.",
+      "Accepted and presented at the AAAI SecureAI4Health 2025 Symposium. A multi-modal deep learning system using Clinical BioBERT and LSTM models to predict laboratory test ordering across multiple hospitals.",
   
     description: `Excessive laboratory testing contributes to significant healthcare costs and patient burden. This project develops a deep learning framework that predicts whether a glucose test will be ordered in the next AM/PM time bin, using the GEMINI dataset.
   
@@ -85,51 +85,26 @@ const projectData: Project[] = [
     links: [
       {
         text: "AAAI SecureAI4Health Poster",
-        href: "https://aaai.org/fall-symposium/secureai4health/", // jtodo replace with actual link
+        href: "#", // jtodo replace with actual link
       },
       {
         text: "Paper",
-        href: "https://aaai.org/fall-symposium/secureai4health/", // jtodo replace with actual link
+        href: "#", // jtodo replace with actual link
       },
       {
         text: "Slides",
         href: "https://www.canva.com/design/DAG3TLvU31o/V4_Q2W_gjuzsPXY9QHWqgQ/view?utm_content=DAG3TLvU31o&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h361faae11e", 
       },
     ],
-    image: "/projects/glucose-prediction.webp",
+    image: "/projects/ml4labs.webp",
     year: 2025,
   },
-  
-  // {
-  //   name: "ML4Labs - Undergraduate Thesis Research & Ongoing Research at the Vector Institute",
-  //   slug: "ml4labs", // The path to the standalone project page
-
-  //   blurb:
-  //     "A research project that aims to use recurrent neural networks for real-time prediction of laboratory test requirements, reducing unnecessary tests and improving healthcare efficiency", // Goes under the project name in the previews
-  //   description: `Unnecessary laboratory tests contribute to healthcare waste, increased costs, and risks such as hospital-acquired anemia. Our research seeks to address this by using Recurrent Neural Networks (RNNs) (currently Long Short-Term Memory (LSTM) networks) for real-time prediction of laboratory test requirements, focusing on efficiently determining the necessity and timing of tests. 
-
-  //     By applying deep learning techniques to clinical data, we aim to enhance decision-making for healthcare professionals. Using Python, Keras, TensorFlow, and the GEMINI dataset, we built a system that predicts glucose test occurrences, achieving an accuracy of 76%, which is a 23% improvement over our baseline model. 
-      
-  //     The novelty of our work lies in modeling temporal relationships in GEMINI clinical data using RNNs, with significant implications for both theoretical and practical aspects of healthcare. 
-      
-  //     Note: This project has been updated and is in progress as I continue this research as a research intern at the Vector Institute, where we are exploring novel methods to enhance the system's performance and integration. I will be presenting our preliminary results at the Vector/GEMINI Research Day event on June 24, 2024 from 8:30 to 11:30 am.
-  //     `,
-  //   technologies: ["Python", "Keras", "TensorFlow", "GEMINI Dataset"],
-  //   links: [
-  //     {
-  //       text: "Thesis Slides",
-  //       href: "https://www.canva.com/design/DAGCoUIZ760/JZb2TjEkTySAwU1DVs3Log/view?utm_content=DAGCoUIZ760&utm_campaign=designshare&utm_medium=link&utm_source=editor",
-  //     },
-  //   ],
-  //   image: "/projects/ml4labs.webp",
-  //   year: 2024,
-  // },
   {
-    name: "Unsupervised Anomaly Detection in Magnetic Resonance Images - NSERC USRA 2023",
+    name: "Unsupervised Anomaly Detection in MRIs",
     slug: "unsupervised-anomaly",
 
     blurb:
-      "The project aimed to develop an automated deterministic segmentation solution for accurately identifying brain tumor boundaries in MRI images using and improving upon existing Denoising Autoencoder and U-net models.",
+      "This project was conducted as part of an NSERC Undergraduate Student Research Award and aimed to develop an automated deterministic segmentation solution for accurately identifying brain tumor boundaries in MR images using and improving upon existing Denoising Autoencoder and U-net models.",
     description: `Natural Sciences and Engineering Research Council of Canada (NSERC) Undergraduate Student Research Award Project - Done under the supervision of Dr. Yalda Mohsenzadeh, Associate Professor at Western University and Faculty Member at the Vector Institute
 
     Manual detection and tracing of tumor boundaries are impractical due to their tedious, time-consuming, and subjective nature, leading to inconsistencies and inefficiencies in clinical applications. To overcome these challenges, we explored and aimed to improve existing automated segmentation methods using machine learning. We focused on addressing the challenges in accurately identifying brain tumor boundaries in MRI images, particularly for Glioblastoma (GBM) and diffuse astrocytic glioma, the most aggressive malignant primary tumors of the central nervous system.
@@ -155,11 +130,11 @@ const projectData: Project[] = [
     year: 2023,
   },
   {
-    name: "BankYeller - Hackwestern 8 Project + “Best Use of Dasha AI” Winner",
+    name: "BankYeller",
     slug: "bank-yeller",
 
     blurb:
-      "An application that allows the user to voice chat with an AI to get their latest bank account information and be able to pay their bills vocally.",
+      "Hackwestern 8 Project + “Best Use of Dasha AI” Winner - An application that allows the user to voice chat with an AI to get their latest bank account information and be able to pay their bills vocally.",
     description: `
     Bank Yeller is a program that allows users to voice chat with an AI assistant to get their latest bank account information and be able to pay their bills vocally. We also deployed an SQL Database on Google Cloud Platform to mimic a bank’s database and demonstrate how this would work in everyday life.
     
@@ -191,11 +166,11 @@ const projectData: Project[] = [
     year: 2022,
   },
   {
-    name: "Evaluating Machine Learning Model Stability for Software Bug Prediction - IBM + Western University Research",
+    name: "Evaluating Machine Learning Model Stability for Software Bug Prediction",
     slug: "ibm-uwo-research",
 
     blurb:
-      "A project aiming to investigate risk prediction of software system failures and evaluate machine learning model stability for software bug prediction.",
+      "IBM + Western University Research - A project aiming to investigate risk prediction of software system failures and evaluate machine learning model stability for software bug prediction.",
     description: `Large software systems are implemented using many different programming languages and scripts, and consequently the dependencies between their components are very complex. It is therefore difficult to extract and understand these dependencies by solely analyzing the source code, so that failure risks can be detected accurately. On the other hand, it is a common practice for software engineers to keep track of process related metrics such as the number of times a component was maintained, with which other components it has been co-committed, whether the maintenance activity was a bug-fixing activity, and how many lines of source code have been altered. These data provide valuable information to be used for training a machine learning model and for devising metrics which can predict the risk associated with a future failure of a component due to maintenance activities in this or in another component related to it.
 
     In collaboration with IBM Centre for Advanced Studies and as part of my Western University Undergraduate Student Research Internship (USRI) under the supervision of Dr. Konstantinos Kontogiannis, I investigated the risk prediction of software system failures and evaluated the stability of machine learning models for software bug prediction. Large software systems, implemented using various programming languages and scripts, have complex dependencies that are difficult to extract and understand solely through source code analysis. By utilizing process-related metrics, such as maintenance frequency, co-commitment with other components, bug-fixing activities, and lines of code altered, we trained a machine learning model to predict the risk of future failures due to maintenance activities. 
@@ -212,11 +187,11 @@ const projectData: Project[] = [
     year: 2022,
   },
   {
-    name: "SoQuo - AI4Good Lab Project + Edmonton Accelerator Award Winner",
+    name: "SoQuo",
     slug: "soquo",
 
     blurb:
-      "SoQuo is an app that improves a user’s social media experience by helping them evaluate the impact of online interactions on their mental health.",
+      "AI4Good Lab Project + Edmonton Accelerator Award Winner - SoQuo is an app that improves a user’s social media experience by helping them evaluate the impact of online interactions on their mental health.",
     description: `Our goal was to answer the question: how can we protect our mental well-being and still fully participate in social media?
 
     As a team, we wanted to create a tool that would allow users to remain active on popular social media platforms while remaining mindful of their mental health. Our project, SoQuo, aims to solve the problem of over-exposure to harmful or disturbing content seen on social media. SoQuo is a mobile app that aims to help users understand how their feed affects their mood, without becoming ignorant of current events. With such a tool, we hope that users both with and without mental illnesses can use social media more consciously.
@@ -240,11 +215,11 @@ const projectData: Project[] = [
     year: 2022,
   },
   {
-    name: "ViewTheWorld - Software Engineering Course Group Project",
+    name: "ViewTheWorld",
     slug: "viewtheworld",
 
     blurb:
-      "Led an Agile team to develop a program that retrieves and visualizes environmental and health data from the World Bank’s data repository for selected countries.",
+      "Software Engineering Course Group Project - A program that retrieves and visualizes environmental and health data from the World Bank’s data repository for selected countries.",
     description: `Led a team of five using an Agile software development approach to create a program that retrieves and visualizes environmental and health data for selected countries from the World Bank’s data repository. 
 
     Working in sprints, we delivered the specification, design, implementation, and testing of the system. Our design process included creating UML diagrams with design patterns such as Singleton, Strategy, Factory, Proxy, and Observer. For implementation and testing, we used Java and HTTP GET requests, ensuring a robust and efficient solution.
@@ -256,10 +231,10 @@ const projectData: Project[] = [
     year: 2021,
   },
   {
-    name: "[Mentoring] PlatePal - AI4Good Lab Project + Edmonton Accelerator Award 2023 Winner",
+    name: "[Mentoring] PlatePal",
     slug: "platepal",
 
-    blurb: `"Spice Up, Save Up" revolutionizes student nutrition, offering affordable and wholesome meal choices to combat food insecurity in Canada.`,
+    blurb: `AI4Good Lab Project + Edmonton Accelerator Award 2023 Winner - "Spice Up, Save Up" revolutionizes student nutrition, offering affordable and wholesome meal choices to combat food insecurity in Canada.`,
     description: `The Plate Pal project aims to address food insecurity by developing a user-friendly website that helps individuals with limited access to affordable groceries.
 
     Plate Pal is designed to generate a curated list of the most budget-friendly grocery options based on the user's postal code and specific dietary restrictions. The platform creates a seamless and empowering experience, enabling users to make informed decisions about their food choices. 
@@ -293,10 +268,10 @@ const projectData: Project[] = [
     year: 2021,
   },
   {
-    name: "[Mentoring] Your Perfect Closet - Women+ in Technology Society ADA Program Project + Winner of Most Creative and Best JAM3 Project",
+    name: "[Mentoring] Your Perfect Closet",
     slug: "perfect-closet",
 
-    blurb: `A Chrome extension that enhances online shopping by allowing users to create a personalized, interactive virtual closet, winning awards for Most Creative Project and Best JAM3 Project.`,
+    blurb: `Women+ in Technology Society ADA Program Project + Winner of Most Creative and Best JAM3 Project - A Chrome extension that enhances online shopping by allowing users to create a personalized, interactive virtual closet.`,
     description: `As part of the Women+ in Technology Society’s Ada Mentorship Program, six first- and second-year female undergraduate students developed "Your Perfect Closet," a Chrome extension designed to enhance online shopping experiences. The project addressed the challenges faced by users who struggle with the overwhelming number of choices and the difficulty in visualizing how clothes will look together when shopping online. The extension allows users to save items from websites like H&M into a single, interactive drag-and-drop interface, where they can mix and match outfits on a personalized avatar. This streamlined process reduces the hassle of multiple open tabs and improves confidence in online purchases.
 
     The project used tools like Figma for wireframing and JavaScript for the Chrome extension. As a mentor, I guided the team through the Agile process, helped them with technical challenges, and inspired them to pursue careers in technology. 
