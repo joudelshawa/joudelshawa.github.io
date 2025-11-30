@@ -100,7 +100,7 @@ export default function ProjectDetailPage({
                   >
                     {link.text}
                   </Link>
-                  {i < project.links.length - 1 && ', '}
+                  {project.links && i < project.links.length - 1 && ', '}
                 </>
               ))}
             </p>
