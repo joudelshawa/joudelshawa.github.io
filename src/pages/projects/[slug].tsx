@@ -1,6 +1,12 @@
+import fs from 'fs'
+import path from 'path'
+
 import { motion } from 'framer-motion'
+import matter from 'gray-matter'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { serialize } from 'next-mdx-remote/serialize'
 import { useEffect } from 'react'
 
 import Navbar from '@/components/Navbar/Navbar'
@@ -12,11 +18,20 @@ import type { InferGetStaticPropsType, GetStaticProps } from "next"
 
 export const getStaticProps = (async (context) => {
   const slug = context.params?.slug as string
-  const repo = projectData.find((project) => project.slug === slug)!
+  const project = projectData.find((project) => project.slug === slug)!
 
-  return { props: { project: repo } }
+  // Read markdown file
+  const contentPath = path.join(process.cwd(), 'content', 'projects', `${slug}.md`)
+  const fileContents = fs.readFileSync(contentPath, 'utf8')
+  const { content } = matter(fileContents)
+  
+  // Serialize markdown to MDX
+  const mdxSource = await serialize(content)
+
+  return { props: { project, mdxSource } }
 }) satisfies GetStaticProps<{
   project: Project
+  mdxSource: MDXRemoteSerializeResult
 }>
 
 export const getStaticPaths = () => {
@@ -29,6 +44,7 @@ export const getStaticPaths = () => {
 
 export default function ProjectDetailPage({
   project,
+  mdxSource,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
 
@@ -77,9 +93,9 @@ export default function ProjectDetailPage({
         <ProjectDetailImage project={project} />
         <div className="w-full space-y-6">
           <p className="italic text-slate-900">{project.blurb}</p>
-          <p className="whitespace-pre-line text-justify text-slate-600">
-            {project.description}
-          </p>
+          <div className="prose prose-slate max-w-none text-justify text-slate-600 prose-p:text-slate-600 prose-strong:text-slate-700 prose-img:rounded-lg">
+            <MDXRemote {...mdxSource} />
+          </div>
           {/* {project.links &&
             project.links.map((link) => (
               <Link

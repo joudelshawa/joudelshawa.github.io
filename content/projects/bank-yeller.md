@@ -1,0 +1,3 @@
+Bank Yeller is a program that allows users to voice chat with an AI assistant to get their latest bank account information and be able to pay their bills vocally. We also deployed an SQL Database on Google Cloud Platform to mimic a bank's database and demonstrate how this would work in everyday life.
+
+Bank Yeller was created to address the concern that people who are visually impaired and/or not tech-savvy might struggle as consumers are having to increasingly rely on Web-based banking and financial systems. By using Bank Yeller, consumers will be able to access their bank information using their voice, without having to deal with any confusing interfaces!

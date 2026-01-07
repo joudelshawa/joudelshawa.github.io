@@ -7,7 +7,6 @@ declare global {
     name: string
     slug: string
     blurb: string
-    description: string
     technologies: string[]
     image: string
     year: number
