@@ -234,7 +234,7 @@ const projectData: Project[] = [
   {
     name: "[Mentoring] PlatePal",
     slug: "platepal",
-
+    category: "Mentoring",
     blurb: `AI4Good Lab Project + Edmonton Accelerator Award 2023 Winner - "Spice Up, Save Up" revolutionizes student nutrition, offering affordable and wholesome meal choices to combat food insecurity in Canada.`,
     description: `The Plate Pal project aims to address food insecurity by developing a user-friendly website that helps individuals with limited access to affordable groceries.
 
@@ -271,7 +271,7 @@ const projectData: Project[] = [
   {
     name: "[Mentoring] Your Perfect Closet",
     slug: "perfect-closet",
-
+    category: "Mentoring",
     blurb: `Women+ in Technology Society ADA Program Project + Winner of Most Creative and Best JAM3 Project - A Chrome extension that enhances online shopping by allowing users to create a personalized, interactive virtual closet.`,
     description: `As part of the Women+ in Technology Society’s Ada Mentorship Program, six first- and second-year female undergraduate students developed "Your Perfect Closet," a Chrome extension designed to enhance online shopping experiences. The project addressed the challenges faced by users who struggle with the overwhelming number of choices and the difficulty in visualizing how clothes will look together when shopping online. The extension allows users to save items from websites like H&M into a single, interactive drag-and-drop interface, where they can mix and match outfits on a personalized avatar. This streamlined process reduces the hassle of multiple open tabs and improves confidence in online purchases.
 

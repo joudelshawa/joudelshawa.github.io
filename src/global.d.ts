@@ -11,6 +11,7 @@ declare global {
     technologies: string[]
     image: string
     year: number
+    category?: string
     links?: {
       text: string
       href: string

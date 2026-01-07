@@ -101,6 +101,19 @@ export default function ProjectTitle({ project }: Props) {
         >
           {project.year}
         </p>
+        {project.category && (
+          <p
+            className={cn(
+              "font-mono text-xs uppercase tracking-widest transition-all duration-500 ease-in-out",
+              isInViewProject ? "text-slate-500" : "text-slate-400",
+              isInViewProject
+                ? "translate-x-0 opacity-100 delay-500"
+                : "translate-x-1 opacity-0"
+            )}
+          >
+            {project.category}
+          </p>
+        )}
         <motion.span
           key={project.name}
           layoutId={project.name}
