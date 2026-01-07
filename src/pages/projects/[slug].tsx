@@ -46,7 +46,7 @@ export default function ProjectDetailPage({
   return (
     <>
       <Navbar navLinks={[]} />
-      <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 py-24">
+      <div className="relative mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-24">
         <button
           className="text-md group flex w-min items-center justify-center rounded-2xl  bg-gradient-to-tr from-slate-100 to-slate-50 py-3 pl-4 pr-5 font-medium text-slate-700"
           type="button"
@@ -75,43 +75,47 @@ export default function ProjectDetailPage({
           {project.name}
         </motion.span>
         <ProjectDetailImage project={project} />
-        <p className="italic text-slate-900">{project.blurb}</p>
-        <p className="whitespace-pre-line text-justify text-slate-600">
-          {project.description}
-        </p>
-        {/* {project.links &&
-          project.links.map((link) => (
-            <Link
-              className="font-mono text-blue-700 underline"
-              href={link.href}
-              key={link.text}
-            >
-              {link.text}
-            </Link>
-          ))} */}
-        {project.links && (
-            <p className="font-mono text-blue-700">
-              {project.links.map((link, i) => (
-                <>
-                  <Link
-                    className="underline"
-                    href={link.href}
-                    key={link.text}
-                  >
-                    {link.text}
-                  </Link>
-                  {project.links && i < project.links.length - 1 && ', '}
-                </>
-              ))}
-            </p>
-          )}
+        <div className="w-full space-y-6">
+          <p className="italic text-slate-900">{project.blurb}</p>
+          <p className="whitespace-pre-line text-justify text-slate-600">
+            {project.description}
+          </p>
+          {/* {project.links &&
+            project.links.map((link) => (
+              <Link
+                className="font-mono text-blue-700 underline"
+                href={link.href}
+                key={link.text}
+              >
+                {link.text}
+              </Link>
+            ))} */}
+          {project.links && (
+              <p className="font-mono text-blue-700">
+                {project.links.map((link, i) => (
+                  <>
+                    <Link
+                      className="underline"
+                      href={link.href}
+                      key={link.text}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {link.text}
+                    </Link>
+                    {project.links && i < project.links.length - 1 && ', '}
+                  </>
+                ))}
+              </p>
+            )}
 
-        <div className="flex flex-wrap gap-4">
-          {project.technologies.map((tech, index) => (
-            <TechPill key={tech} index={index}>
-              {tech}
-            </TechPill>
-          ))}
+          <div className="flex flex-wrap gap-4">
+            {project.technologies.map((tech, index) => (
+              <TechPill key={tech} index={index}>
+                {tech}
+              </TechPill>
+            ))}
+          </div>
         </div>
       </div>
     </>
