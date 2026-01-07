@@ -18,15 +18,15 @@ const projectData: Project[] = [
     links: [
       {
         text: "NeurIPS Workshop Poster",
-        href: "#", // jtodo replace with actual link
+        href: "https://s3.us-east-1.amazonaws.com/climate-change-ai/papers/neurips2025/61/poster.pdf"
       },
       {
         text: "Paper",
-        href: "#", // jtodo replace with actual link
+        href: "https://s3.us-east-1.amazonaws.com/climate-change-ai/papers/neurips2025/61/paper.pdf"
       },
       {
         text: "Talk",
-        href: "#", // jtodo replace with actual link
+        href: "https://www.climatechange.ai/papers/neurips2025/61#recording"
       },
       {
         text: "Slides",
@@ -53,11 +53,11 @@ const projectData: Project[] = [
     links: [
       {
         text: "AAAI SecureAI4Health Poster",
-        href: "#", // jtodo replace with actual link
+        href: "https://drive.google.com/file/d/1uX16AoPzxpECsEIyMR6p63_u_VpIEA9C/view"
       },
       {
         text: "Paper",
-        href: "#", // jtodo replace with actual link
+        href: "https://ojs.aaai.org/index.php/AAAI-SS/article/view/36936"
       },
       {
         text: "Slides",
@@ -85,11 +85,11 @@ const projectData: Project[] = [
     links: [
       {
         text: "AAAI SecureAI4Health Poster",
-        href: "#", // jtodo replace with actual link
+        href: "https://drive.google.com/file/d/1nLRisia6qJUaBRRlnuyLgC0ar0N1Mk15/view"
       },
       {
         text: "Paper",
-        href: "#", // jtodo replace with actual link
+        href: "https://ojs.aaai.org/index.php/AAAI-SS/article/view/36924"
       },
       {
         text: "Slides",
