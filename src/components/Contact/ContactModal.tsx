@@ -16,10 +16,14 @@ export default function ContactModal() {
     width: pixelWidth,
   }
 
+  // Scale down to fit smaller screens while maintaining 5:3 aspect ratio
+  const desktopHeight = Math.min(800, pixelHeight * 0.85)
+  const desktopWidth = (desktopHeight * 480) / 800
+
   const variants: AnimationProps["variants"] = {
     open: {
-      height: isMobile ? mobileSizes.height : 800,
-      width: isMobile ? mobileSizes.width : 480,
+      height: isMobile ? mobileSizes.height : desktopHeight,
+      width: isMobile ? mobileSizes.width : desktopWidth,
       top: isMobile ? "-1rem" : "-10px",
       right: isMobile ? "-2rem" : "-10px",
       borderRadius: isMobile ? 0 : 24,
