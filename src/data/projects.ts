@@ -232,7 +232,7 @@ const projectData: Project[] = [
     year: 2021,
   },
   {
-    name: "[Mentoring] PlatePal",
+    name: "PlatePal",
     slug: "platepal",
     category: "Mentoring",
     blurb: `AI4Good Lab Project + Edmonton Accelerator Award 2023 Winner - "Spice Up, Save Up" revolutionizes student nutrition, offering affordable and wholesome meal choices to combat food insecurity in Canada.`,
@@ -269,7 +269,7 @@ const projectData: Project[] = [
     year: 2021,
   },
   {
-    name: "[Mentoring] Your Perfect Closet",
+    name: "Your Perfect Closet",
     slug: "perfect-closet",
     category: "Mentoring",
     blurb: `Women+ in Technology Society ADA Program Project + Winner of Most Creative and Best JAM3 Project - A Chrome extension that enhances online shopping by allowing users to create a personalized, interactive virtual closet.`,
