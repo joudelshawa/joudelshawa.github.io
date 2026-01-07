@@ -1,0 +1,7 @@
+Our goal was to answer the question: how can we protect our mental well-being and still fully participate in social media?
+
+As a team, we wanted to create a tool that would allow users to remain active on popular social media platforms while remaining mindful of their mental health. Our project, SoQuo, aims to solve the problem of over-exposure to harmful or disturbing content seen on social media. SoQuo is a mobile app that aims to help users understand how their feed affects their mood, without becoming ignorant of current events. With such a tool, we hope that users both with and without mental illnesses can use social media more consciously.
+
+SoQuo analyzes your Twitter home timeline by extracting all of its topics from it in real-time. It then summarizes the tweets into two metrics. One metric, the Feed Sentiment metric, tells you how much of your feed is positive, negative, or neutral. The other metric, the Today's Topics metric, tells you the ratio of each topic on your overall Twitter feed, as well as your most likely associated emotion. SoQuo provides insights as well as warnings, and acquires this data by asking the user how they felt about the most prevalent topics they saw on their timeline after they closed a social media app.
+
+Keywords: Mental health, natural language processing (NLP), emotions, machine learning (ML), topic classification, topic modelling, sentiment analysis, user interface (UI)/ user experience (UX), artificial intelligence (AI), random forest

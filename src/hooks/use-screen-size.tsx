@@ -8,9 +8,9 @@ type Screensize = "sm" | "md" | "lg" | "xl" | "2xl"
 const fullConfig = resolveConfig(tailwindConfig)
 
 export default function useScreenSize() {
-  const [screenSize, setScreenSize] = useState<Screensize>()
-  const [pixelWidth, setPixelWidth] = useState<number>()
-  const [pixelHeight, setPixelHeight] = useState<number>()
+  const [screenSize, setScreenSize] = useState<Screensize | undefined>(undefined)
+  const [pixelWidth, setPixelWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 0)
+  const [pixelHeight, setPixelHeight] = useState<number>(typeof window !== 'undefined' ? window.innerHeight : 0)
 
   const isMobile = useMemo(
     () => screenSize === "sm" || screenSize === "md",

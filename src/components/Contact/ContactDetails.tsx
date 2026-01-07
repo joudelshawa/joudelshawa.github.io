@@ -1,4 +1,4 @@
-import { AnimationProps, motion } from 'framer-motion'
+import { AnimatePresence, AnimationProps, motion } from 'framer-motion'
 import { useState } from 'react'
 
 import { ease } from '@/utils/framer'
@@ -16,12 +16,14 @@ export default function ContactDetails() {
     <div
       style={{
         textTransform: "none",
+        padding: "clamp(1.5rem, 6vh, 6rem) clamp(1.5rem, 5vw, 2.5rem) clamp(2rem, 8vh, 4rem)",
+        gap: "clamp(1rem, 4vh, 2rem)",
       }}
-      className="flex h-full flex-col justify-between gap-8 px-10 pb-16 pt-24 text-white"
+      className="flex h-full flex-col justify-between text-white"
     >
       <motion.div exit="hidden" variants={liVariants}>
-        <p className="text-slate-500">Get in touch!</p>
-        <p className="text-xl text-slate-300">
+        <p className="text-slate-500" style={{ fontSize: "clamp(0.75rem, 1.8vh, 1rem)" }}>Get in touch!</p>
+        <p className="text-slate-300" style={{ fontSize: "clamp(0.9rem, 2.2vh, 1.25rem)", lineHeight: 1.4 }}>
           Feel free to reach out, I&apos;m always excited to learn, collaborate, and contribute to impactful projects! 💬
         </p>
       </motion.div>
@@ -30,7 +32,13 @@ export default function ContactDetails() {
         initial="hidden"
         animate="visible"
         exit="hidden"
-        className="space-y-10 text-5xl font-medium"
+        className="font-medium"
+        style={{ 
+          fontSize: "clamp(2rem, 6vh, 3rem)",
+          gap: "clamp(1.5rem, 4vh, 2.5rem)",
+          display: "flex",
+          flexDirection: "column"
+        }}
       >
         <motion.li variants={liVariants}>
           <a target="_blank" href="https://www.linkedin.com/in/joudelshawa">
@@ -54,14 +62,39 @@ export default function ContactDetails() {
         </motion.li>
       </motion.ul>
 
-      <span>
+      <span style={{ fontSize: "clamp(0.75rem, 1.8vh, 1rem)" }}>
         If you prefer to just copy my email, click here -&gt;{" "}
         <span
           onClick={copyEmail}
-          className="cursor-pointer text-base font-light text-slate-500 transition-colors duration-200 hover:text-blue-200"
+          className="relative inline-block cursor-pointer font-light text-slate-500 transition-colors duration-200 hover:text-blue-200"
         >
           jelshawa@gmail.com{" "}
-          {emailCopied && <span className="text-blue-200"> - copied!</span>}
+          <AnimatePresence>
+            {emailCopied && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, y: 15 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.5, y: 15 }}
+                transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                className="absolute bottom-full left-1/2 mb-3 -translate-x-1/2 z-50 pointer-events-none"
+              >
+                <Celebration />
+                <div className="relative flex items-center gap-2 rounded-full bg-slate-800 px-4 py-2 shadow-2xl ring-1 ring-white/10">
+                  <motion.span 
+                    initial={{ scale: 0 }} 
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 400, delay: 0.1 }}
+                    className="text-emerald-400 font-bold text-lg"
+                  >
+                    ✓
+                  </motion.span>
+                  <span className="font-semibold text-white text-sm tracking-wide">Copied!</span>
+                </div>
+                {/* Arrow */}
+                <div className="absolute -bottom-1 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 bg-slate-800 ring-1 ring-white/10" style={{ clipPath: 'polygon(100% 0, 100% 100%, 0 100%)' }}></div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </span>
       </span>
     </div>
@@ -94,4 +127,29 @@ const liVariants: AnimationProps["variants"] = {
       ease,
     },
   },
+}
+
+const Celebration = () => {
+  return (
+    <div className="absolute left-1/2 top-1/2 -z-10 h-1 w-1 -translate-x-1/2 -translate-y-1/2">
+      {[...Array(8)].map((_, i) => (
+        <motion.div
+          key={i}
+          initial={{ scale: 0, x: 0, y: 0 }}
+          animate={{
+            scale: [0, 1, 0],
+            x: Math.cos(i * 45 * (Math.PI / 180)) * 50,
+            y: Math.sin(i * 45 * (Math.PI / 180)) * 50,
+          }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="absolute h-1.5 w-1.5 rounded-full"
+          style={{
+            backgroundColor: ["#60A5FA", "#34D399", "#A78BFA", "#F472B6"][
+              i % 4
+            ],
+          }}
+        />
+      ))}
+    </div>
+  )
 }

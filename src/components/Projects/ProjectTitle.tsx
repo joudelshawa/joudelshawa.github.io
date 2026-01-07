@@ -87,26 +87,41 @@ export default function ProjectTitle({ project }: Props) {
       ref={ref}
       className="origin-left py-12 md:py-36"
     >
-      <Link href={`projects/${project.slug}`} className="space-y-5">
-        <p
-          className={cn(
-            "font-mono text-sm transition-all duration-500 ease-in-out",
-            // isInViewProject ? project.textColors.tertiary : "text-neutral-200",
-            isInViewProject ? "text-slate-400" : "text-slate-200",
+      <Link href={`projects/${project.slug}`} className="block space-y-5">
+        <div className="space-y-1">
+          <p
+            className={cn(
+              "font-mono text-sm transition-all duration-500 ease-in-out",
+              // isInViewProject ? project.textColors.tertiary : "text-neutral-200",
+              isInViewProject ? "text-slate-400" : "text-slate-200",
 
-            isInViewProject
-              ? "translate-x-0 opacity-100 delay-500"
-              : "translate-x-1 opacity-0"
+              isInViewProject
+                ? "translate-x-0 opacity-100 delay-500"
+                : "translate-x-1 opacity-0"
+            )}
+          >
+            {project.year}
+          </p>
+          {project.category && (
+            <p
+              className={cn(
+                "font-mono text-xs uppercase tracking-widest transition-all duration-500 ease-in-out",
+                isInViewProject ? "text-slate-500" : "text-slate-400",
+                isInViewProject
+                  ? "translate-x-0 opacity-100 delay-500"
+                  : "translate-x-1 opacity-0"
+              )}
+            >
+              {project.category}
+            </p>
           )}
-        >
-          {project.year}
-        </p>
+        </div>
         <motion.span
           key={project.name}
           layoutId={project.name}
           layout="position"
           className={cn(
-            "text-[clamp(1.875rem,1.0356rem+2.8275vw,2.75rem)] font-semibold leading-none tracking-tighter transition-colors",
+            "block text-[clamp(1.875rem,1.0356rem+2.8275vw,2.75rem)] font-semibold leading-none tracking-tighter transition-colors",
             isInViewProject ? "text-slate-900" : "text-slate-200"
             // isInViewProject
             //   ? inViewProject?.textColors.primary

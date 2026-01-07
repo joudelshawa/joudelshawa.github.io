@@ -7,10 +7,10 @@ declare global {
     name: string
     slug: string
     blurb: string
-    description: string
     technologies: string[]
     image: string
     year: number
+    category?: string
     links?: {
       text: string
       href: string
