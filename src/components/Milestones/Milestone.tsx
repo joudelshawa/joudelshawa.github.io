@@ -55,14 +55,14 @@ export default function Milestone({ milestone, isFirst, isLast }: Props) {
           />
         )} */}
         <div
-          className="md:text-md timeline-start justify-self-start text-end font-mono text-sm"
+          className="md:text-md timeline-start justify-self-start text-end font-mono text-sm text-ink-subtle"
           style={{ opacity: 0 }}
         >
           {Array.isArray(milestone.date) ? (
             <>
-              <span className="text-emerald-800">+ {milestone.date[0]}</span>
+              <span className="text-sage-dark">+ {milestone.date[0]}</span>
               <br />
-              <span className="text-rose-800">- {milestone.date[1]}</span>
+              <span className="text-terracotta">- {milestone.date[1]}</span>
             </>
           ) : (
             <span>{milestone.date}</span>
@@ -70,7 +70,7 @@ export default function Milestone({ milestone, isFirst, isLast }: Props) {
         </div>
         {!isFirst && (
           <motion.hr
-            className="top-line bg-slate-100"
+            className="top-line bg-cream-300"
             style={{
               scaleY: 0,
             }}
@@ -82,17 +82,17 @@ export default function Milestone({ milestone, isFirst, isLast }: Props) {
             scale: 0,
           }}
         >
-          <motion.div className="size-2 rounded-full bg-slate-700 md:size-3" />
+          <motion.div className="size-2 rounded-full bg-terracotta md:size-3" />
         </motion.div>
         <Wrapper milestone={milestone}>{milestone.text}</Wrapper>
-        {!isLast && <motion.hr className="bottom-line bg-slate-100" />}
+        {!isLast && <motion.hr className="bottom-line bg-cream-300" />}
       </motion.li>
     </>
   )
 }
 
 const baseTimelineEndClasses =
-  "timeline-end timeline-box text-base text-md md:text-xl shadow-none font-light"
+  "timeline-end timeline-box text-base text-md md:text-xl shadow-none font-light text-ink-light"
 
 const Wrapper = ({
   children,
@@ -105,7 +105,7 @@ const Wrapper = ({
     <Link
       className={cn(
         baseTimelineEndClasses,
-        "group flex cursor-pointer items-center gap-2 border-transparent text-emerald-500 decoration-1 underline-offset-4 transition-colors hover:bg-emerald-500 hover:text-white "
+        "group flex cursor-pointer items-center gap-2 border-transparent text-terracotta decoration-1 underline-offset-4 transition-colors hover:bg-terracotta hover:text-white "
       )} // @joud change these classes for clickable milestones
       href={milestone.href}
       target="_blank"

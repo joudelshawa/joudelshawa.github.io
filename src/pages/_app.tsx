@@ -1,8 +1,7 @@
 import "@/styles/globals.css"
 
 import { AnimatePresence, motion } from "framer-motion"
-import { Inter } from "next/font/google"
-import { Poppins } from "next/font/google"
+import { Instrument_Serif, DM_Sans, JetBrains_Mono } from "next/font/google"
 
 import Head from "next/head"
 
@@ -16,11 +15,22 @@ import { ReactLenis } from "@studio-freight/react-lenis"
 import type { AppProps } from "next/app"
 import MouseTrail from "@/components/MouseTrail"
 
-const interFont = Inter({ subsets: ["latin"] })
-
-const poppins = Poppins({
+const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"], // optional
+  weight: "400",
+  variable: "--font-display",
+})
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-body",
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  variable: "--font-mono",
 })
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -35,32 +45,12 @@ export default function App({ Component, pageProps }: AppProps) {
           <ContactContextProvider>
             <MouseTrail />
             {/* <ReactLenis root> */}
-            {/* <AnimatePresence mode="wait">
-              <motion.div
-                key={Component.name}
-                initial="pageInitial"
-                animate="pageAnimate"
-                exit="pageExit"
-                className={`${interFont.className}`}
-                variants={{
-                  pageInitial: {
-                    opacity: 0,
-                  },
-                  pageAnimate: {
-                    opacity: 1,
-                  },
-                  pageExit: {
-                    opacity: 0,
-                  },
-                }}
-              > */}
-            <main className={`${poppins.className}`}>
+            <main
+              className={`${dmSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} ${dmSans.className}`}
+            >
               <Component {...pageProps} />
             </main>
             <Footer />
-
-            {/* </motion.div> */}
-            {/* </AnimatePresence> */}
             {/* </ReactLenis> */}
           </ContactContextProvider>
         </ProjectContextProvider>

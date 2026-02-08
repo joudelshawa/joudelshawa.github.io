@@ -1,7 +1,7 @@
-import { AnimatePresence, AnimationProps, motion } from 'framer-motion'
-import { useState } from 'react'
+import { AnimatePresence, AnimationProps, motion } from "framer-motion"
+import { useState } from "react"
 
-import { ease } from '@/utils/framer'
+import { ease } from "@/utils/framer"
 
 export default function ContactDetails() {
   const [emailCopied, setEmailCopied] = useState(false)
@@ -16,15 +16,25 @@ export default function ContactDetails() {
     <div
       style={{
         textTransform: "none",
-        padding: "clamp(1.5rem, 6vh, 6rem) clamp(1.5rem, 5vw, 2.5rem) clamp(2rem, 8vh, 4rem)",
+        padding:
+          "clamp(1.5rem, 6vh, 6rem) clamp(1.5rem, 5vw, 2.5rem) clamp(2rem, 8vh, 4rem)",
         gap: "clamp(1rem, 4vh, 2rem)",
       }}
-      className="flex h-full flex-col justify-between text-white"
+      className="flex h-full flex-col justify-between text-cream-100"
     >
       <motion.div exit="hidden" variants={liVariants}>
-        <p className="text-slate-500" style={{ fontSize: "clamp(0.75rem, 1.8vh, 1rem)" }}>Get in touch!</p>
-        <p className="text-slate-300" style={{ fontSize: "clamp(0.9rem, 2.2vh, 1.25rem)", lineHeight: 1.4 }}>
-          Feel free to reach out, I&apos;m always excited to learn, collaborate, and contribute to impactful projects! 💬
+        <p
+          className="font-mono uppercase tracking-widest text-ink-faint"
+          style={{ fontSize: "clamp(0.65rem, 1.6vh, 0.85rem)" }}
+        >
+          Get in touch!
+        </p>
+        <p
+          className="text-cream-300"
+          style={{ fontSize: "clamp(0.9rem, 2.2vh, 1.25rem)", lineHeight: 1.4 }}
+        >
+          Feel free to reach out, I&apos;m always excited to learn, collaborate,
+          and contribute to impactful projects! 💬
         </p>
       </motion.div>
       <motion.ul
@@ -32,12 +42,12 @@ export default function ContactDetails() {
         initial="hidden"
         animate="visible"
         exit="hidden"
-        className="font-medium"
-        style={{ 
+        className="font-display"
+        style={{
           fontSize: "clamp(2rem, 6vh, 3rem)",
           gap: "clamp(1.5rem, 4vh, 2.5rem)",
           display: "flex",
-          flexDirection: "column"
+          flexDirection: "column",
         }}
       >
         <motion.li variants={liVariants}>
@@ -62,11 +72,14 @@ export default function ContactDetails() {
         </motion.li>
       </motion.ul>
 
-      <span style={{ fontSize: "clamp(0.75rem, 1.8vh, 1rem)" }}>
+      <span
+        className="font-mono"
+        style={{ fontSize: "clamp(0.65rem, 1.6vh, 0.85rem)" }}
+      >
         If you prefer to just copy my email, click here -&gt;{" "}
         <span
           onClick={copyEmail}
-          className="relative inline-block cursor-pointer font-light text-slate-500 transition-colors duration-200 hover:text-blue-200"
+          className="relative inline-block cursor-pointer text-ink-faint transition-colors duration-200 hover:text-terracotta-light"
         >
           jelshawa@gmail.com{" "}
           <AnimatePresence>
@@ -76,22 +89,27 @@ export default function ContactDetails() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.5, y: 15 }}
                 transition={{ type: "spring", stiffness: 350, damping: 25 }}
-                className="absolute bottom-full left-1/2 mb-3 -translate-x-1/2 z-50 pointer-events-none"
+                className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-3 -translate-x-1/2"
               >
                 <Celebration />
-                <div className="relative flex items-center gap-2 rounded-full bg-slate-800 px-4 py-2 shadow-2xl ring-1 ring-white/10">
-                  <motion.span 
-                    initial={{ scale: 0 }} 
+                <div className="relative flex items-center gap-2 rounded-full bg-ink-light px-4 py-2 shadow-2xl ring-1 ring-white/10">
+                  <motion.span
+                    initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ type: "spring", stiffness: 400, delay: 0.1 }}
-                    className="text-emerald-400 font-bold text-lg"
+                    className="text-lg font-bold text-terracotta-light"
                   >
                     ✓
                   </motion.span>
-                  <span className="font-semibold text-white text-sm tracking-wide">Copied!</span>
+                  <span className="text-sm font-medium tracking-wide text-cream-100">
+                    Copied!
+                  </span>
                 </div>
                 {/* Arrow */}
-                <div className="absolute -bottom-1 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 bg-slate-800 ring-1 ring-white/10" style={{ clipPath: 'polygon(100% 0, 100% 100%, 0 100%)' }}></div>
+                <div
+                  className="absolute -bottom-1 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 bg-ink-light ring-1 ring-white/10"
+                  style={{ clipPath: "polygon(100% 0, 100% 100%, 0 100%)" }}
+                ></div>
               </motion.div>
             )}
           </AnimatePresence>
@@ -144,7 +162,7 @@ const Celebration = () => {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="absolute h-1.5 w-1.5 rounded-full"
           style={{
-            backgroundColor: ["#60A5FA", "#34D399", "#A78BFA", "#F472B6"][
+            backgroundColor: ["#C4654A", "#7A8B6F", "#D4836C", "#98A88E"][
               i % 4
             ],
           }}

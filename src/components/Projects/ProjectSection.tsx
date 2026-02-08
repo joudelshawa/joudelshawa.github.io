@@ -1,14 +1,14 @@
-import { motion, useScroll } from 'framer-motion'
-import { useRef } from 'react'
+import { motion, useScroll } from "framer-motion"
+import { useRef } from "react"
 
-import { useProjectContext } from '@/contexts/projectContext'
-import projectData from '@/data/projects'
-import { projectContainerVariants } from '@/utils/framer'
-import { cn } from '@/utils/misc'
+import { useProjectContext } from "@/contexts/projectContext"
+import projectData from "@/data/projects"
+import { projectContainerVariants } from "@/utils/framer"
+import { cn } from "@/utils/misc"
 
-import SectionHeading from '../SectionHeading'
-import ProjectPreviewImage from './ProjectPreviewImage'
-import ProjectTitle from './ProjectTitle'
+import SectionHeading from "../SectionHeading"
+import ProjectPreviewImage from "./ProjectPreviewImage"
+import ProjectTitle from "./ProjectTitle"
 
 export default function ProjectSection() {
   const { inViewProject } = useProjectContext()
@@ -47,7 +47,7 @@ export default function ProjectSection() {
         >
           <motion.div
             id="inner"
-            className="relative aspect-video max-h-full w-full rounded-2xl bg-slate-100"
+            className="relative aspect-video max-h-full w-full rounded-2xl bg-cream-200 shadow-lg shadow-ink/[0.04]"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ amount: "all", margin: "50%" }}

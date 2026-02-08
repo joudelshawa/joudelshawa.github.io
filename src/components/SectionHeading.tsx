@@ -25,7 +25,7 @@ export default function SectionHeading({ children }: Props) {
   return (
     <motion.h1
       style={{ x, opacity }}
-      className="py-24 text-5xl md:text-[8vmax]"
+      className="py-24 font-display text-5xl tracking-tight text-ink md:text-[8vmax]"
       ref={ref}
     >
       {children}

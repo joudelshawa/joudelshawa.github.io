@@ -1,9 +1,9 @@
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion"
 
-import { useContactContext } from '@/contexts/contactContext'
-import { ease } from '@/utils/framer'
+import { useContactContext } from "@/contexts/contactContext"
+import { ease } from "@/utils/framer"
 
-import styles from './ContactButton.module.css'
+import styles from "./ContactButton.module.css"
 
 export default function ContactButton() {
   const { modalOpen, setModalOpen } = useContactContext()
@@ -23,10 +23,10 @@ export default function ContactButton() {
         transition={{ duration: 0.5, ease }}
         className="relative h-full"
       >
-        <div className="flex size-full items-center justify-center bg-slate-900 text-white">
+        <div className="flex size-full items-center justify-center bg-ink text-cream-100">
           <PerspectiveText>Contact</PerspectiveText>
         </div>
-        <div className="absolute flex size-full items-center justify-center bg-white">
+        <div className="absolute flex size-full items-center justify-center bg-cream-100 text-ink">
           <PerspectiveText>Close</PerspectiveText>
         </div>
       </motion.div>

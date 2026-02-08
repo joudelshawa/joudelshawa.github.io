@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from "next/image"
 
 type Props = {
   project: Project
@@ -6,7 +6,7 @@ type Props = {
 
 export default function ProjectDetailImage({ project }: Props) {
   return (
-    <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-slate-100 shadow-xl shadow-slate-100">
+    <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-cream-200 shadow-xl shadow-ink/[0.06]">
       <Image
         src={project.image}
         alt={project.name}

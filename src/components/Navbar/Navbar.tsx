@@ -1,16 +1,21 @@
-import { AnimationProps, motion, useMotionValueEvent, useScroll } from 'framer-motion'
-import { Inter } from 'next/font/google'
-import { useRouter } from 'next/router'
-import { useRef, useState } from 'react'
+import {
+  AnimationProps,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+} from "framer-motion"
+import { Inter } from "next/font/google"
+import { useRouter } from "next/router"
+import { useRef, useState } from "react"
 
-import { useIntroContext } from '@/contexts/introContext'
-import useScreenSize from '@/hooks/use-screen-size'
-import { ease } from '@/utils/framer'
+import { useIntroContext } from "@/contexts/introContext"
+import useScreenSize from "@/hooks/use-screen-size"
+import { ease } from "@/utils/framer"
 
-import ContactButton from '../Contact/ContactButton'
-import ContactModal from '../Contact/ContactModal'
-import Navlink from './Navlink'
-import Orb from './Orb'
+import ContactButton from "../Contact/ContactButton"
+import ContactModal from "../Contact/ContactModal"
+import Navlink from "./Navlink"
+import Orb from "./Orb"
 
 type Props = {
   navLinks: { href: string; text: string }[]
@@ -48,12 +53,12 @@ export default function Navbar({ navLinks }: Props) {
       initial={introComplete ? "visible" : "hidden"}
       animate={introComplete ? "visible" : "hidden"}
       transition={{ ease, delay: introComplete ? 0 : 1.5, duration: 1 }}
-      className={`fixed top-0 z-50 flex h-16 w-full  items-center px-2 text-slate-800 md:px-4 `}
+      className={`fixed top-0 z-50 flex h-16 w-full  items-center px-2 text-ink md:px-4 `}
     >
       <div className="mx-auto w-full max-w-7xl">
         <motion.div
           layout
-          className="mx-auto flex w-[calc(100%-1rem)] items-center gap-2 rounded-b-xl bg-white md:w-[calc(100%-2rem)]"
+          className="mx-auto flex w-[calc(100%-1rem)] items-center gap-2 rounded-b-xl border-b border-ink/[0.04] bg-cream-100/80 backdrop-blur-xl md:w-[calc(100%-2rem)]"
           style={{
             // width: expanded ? "100%" : "min-content",
             // marginInline: "auto",

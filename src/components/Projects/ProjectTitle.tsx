@@ -1,10 +1,16 @@
-import { motion, useInView, useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
-import Link from 'next/link'
-import { useEffect, useMemo, useRef } from 'react'
+import {
+  motion,
+  useInView,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "framer-motion"
+import Link from "next/link"
+import { useEffect, useMemo, useRef } from "react"
 
-import { useProjectContext } from '@/contexts/projectContext'
-import useScreenSize from '@/hooks/use-screen-size'
-import { cn } from '@/utils/misc'
+import { useProjectContext } from "@/contexts/projectContext"
+import useScreenSize from "@/hooks/use-screen-size"
+import { cn } from "@/utils/misc"
 
 type Props = {
   project: Project
@@ -93,7 +99,7 @@ export default function ProjectTitle({ project }: Props) {
             className={cn(
               "font-mono text-sm transition-all duration-500 ease-in-out",
               // isInViewProject ? project.textColors.tertiary : "text-neutral-200",
-              isInViewProject ? "text-slate-400" : "text-slate-200",
+              isInViewProject ? "text-ink-subtle" : "text-ink-ghost",
 
               isInViewProject
                 ? "translate-x-0 opacity-100 delay-500"
@@ -106,7 +112,7 @@ export default function ProjectTitle({ project }: Props) {
             <p
               className={cn(
                 "font-mono text-xs uppercase tracking-widest transition-all duration-500 ease-in-out",
-                isInViewProject ? "text-slate-500" : "text-slate-400",
+                isInViewProject ? "text-ink-faint" : "text-ink-ghost",
                 isInViewProject
                   ? "translate-x-0 opacity-100 delay-500"
                   : "translate-x-1 opacity-0"
@@ -121,8 +127,8 @@ export default function ProjectTitle({ project }: Props) {
           layoutId={project.name}
           layout="position"
           className={cn(
-            "block text-[clamp(1.875rem,1.0356rem+2.8275vw,2.75rem)] font-semibold leading-none tracking-tighter transition-colors",
-            isInViewProject ? "text-slate-900" : "text-slate-200"
+            "block font-display text-[clamp(1.875rem,1.0356rem+2.8275vw,2.75rem)] leading-none tracking-tight transition-colors",
+            isInViewProject ? "text-ink" : "text-ink-ghost"
             // isInViewProject
             //   ? inViewProject?.textColors.primary
             //   : "text-slate-200"
@@ -133,7 +139,7 @@ export default function ProjectTitle({ project }: Props) {
         <p
           className={cn(
             "transition-all duration-500",
-            "text-justify text-slate-600",
+            "text-justify text-ink-muted",
             // project.textColors.secondary,
             isInViewProject
               ? "translate-x-0 opacity-100 delay-300"

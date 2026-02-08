@@ -1,8 +1,8 @@
-import { motion } from 'framer-motion'
-import { useContext } from 'react'
+import { motion } from "framer-motion"
+import { useContext } from "react"
 
-import { IntroContext, IntroContextType } from '@/contexts/introContext'
-import { ease, textBubbleVariants } from '@/utils/framer'
+import { IntroContext, IntroContextType } from "@/contexts/introContext"
+import { ease, textBubbleVariants } from "@/utils/framer"
 
 export default function Intro() {
   const { setShouldShowIntro, setIntroComplete } = useContext(
@@ -16,7 +16,7 @@ export default function Intro() {
       animate={{ opacity: 1 }}
       onAnimationComplete={() => setShouldShowIntro(false)}
       transition={{ duration: 2, ease }}
-      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-scroll px-4"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-scroll bg-cream-100 px-4"
     >
       <motion.div
         key={text}
@@ -34,7 +34,7 @@ export default function Intro() {
           variants={textBubbleVariants}
           initial="hidden"
           animate="visible"
-          className="chat-bubble max-w-lg bg-slate-800 text-lg font-light text-white before:h-4 before:w-4 before:-translate-x-px md:text-[clamp(0.875rem,0.3242rem+1.1475vw,1.4rem);]"
+          className="chat-bubble max-w-lg bg-ink text-lg font-light text-cream-200 before:h-4 before:w-4 before:-translate-x-px md:text-[clamp(0.875rem,0.3242rem+1.1475vw,1.4rem);]"
         >
           {text}
         </motion.div>

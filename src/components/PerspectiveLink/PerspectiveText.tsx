@@ -1,8 +1,8 @@
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion"
 
-import { ease } from '@/utils/framer'
+import { ease } from "@/utils/framer"
 
-import styles from './Contact.module.css'
+import styles from "./Contact.module.css"
 
 export default function ContactButton() {
   return (
@@ -12,7 +12,7 @@ export default function ContactButton() {
       transition={{ duration: 0.5, ease }}
       className={styles.button}
     >
-      <div className="flex size-full items-center justify-center bg-slate-900 text-white">
+      <div className="flex size-full items-center justify-center bg-ink text-cream-100">
         <PerspectiveText>Contact</PerspectiveText>
       </div>
     </motion.button>

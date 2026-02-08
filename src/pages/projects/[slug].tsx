@@ -1,18 +1,18 @@
-import fs from 'fs'
-import path from 'path'
+import fs from "fs"
+import path from "path"
 
-import { motion } from 'framer-motion'
-import matter from 'gray-matter'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { serialize } from 'next-mdx-remote/serialize'
-import { useEffect } from 'react'
+import { motion } from "framer-motion"
+import matter from "gray-matter"
+import Link from "next/link"
+import { useRouter } from "next/router"
+import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote"
+import { serialize } from "next-mdx-remote/serialize"
+import { useEffect } from "react"
 
-import Navbar from '@/components/Navbar/Navbar'
-import ProjectDetailImage from '@/components/Projects/ProjectDetailImage'
-import projectData from '@/data/projects'
-import { cn } from '@/utils/misc'
+import Navbar from "@/components/Navbar/Navbar"
+import ProjectDetailImage from "@/components/Projects/ProjectDetailImage"
+import projectData from "@/data/projects"
+import { cn } from "@/utils/misc"
 
 import type { InferGetStaticPropsType, GetStaticProps } from "next"
 
@@ -21,10 +21,15 @@ export const getStaticProps = (async (context) => {
   const project = projectData.find((project) => project.slug === slug)!
 
   // Read markdown file
-  const contentPath = path.join(process.cwd(), 'content', 'projects', `${slug}.md`)
-  const fileContents = fs.readFileSync(contentPath, 'utf8')
+  const contentPath = path.join(
+    process.cwd(),
+    "content",
+    "projects",
+    `${slug}.md`
+  )
+  const fileContents = fs.readFileSync(contentPath, "utf8")
   const { content } = matter(fileContents)
-  
+
   // Serialize markdown to MDX
   const mdxSource = await serialize(content)
 
@@ -64,7 +69,7 @@ export default function ProjectDetailPage({
       <Navbar navLinks={[]} />
       <div className="relative mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-24">
         <button
-          className="text-md group flex w-min items-center justify-center rounded-2xl  bg-gradient-to-tr from-slate-100 to-slate-50 py-3 pl-4 pr-5 font-medium text-slate-700"
+          className="text-md group flex w-min items-center justify-center rounded-2xl border border-ink/[0.06] bg-cream-200 py-3 pl-4 pr-5 font-mono text-sm font-medium text-ink-muted transition-colors hover:bg-cream-300"
           type="button"
           onClick={() => router.back()}
         >
@@ -86,14 +91,14 @@ export default function ProjectDetailPage({
         </button>
         <motion.span
           key={project.name}
-          className="text-[clamp(1.875rem,1.0356rem+2.8275vw,2.75rem)] font-semibold leading-none tracking-tighter"
+          className="font-display text-[clamp(1.875rem,1.0356rem+2.8275vw,2.75rem)] leading-none tracking-tight text-ink"
         >
           {project.name}
         </motion.span>
         <ProjectDetailImage project={project} />
         <div className="w-full space-y-6">
-          <p className="italic text-slate-900">{project.blurb}</p>
-          <div className="prose prose-slate max-w-none text-justify text-slate-600 prose-p:text-slate-600 prose-strong:text-slate-700 prose-img:rounded-lg">
+          <p className="italic text-ink-muted">{project.blurb}</p>
+          <div className="prose max-w-none text-justify text-ink-muted prose-p:text-ink-muted prose-strong:text-ink-light prose-img:rounded-lg">
             <MDXRemote {...mdxSource} />
           </div>
           {/* {project.links &&
@@ -107,23 +112,23 @@ export default function ProjectDetailPage({
               </Link>
             ))} */}
           {project.links && (
-              <p className="font-mono text-blue-700">
-                {project.links.map((link, i) => (
-                  <>
-                    <Link
-                      className="underline"
-                      href={link.href}
-                      key={link.text}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {link.text}
-                    </Link>
-                    {project.links && i < project.links.length - 1 && ', '}
-                  </>
-                ))}
-              </p>
-            )}
+            <p className="font-mono text-terracotta">
+              {project.links.map((link, i) => (
+                <>
+                  <Link
+                    className="underline"
+                    href={link.href}
+                    key={link.text}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {link.text}
+                  </Link>
+                  {project.links && i < project.links.length - 1 && ", "}
+                </>
+              ))}
+            </p>
+          )}
 
           <div className="flex flex-wrap gap-4">
             {project.technologies.map((tech, index) => (
@@ -145,18 +150,24 @@ type TechPillProps = {
 
 function TechPill({ children, index }: TechPillProps) {
   const colors = [
-    { bg: "bg-slate-100", text: "text-slate-900" },
-    { bg: "bg-rose-100", text: "text-rose-900" },
-    { bg: "bg-amber-100", text: "text-amber-900" },
-    { bg: "bg-cyan-100", text: "text-cyan-900" },
-    { bg: "bg-green-100", text: "text-green-900" },
+    { bg: "bg-cream-300", text: "text-ink-light" },
+    { bg: "bg-terracotta-faint", text: "text-terracotta-dark" },
+    { bg: "bg-sage-faint", text: "text-sage-dark" },
+    { bg: "bg-cream-200", text: "text-ink-muted" },
+    { bg: "bg-terracotta-faint", text: "text-terracotta" },
   ]
 
   const color =
     colors[index] || colors[Math.floor(Math.random() * colors.length)]
 
   return (
-    <div className={cn("rounded-full px-4 py-2", color.bg, color.text)}>
+    <div
+      className={cn(
+        "rounded-full px-4 py-2 font-mono text-sm",
+        color.bg,
+        color.text
+      )}
+    >
       {children}
     </div>
   )

@@ -6,12 +6,31 @@ html {
   /* TODO: Remove once lenis reimplemented */
   scroll-behavior: smooth;
 }
+
 body {
   min-height: 100vh;
   overflow-x: clip;
   overflow-y: auto;
   scrollbar-width: none;
   overscroll-behavior-y: none;
+  background-color: #fbf8f3;
+  color: #1a1a1a;
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global grain texture overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
 }
 
 p {
@@ -22,6 +41,11 @@ section {
   @apply overflow-x-clip;
 }
 
+/* Display font utility */
+.font-display {
+  font-style: italic;
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -29,4 +53,15 @@ section {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Custom selection colors */
+::selection {
+  background-color: #d9a494;
+  color: #1a1a1a;
+}
+
+::-moz-selection {
+  background-color: #d9a494;
+  color: #1a1a1a;
 }

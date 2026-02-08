@@ -1,9 +1,18 @@
 import { useEffect, useRef } from "react"
-import { gen } from "culler"
 
-const PARTICLE_SIZE = 28
-const SPAWN_DISTANCE = 32
-const PARTICLE_DURATION = 1000
+const PARTICLE_SIZE = 14
+const SPAWN_DISTANCE = 28
+const PARTICLE_DURATION = 900
+
+// Warm editorial palette colors for mouse trail
+const TRAIL_COLORS = [
+  "rgba(196, 101, 74, 0.25)", // terracotta
+  "rgba(212, 131, 108, 0.2)", // terracotta light
+  "rgba(122, 139, 111, 0.25)", // sage
+  "rgba(152, 168, 142, 0.2)", // sage light
+  "rgba(217, 164, 148, 0.22)", // terracotta muted
+  "rgba(184, 196, 176, 0.2)", // sage muted
+]
 
 export default function MouseTrail() {
   const lastSpawnRef = useRef<{ x: number; y: number } | null>(null)
@@ -22,6 +31,7 @@ export default function MouseTrail() {
         width: ${PARTICLE_SIZE}px;
         height: ${PARTICLE_SIZE}px;
         background-color: ${color};
+        filter: blur(1px);
       `
 
       container.appendChild(particle)
@@ -29,7 +39,7 @@ export default function MouseTrail() {
       particle
         .animate(
           [
-            { transform: "scale(1.1)", opacity: 0.8 },
+            { transform: "scale(1.1)", opacity: 0.7 },
             { transform: "scale(0)", opacity: 0 },
           ],
           { duration: PARTICLE_DURATION, easing: "ease-out", fill: "forwards" }
@@ -42,13 +52,8 @@ export default function MouseTrail() {
 
       if (!lastSpawnRef.current) {
         lastSpawnRef.current = { x, y }
-        const color = gen({
-          type: "rgba",
-          minR: 155,
-          minG: 155,
-          minB: 155,
-          a: 0.4,
-        })
+        const color =
+          TRAIL_COLORS[Math.floor(Math.random() * TRAIL_COLORS.length)]
         spawnParticle(x, y, color)
         return
       }
@@ -66,13 +71,8 @@ export default function MouseTrail() {
         for (let step = 1; step <= steps; step++) {
           const spawnX = lastSpawn.x + unitX * SPAWN_DISTANCE * step
           const spawnY = lastSpawn.y + unitY * SPAWN_DISTANCE * step
-          const color = gen({
-            type: "rgba",
-            minR: 155,
-            minG: 155,
-            minB: 155,
-            a: 0.4,
-          })
+          const color =
+            TRAIL_COLORS[Math.floor(Math.random() * TRAIL_COLORS.length)]
           spawnParticle(spawnX, spawnY, color)
         }
 

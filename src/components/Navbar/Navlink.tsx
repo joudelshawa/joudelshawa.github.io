@@ -1,10 +1,10 @@
-import { AnimationProps, motion } from 'framer-motion'
-import Link from 'next/link'
+import { AnimationProps, motion } from "framer-motion"
+import Link from "next/link"
 
-import { ease } from '@/utils/framer'
-import { useLenis } from '@studio-freight/react-lenis'
+import { ease } from "@/utils/framer"
+import { useLenis } from "@studio-freight/react-lenis"
 
-import styles from '../PerspectiveLink/PerspectiveText.module.css'
+import styles from "../PerspectiveLink/PerspectiveText.module.css"
 
 type Props = {
   href: string
@@ -20,7 +20,7 @@ export default function Navlink({ href, children }: Props) {
         // onClick={() => lenis?.scrollTo(href)}
         className={styles.button}
       >
-        <div className="flex size-full items-center justify-center text-slate-900">
+        <div className="flex size-full items-center justify-center text-ink">
           <PerspectiveText>{children}</PerspectiveText>
         </div>
       </motion.span>

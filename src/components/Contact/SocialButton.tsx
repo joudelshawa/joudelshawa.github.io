@@ -15,7 +15,7 @@ export default function SocialButton({
   switch (bgColor) {
     // may add more colors later
     case "white":
-      bgColorClass = "bg-white"
+      bgColorClass = "bg-cream-100"
       break
   }
 

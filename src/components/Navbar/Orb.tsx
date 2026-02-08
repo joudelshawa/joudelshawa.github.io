@@ -1,15 +1,15 @@
-import { gen } from 'culler'
-import { motion, useAnimate } from 'framer-motion'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { gen } from "culler"
+import { motion, useAnimate } from "framer-motion"
+import Link from "next/link"
+import { useRouter } from "next/router"
+import { useState } from "react"
 
-import { useIntroContext } from '@/contexts/introContext'
-import useScreenSize from '@/hooks/use-screen-size'
-import { ease } from '@/utils/framer'
-import { useLenis } from '@studio-freight/react-lenis'
+import { useIntroContext } from "@/contexts/introContext"
+import useScreenSize from "@/hooks/use-screen-size"
+import { ease } from "@/utils/framer"
+import { useLenis } from "@studio-freight/react-lenis"
 
-import TextMask from '../TextMask'
+import TextMask from "../TextMask"
 
 type Props = {
   expanded: boolean
@@ -21,13 +21,16 @@ export default function Orb({ expanded }: Props) {
   const [scope, animate] = useAnimate()
   const { isMobile } = useScreenSize()
   const { shouldShowIntro } = useIntroContext()
+  const orbColors = [
+    "#C4654A",
+    "#D4836C",
+    "#7A8B6F",
+    "#98A88E",
+    "#D9A494",
+    "#B8C4B0",
+  ]
   const [color, setColor] = useState<string>(
-    gen({
-      type: "rgb",
-      minB: 212,
-      minG: 212,
-      minR: 212,
-    })
+    orbColors[Math.floor(Math.random() * orbColors.length)]
   )
 
   async function orbAnimation() {
@@ -40,14 +43,7 @@ export default function Orb({ expanded }: Props) {
       },
     })
 
-    setColor(
-      gen({
-        type: "rgb",
-        minB: 200,
-        minG: 200,
-        minR: 200,
-      })
-    )
+    setColor(orbColors[Math.floor(Math.random() * orbColors.length)])
 
     await animate(scope.current, {
       opacity: 1,
@@ -82,7 +78,7 @@ export default function Orb({ expanded }: Props) {
           <div onPointerEnter={orbAnimation}>
             <TextMask
               type="letter"
-              className="whitespace-nowrap text-sm font-semibold tracking-widest"
+              className="whitespace-nowrap font-mono text-sm font-medium tracking-widest text-ink"
             >
               {isMobile && expanded ? "" : "JOUD.SHAWA.DEV"}
             </TextMask>
