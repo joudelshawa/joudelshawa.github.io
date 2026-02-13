@@ -13,13 +13,14 @@ interface BlobConfig {
   idleSpeed: number // seconds per idle loop
   mouseInfluence: number // multiplier on smoothed mouse offset
   blur: number // blur amount in px
+  depth: number // Parallax depth multiplier
 }
 
 const globalParams = {
-  size: 1, // Multiplies blob fullSize (1 = current size)
-  blurIntensity: 1, // Multiplies blur amount (1 = current blur)
-  drift: 1, // Multiplies idleDrift radius (1 = current drift distance)
-  speed: 1, // Multiplies animation speed (1 = current speed, 2 = twice as fast)
+  size: 2, // Multiplies blob fullSize (1 = current size)
+  blurIntensity: 0.35, // Multiplies blur amount (1 = current blur)
+  drift:5.9, // Multiplies idleDrift radius (1 = current drift distance)
+  speed: 1.25, // Multiplies animation speed (1 = current speed, 2 = twice as fast)
   mouse: 1, // Multiplies mouse influence (1 = current responsiveness)
 }
 
@@ -36,6 +37,7 @@ const BLOBS: BlobConfig[] = [
     idleSpeed: 8,
     mouseInfluence: 0.08,
     blur: 80,
+    depth: 1.1,
   },
   {
     label: "ORANGE",
@@ -48,6 +50,7 @@ const BLOBS: BlobConfig[] = [
     idleSpeed: 10,
     mouseInfluence: 0.06,
     blur: 90,
+    depth: 0.85,
   },
   {
     label: "TERRA",
@@ -60,6 +63,7 @@ const BLOBS: BlobConfig[] = [
     idleSpeed: 12,
     mouseInfluence: 0.1,
     blur: 75,
+    depth: 1,
   },
   {
     label: "ROSE",
@@ -72,11 +76,12 @@ const BLOBS: BlobConfig[] = [
     idleSpeed: 9,
     mouseInfluence: 0.12,
     blur: 85,
+    depth: 1.2,
   },
   {
     label: "SAGE",
     gradient:
-      "radial-gradient(circle at 30% 40%, rgba(140, 180, 140, 0.4) 0%, rgba(110, 160, 120, 0.2) 50%, transparent 75%)",
+      "radial-gradient(circle at 30% 40%, rgba(196, 166, 138, 0.3) 0%, rgba(170, 140, 118, 0.14) 52%, transparent 76%)",
     fullSize: 45,
     restX: -300,
     restY: 250,
@@ -84,6 +89,7 @@ const BLOBS: BlobConfig[] = [
     idleSpeed: 11,
     mouseInfluence: 0.05,
     blur: 70,
+    depth: 0.7,
   },
 ].map((blob) => ({
   ...blob,
@@ -97,6 +103,10 @@ const BLOBS: BlobConfig[] = [
 // Manual lerp factor for mouse smoothing per frame (~60fps)
 // 0.04 = very smooth/heavy, 0.12 = responsive but still smooth
 const MOUSE_LERP = 0.06
+const SCROLL_PARALLAX_RANGE = 320
+const BREATH_SPEED = 0.32
+const BREATH_AMPLITUDE = 0.09
+const GRAIN_OPACITY = 0.32
 
 // ─── Single Blob (pure presentational — just holds motion values) ────────────
 
@@ -106,19 +116,30 @@ function Blob({
   config,
   blobX,
   blobY,
+  breathe,
   scrollOpacity,
 }: {
   config: BlobConfig
   blobX: MV
   blobY: MV
+  breathe: MV
   scrollOpacity: MV
 }) {
+  const compositeOpacity = useTransform(
+    [scrollOpacity, breathe],
+    (values) => {
+      const [scroll, breath] = values as number[]
+      return scroll * (0.78 + breath * 0.22)
+    }
+  )
+
   return (
     <motion.div
       style={{
         x: blobX,
         y: blobY,
-        opacity: scrollOpacity,
+        opacity: compositeOpacity,
+        scale: breathe,
         width: `${config.fullSize}vmax`,
         height: `${config.fullSize}vmax`,
         left: "50%",
@@ -144,9 +165,11 @@ export default function LivingSunsetBackground() {
     BLOBS.map(() => ({
       x: motionValue(0),
       y: motionValue(0),
-      opacity: motionValue(1),
+      breathe: motionValue(1),
     }))
   )
+  const grainX = useRef(motionValue(0))
+  const grainY = useRef(motionValue(0))
 
   // Mutable refs for the animation loop (no re-renders)
   const mouseTarget = useRef({ x: 0, y: 0 })
@@ -170,6 +193,8 @@ export default function LivingSunsetBackground() {
 
     const tick = () => {
       const elapsed = (performance.now() - startTime.current) / 1000
+      const scrollProgress = scrollYProgress.get()
+      const centeredProgress = scrollProgress - 0.5
 
       // Lerp mouse position toward target (frame-rate independent feel)
       mouseCurrent.current.x +=
@@ -190,10 +215,24 @@ export default function LivingSunsetBackground() {
         const mx = mouseCurrent.current.x * cfg.mouseInfluence
         const my = mouseCurrent.current.y * cfg.mouseInfluence
 
+        // Scroll depth parallax (different travel per blob)
+        const scrollY = centeredProgress * SCROLL_PARALLAX_RANGE * cfg.depth
+        const scrollX = centeredProgress * (SCROLL_PARALLAX_RANGE * 0.22) * cfg.depth
+
+        // Very gentle breathing (size + opacity)
+        const breathe =
+          0.92 +
+          (Math.sin(elapsed * BREATH_SPEED + i * 1.33) + 1) * BREATH_AMPLITUDE
+
         // Final position = rest + idle + mouse
-        blobMotion.current[i].x.set(cfg.restX + idleX + mx)
-        blobMotion.current[i].y.set(cfg.restY + idleY + my)
+        blobMotion.current[i].x.set(cfg.restX + idleX + mx + scrollX)
+        blobMotion.current[i].y.set(cfg.restY + idleY + my + scrollY)
+        blobMotion.current[i].breathe.set(breathe)
       }
+
+      // Subtle grain drift (keeps texture from feeling frozen)
+      grainX.current.set(Math.sin(elapsed * 0.14) * 28)
+      grainY.current.set(Math.cos(elapsed * 0.11) * 22)
 
       rafId.current = requestAnimationFrame(tick)
     }
@@ -216,9 +255,23 @@ export default function LivingSunsetBackground() {
           config={blob}
           blobX={blobMotion.current[i].x}
           blobY={blobMotion.current[i].y}
+          breathe={blobMotion.current[i].breathe}
           scrollOpacity={scrollOpacity}
         />
       ))}
+
+      <motion.div
+        className="absolute inset-0"
+        style={{
+          x: grainX.current,
+          y: grainY.current,
+          opacity: GRAIN_OPACITY,
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+          backgroundRepeat: "repeat",
+          backgroundSize: "200px 200px",
+        }}
+      />
     </div>
   )
 }
