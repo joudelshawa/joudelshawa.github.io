@@ -5,14 +5,18 @@ import { ease } from "@/utils/framer"
 
 import styles from "./ContactButton.module.css"
 
-export default function ContactButton() {
+type Props = {
+  durationScale?: number
+}
+
+export default function ContactButton({ durationScale = 1 }: Props) {
   const { modalOpen, setModalOpen } = useContactContext()
 
   return (
     <motion.button
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
-      transition={{ duration: 0.5, ease }}
+      transition={{ duration: 0.5 * durationScale, ease }}
       onClick={() => setModalOpen(!modalOpen)}
       className={styles.button}
     >
@@ -20,7 +24,7 @@ export default function ContactButton() {
         animate={{
           y: modalOpen ? "-100%" : "0",
         }}
-        transition={{ duration: 0.5, ease }}
+        transition={{ duration: 0.5 * durationScale, ease }}
         className="relative h-full"
       >
         <div className="flex size-full items-center justify-center bg-ink text-cream-100">

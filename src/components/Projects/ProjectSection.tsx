@@ -1,5 +1,4 @@
-import { motion, useScroll } from "framer-motion"
-import { useRef } from "react"
+import { motion } from "framer-motion"
 
 import { useProjectContext } from "@/contexts/projectContext"
 import projectData from "@/data/projects"
@@ -21,15 +20,12 @@ export default function ProjectSection() {
       animate="visible"
       variants={projectContainerVariants}
       exit={{ opacity: 0 }}
-      className={cn(
-        "w-full px-4 transition-colors duration-500"
-        // inViewProject ? inViewProject.backgroundColor : "bg-white"
-      )}
+      className={cn("relative w-full px-4 transition-colors duration-500")}
     >
       <SectionHeading>Projects</SectionHeading>
       <div
         id="container"
-        className="mx-auto flex w-full max-w-7xl flex-col-reverse md:flex-row"
+        className="relative mx-auto flex w-full max-w-7xl flex-col-reverse md:flex-row"
       >
         <ul
           id="left/bot"

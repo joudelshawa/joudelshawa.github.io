@@ -14,13 +14,16 @@ export default function Intro() {
     <motion.div
       initial={{ opacity: 0.999999 }}
       animate={{ opacity: 1 }}
-      onAnimationComplete={() => setShouldShowIntro(false)}
+      onAnimationComplete={() => {
+        setIntroComplete(true)
+        setShouldShowIntro(false)
+      }}
       transition={{ duration: 2, ease }}
-      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-scroll bg-cream-100 px-4"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-scroll px-4"
     >
       <motion.div
         key={text}
-        className="chat chat-end"
+        className="flex items-end gap-3"
         transition={{
           duration: 2,
           ease,
@@ -29,12 +32,13 @@ export default function Intro() {
           scale: 1.5,
         }}
       >
+        {/* Chat bubble */}
         <motion.div
           layoutId="hello"
           variants={textBubbleVariants}
           initial="hidden"
           animate="visible"
-          className="chat-bubble max-w-lg bg-ink text-lg font-light text-cream-200 before:h-4 before:w-4 before:-translate-x-px md:text-[clamp(0.875rem,0.3242rem+1.1475vw,1.4rem);]"
+          className="bubble-message max-w-lg rounded-[1.25rem] rounded-br-[0.25rem] bg-ink px-5 py-3.5 text-lg font-light text-cream-200 md:text-[clamp(0.875rem,0.3242rem+1.1475vw,1.4rem)]"
         >
           {text}
         </motion.div>
@@ -47,7 +51,7 @@ export default function Intro() {
             scale: 1,
             transition: { type: "spring", stiffness: 250, damping: 20 },
           }}
-          className="avatar chat-image block md:hidden"
+          className="block flex-shrink-0 md:hidden"
           transition={{
             layout: {
               duration: 1,
@@ -55,8 +59,12 @@ export default function Intro() {
             },
           }}
         >
-          <div className="w-10 rounded-full">
-            <img alt="Tailwind CSS chat bubble component" src="/me.jpg" />
+          <div className="h-10 w-10 overflow-hidden rounded-full ring-2 ring-cream-300">
+            <img
+              alt="Joud El-Shawa"
+              src="/me.jpg"
+              className="h-full w-full object-cover"
+            />
           </div>
         </motion.div>
 
@@ -77,7 +85,7 @@ export default function Intro() {
           style={{
             borderRadius: 50,
           }}
-          className="z-0 hidden h-10 w-10 bg-[url('/me.jpg')] bg-cover bg-center md:block"
+          className="z-0 hidden h-10 w-10 flex-shrink-0 bg-[url('/me.jpg')] bg-cover bg-center ring-2 ring-cream-300 md:block"
         ></motion.div>
       </motion.div>
     </motion.div>

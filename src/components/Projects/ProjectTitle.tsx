@@ -1,10 +1,4 @@
-import {
-  motion,
-  useInView,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-} from "framer-motion"
+import { motion, useInView, useScroll, useTransform } from "framer-motion"
 import Link from "next/link"
 import { useEffect, useMemo, useRef } from "react"
 
@@ -82,25 +76,16 @@ export default function ProjectTitle({ project }: Props) {
     if (isInView) {
       setInViewProject(project)
     }
-    // if (!isInView && inViewProject?.name === project.name) {
-    //   setInViewProject(null)
-    // } // still buggy
   }, [isInView])
 
   return (
-    <motion.div
-      // style={{ scale, opacity }}
-      ref={ref}
-      className="origin-left py-12 md:py-36"
-    >
+    <motion.div ref={ref} className="group/project origin-left py-12 md:py-36">
       <Link href={`projects/${project.slug}`} className="block space-y-5">
         <div className="space-y-1">
           <p
             className={cn(
               "font-mono text-sm transition-all duration-500 ease-in-out",
-              // isInViewProject ? project.textColors.tertiary : "text-neutral-200",
               isInViewProject ? "text-ink-subtle" : "text-ink-ghost",
-
               isInViewProject
                 ? "translate-x-0 opacity-100 delay-500"
                 : "translate-x-1 opacity-0"
@@ -122,34 +107,39 @@ export default function ProjectTitle({ project }: Props) {
             </p>
           )}
         </div>
-        <motion.span
-          key={project.name}
-          layoutId={project.name}
-          layout="position"
-          className={cn(
-            "block font-display text-[clamp(1.875rem,1.0356rem+2.8275vw,2.75rem)] leading-none tracking-tight transition-colors",
-            isInViewProject ? "text-ink" : "text-ink-ghost"
-            // isInViewProject
-            //   ? inViewProject?.textColors.primary
-            //   : "text-slate-200"
-          )}
-        >
-          {project.name}
-        </motion.span>
+
+        {/* Project name with hover accent line */}
+        <div className="relative inline-block">
+          <motion.span
+            key={project.name}
+            layoutId={project.name}
+            layout="position"
+            className={cn(
+              "block font-display text-[clamp(1.875rem,1.0356rem+2.8275vw,2.75rem)] leading-none tracking-tight transition-colors duration-300",
+              isInViewProject ? "text-ink" : "text-ink-ghost"
+            )}
+          >
+            {project.name}
+          </motion.span>
+          {/* Terracotta accent line — slides in on hover */}
+          <span
+            className={cn(
+              "mt-2 block h-[2px] origin-left bg-terracotta/40 transition-all duration-500 ease-out",
+              isInViewProject
+                ? "w-12 opacity-100 group-hover/project:w-full group-hover/project:bg-terracotta/60"
+                : "w-0 opacity-0"
+            )}
+          />
+        </div>
+
         <p
           className={cn(
             "transition-all duration-500",
             "text-justify text-ink-muted",
-            // project.textColors.secondary,
             isInViewProject
               ? "translate-x-0 opacity-100 delay-300"
               : "-translate-x-2 opacity-0"
           )}
-          style={
-            {
-              // animationPlayState: isInView ? "running" : "paused",
-            }
-          }
         >
           {project.blurb}
         </p>

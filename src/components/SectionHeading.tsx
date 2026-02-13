@@ -8,7 +8,7 @@ type Props = {
 }
 
 export default function SectionHeading({ children }: Props) {
-  const ref = useRef<HTMLHeadingElement>(null)
+  const ref = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -23,12 +23,13 @@ export default function SectionHeading({ children }: Props) {
   })
 
   return (
-    <motion.h1
-      style={{ x, opacity }}
-      className="py-24 font-display text-5xl tracking-tight text-ink md:text-[8vmax]"
-      ref={ref}
-    >
-      {children}
-    </motion.h1>
+    <div ref={ref} className="relative py-24">
+      <motion.h1
+        style={{ x, opacity }}
+        className="font-display text-5xl tracking-tight text-ink md:text-[8vmax]"
+      >
+        {children}
+      </motion.h1>
+    </div>
   )
 }

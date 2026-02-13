@@ -1,5 +1,5 @@
 .button {
-  @apply font-mono text-xs tracking-wide md:text-sm;
+  @apply font-sans text-xs tracking-wide md:text-sm;
 }
 
 .button:hover .perspective {

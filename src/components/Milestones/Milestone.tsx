@@ -23,28 +23,27 @@ export default function Milestone({ milestone, isFirst, isLast }: Props) {
   }, [isInView])
 
   async function handleInView() {
-    if (!isFirst) await animate(".top-line", { scaleY: 1 }, { duration: 0.3 })
-    await animate(".timeline-middle", { scale: 1 }, { duration: 0.3 })
-    await animate(".timeline-start", { opacity: 1 }, { duration: 0.3 })
-    await animate(".timeline-end", { opacity: 1 }, { duration: 0.3 })
+    if (!isFirst)
+      await animate(".tl-line-top", { scaleY: 1 }, { duration: 0.3 })
+    await animate(".tl-dot", { scale: 1 }, { duration: 0.3 })
+    await animate(".tl-date", { opacity: 1 }, { duration: 0.3 })
+    await animate(".tl-content", { opacity: 1 }, { duration: 0.3 })
   }
 
   async function handleOutView() {
     if (!isFirst)
-      await animate(".top-line", { scaleY: 0 }, { duration: 0.0000001 })
-    await animate(".timeline-middle", { scale: 0 }, { duration: 0.0000001 })
-    await animate(".timeline-start", { opacity: 0 }, { duration: 0.0000001 })
-    await animate(".timeline-end", { opacity: 0 }, { duration: 0.0000001 })
+      await animate(".tl-line-top", { scaleY: 0 }, { duration: 0.0000001 })
+    await animate(".tl-dot", { scale: 0 }, { duration: 0.0000001 })
+    await animate(".tl-date", { opacity: 0 }, { duration: 0.0000001 })
+    await animate(".tl-content", { opacity: 0 }, { duration: 0.0000001 })
   }
 
   return (
     <>
-      {/* Hover Image */}
-
       <motion.li
         ref={scope}
         key={milestone.text}
-        className="relative min-h-[6rem] grid-cols-[2fr_min-content_5fr] md:grid-cols-[1fr_min-content_6fr]"
+        className="grid min-h-[6rem] grid-cols-[2fr_min-content_5fr] md:grid-cols-[1fr_min-content_6fr]"
         // onMouseEnter={() => setIsHoveringMilestone(true)}
         // onMouseLeave={() => setIsHoveringMilestone(false)}
       >
@@ -54,8 +53,10 @@ export default function Milestone({ milestone, isFirst, isLast }: Props) {
             isVisible={isHoveringMilestone}
           />
         )} */}
+
+        {/* Date column */}
         <div
-          className="md:text-md timeline-start justify-self-start text-end font-mono text-sm text-ink-subtle"
+          className="tl-date flex items-center justify-end pr-4 text-end font-mono text-sm text-ink-subtle md:text-base"
           style={{ opacity: 0 }}
         >
           {Array.isArray(milestone.date) ? (
@@ -68,31 +69,43 @@ export default function Milestone({ milestone, isFirst, isLast }: Props) {
             <span>{milestone.date}</span>
           )}
         </div>
-        {!isFirst && (
-          <motion.hr
-            className="top-line bg-cream-300"
-            style={{
-              scaleY: 0,
-            }}
-          />
-        )}
-        <motion.div
-          className="timeline-middle"
-          style={{
-            scale: 0,
-          }}
-        >
-          <motion.div className="size-2 rounded-full bg-terracotta md:size-3" />
-        </motion.div>
+
+        {/* Center connector column */}
+        <div className="relative flex flex-col items-center">
+          {/* Top line */}
+          {!isFirst && (
+            <motion.div
+              className="tl-line-top w-px flex-1 origin-top bg-cream-300"
+              style={{ scaleY: 0 }}
+            />
+          )}
+          {isFirst && <div className="flex-1" />}
+
+          {/* Dot */}
+          <motion.div
+            className="tl-dot z-10 flex items-center justify-center"
+            style={{ scale: 0 }}
+          >
+            <div className="size-2 rounded-full bg-terracotta md:size-3" />
+          </motion.div>
+
+          {/* Bottom line */}
+          {!isLast ? (
+            <div className="w-px flex-1 bg-cream-300" />
+          ) : (
+            <div className="flex-1" />
+          )}
+        </div>
+
+        {/* Content column */}
         <Wrapper milestone={milestone}>{milestone.text}</Wrapper>
-        {!isLast && <motion.hr className="bottom-line bg-cream-300" />}
       </motion.li>
     </>
   )
 }
 
 const baseTimelineEndClasses =
-  "timeline-end timeline-box text-base text-md md:text-xl shadow-none font-light text-ink-light"
+  "tl-content flex items-center pl-4 py-3 text-base md:text-xl font-light text-ink-light"
 
 const Wrapper = ({
   children,
@@ -105,10 +118,11 @@ const Wrapper = ({
     <Link
       className={cn(
         baseTimelineEndClasses,
-        "group flex cursor-pointer items-center gap-2 border-transparent text-terracotta decoration-1 underline-offset-4 transition-colors hover:bg-terracotta hover:text-white "
-      )} // @joud change these classes for clickable milestones
+        "group cursor-pointer gap-2 rounded-lg text-terracotta decoration-1 underline-offset-4 transition-colors hover:bg-terracotta/10"
+      )}
       href={milestone.href}
       target="_blank"
+      style={{ opacity: 0 }}
     >
       {children}
       <svg
@@ -118,10 +132,10 @@ const Wrapper = ({
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        className="lucide lucide-external-link stroke-[1.5px] text-white"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="lucide lucide-external-link flex-shrink-0 stroke-[1.5px] text-terracotta"
       >
         <path d="M15 3h6v6" />
         <path d="M10 14 21 3" />
@@ -129,9 +143,7 @@ const Wrapper = ({
       </svg>
     </Link>
   ) : (
-    <div
-      className={cn(baseTimelineEndClasses, "border-transparent shadow-none")}
-    >
+    <div className={cn(baseTimelineEndClasses)} style={{ opacity: 0 }}>
       {children}
     </div>
   )

@@ -19,7 +19,6 @@ export default function Orb({ expanded }: Props) {
   const router = useRouter()
   const lenis = useLenis()
   const [scope, animate] = useAnimate()
-  const { isMobile } = useScreenSize()
   const { shouldShowIntro } = useIntroContext()
   const orbColors = [
     "#C4654A",
@@ -78,9 +77,9 @@ export default function Orb({ expanded }: Props) {
           <div onPointerEnter={orbAnimation}>
             <TextMask
               type="letter"
-              className="whitespace-nowrap font-mono text-sm font-medium tracking-widest text-ink"
+              className="whitespace-nowrap font-sans text-sm font-medium tracking-wide text-cream-100"
             >
-              {isMobile && expanded ? "" : "JOUD.SHAWA.DEV"}
+              {expanded ? "JOUD" : ""}
             </TextMask>
           </div>
         </motion.div>

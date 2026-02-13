@@ -14,8 +14,9 @@ export default function TextBubble({ children, visible, index }: Props) {
   return (
     <motion.div
       key={children?.toString()}
-      className="chat-end flex gap-3 self-end py-1"
+      className="flex items-end justify-end gap-3 py-1"
     >
+      {/* Bubble */}
       <motion.div
         {...(index === 0 && {
           layoutId: "hello",
@@ -28,7 +29,7 @@ export default function TextBubble({ children, visible, index }: Props) {
         variants={textBubbleVariants}
         initial={index === 0 ? "visible" : "hidden"}
         animate={visible || index === 0 ? "visible" : "hidden"}
-        className="sm chat-bubble max-w-lg bg-ink text-lg font-light text-cream-200 before:h-4 before:w-4 before:-translate-x-px md:text-[clamp(0.875rem,0.3242rem+1.1475vw,1.4rem);] short:text-base"
+        className="max-w-lg rounded-[1.25rem] rounded-br-[0.25rem] bg-ink px-5 py-3.5 text-lg font-light text-cream-200 md:text-[clamp(0.875rem,0.3242rem+1.1475vw,1.4rem)] short:text-base"
         transition={{
           layout: {
             duration: 1.2,
@@ -38,6 +39,8 @@ export default function TextBubble({ children, visible, index }: Props) {
       >
         {children}
       </motion.div>
+
+      {/* Mobile avatar */}
       <motion.div
         initial={{ scale: index === 0 ? 1 : 0 }}
         {...(index === 0 && { layoutId: "avatar-sm" })}
@@ -49,7 +52,7 @@ export default function TextBubble({ children, visible, index }: Props) {
               }
             : { scale: 0 }
         }
-        className="avatar chat-image block md:hidden"
+        className="block flex-shrink-0 md:hidden"
         transition={{
           layout: {
             duration: 1,
@@ -57,8 +60,12 @@ export default function TextBubble({ children, visible, index }: Props) {
           },
         }}
       >
-        <div className="w-10 rounded-full">
-          <img alt="Tailwind CSS chat bubble component" src="/me.jpg" />
+        <div className="h-10 w-10 overflow-hidden rounded-full ring-2 ring-cream-300">
+          <img
+            alt="Joud El-Shawa"
+            src="/me.jpg"
+            className="h-full w-full object-cover"
+          />
         </div>
       </motion.div>
     </motion.div>

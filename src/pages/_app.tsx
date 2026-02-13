@@ -6,6 +6,7 @@ import { Instrument_Serif, DM_Sans, JetBrains_Mono } from "next/font/google"
 import Head from "next/head"
 
 import Footer from "@/components/Footer/Footer"
+import LivingSunsetBackground from "@/components/LivingSunsetBackground"
 import Navbar from "@/components/Navbar/Navbar"
 import ContactContextProvider from "@/contexts/contactContext"
 import IntroContextProvider, { IntroContext } from "@/contexts/introContext"
@@ -43,15 +44,16 @@ export default function App({ Component, pageProps }: AppProps) {
       <IntroContextProvider>
         <ProjectContextProvider>
           <ContactContextProvider>
+            <LivingSunsetBackground />
             <MouseTrail />
-            {/* <ReactLenis root> */}
-            <main
-              className={`${dmSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} ${dmSans.className}`}
-            >
-              <Component {...pageProps} />
-            </main>
-            <Footer />
-            {/* </ReactLenis> */}
+            <ReactLenis root options={{ lerp: 0.08, smoothWheel: true }}>
+              <main
+                className={`${dmSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} ${dmSans.className}`}
+              >
+                <Component {...pageProps} />
+              </main>
+              <Footer />
+            </ReactLenis>
           </ContactContextProvider>
         </ProjectContextProvider>
       </IntroContextProvider>

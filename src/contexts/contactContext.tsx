@@ -15,11 +15,19 @@ export default function ContactContextProvider({
   const [modalOpen, setModalOpen] = useState(false)
 
   useEffect(() => {
-    // TODO: replace with lenis equivalent once lenis is implemented
     if (modalOpen) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
+
       document.body.style.overflow = "hidden"
+      document.body.style.paddingRight = `${Math.max(0, scrollbarWidth)}px`
     } else {
       document.body.style.overflow = "auto"
+      document.body.style.paddingRight = ""
+    }
+
+    return () => {
+      document.body.style.overflow = "auto"
+      document.body.style.paddingRight = ""
     }
   }, [modalOpen])
 
