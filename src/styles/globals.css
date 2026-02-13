@@ -4,7 +4,7 @@
 
 html {
   scroll-behavior: auto;
-  scrollbar-gutter: stable both-edges;
+  scrollbar-gutter: stable;
 }
 
 html.lenis,
@@ -47,6 +47,7 @@ section {
 
 /* Display font utility */
 .font-display {
+  font-family: var(--font-display), serif;
   font-style: italic;
 }
 

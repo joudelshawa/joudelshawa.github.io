@@ -65,7 +65,8 @@ export default function ProjectDetailPage({
 
   return (
     <>
-      <div className="relative mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-24">
+      <div className="pointer-events-none fixed inset-0 z-[-1] bg-gradient-to-b from-cream-100/72 via-cream-100/58 to-cream-100/72 backdrop-blur-[2px]" />
+      <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-24">
         <button
           className="text-md group flex w-min items-center justify-center rounded-2xl border border-ink/[0.06] bg-cream-200 py-3 pl-4 pr-5 font-mono text-sm font-medium text-ink-muted transition-colors hover:bg-cream-300"
           type="button"

@@ -1,4 +1,5 @@
 import { motion, motionValue, useScroll, useTransform } from "framer-motion"
+import { useRouter } from "next/router"
 import { useEffect, useRef } from "react"
 
 // ─── Blob configuration ──────────────────────────────────────────────────────
@@ -117,19 +118,21 @@ function Blob({
   blobX,
   blobY,
   breathe,
+  intensity,
   scrollOpacity,
 }: {
   config: BlobConfig
   blobX: MV
   blobY: MV
   breathe: MV
+  intensity: MV
   scrollOpacity: MV
 }) {
   const compositeOpacity = useTransform(
-    [scrollOpacity, breathe],
+    [scrollOpacity, breathe, intensity],
     (values) => {
-      const [scroll, breath] = values as number[]
-      return scroll * (0.78 + breath * 0.22)
+      const [scroll, breath, active] = values as number[]
+      return scroll * (0.18 + active * 0.82) * (0.78 + breath * 0.22)
     }
   )
 
@@ -155,6 +158,9 @@ function Blob({
 // ─── Main background ─────────────────────────────────────────────────────────
 
 export default function LivingSunsetBackground() {
+  const router = useRouter()
+  const isProjectPage = router.pathname.startsWith("/projects/")
+
   // Track scroll progress for opacity fade
   const { scrollYProgress } = useScroll()
   // Opacity goes from 1 (top) down to 0.15 (bottom) as user scrolls
@@ -170,12 +176,19 @@ export default function LivingSunsetBackground() {
   )
   const grainX = useRef(motionValue(0))
   const grainY = useRef(motionValue(0))
+  const intensity = useRef(motionValue(isProjectPage ? 0.28 : 1))
+  const currentIntensity = useRef(isProjectPage ? 0.28 : 1)
+  const targetIntensity = useRef(isProjectPage ? 0.28 : 1)
 
   // Mutable refs for the animation loop (no re-renders)
   const mouseTarget = useRef({ x: 0, y: 0 })
   const mouseCurrent = useRef({ x: 0, y: 0 })
   const startTime = useRef(0)
   const rafId = useRef(0)
+
+  useEffect(() => {
+    targetIntensity.current = isProjectPage ? 0.28 : 1
+  }, [isProjectPage])
 
   // Mouse listener — just updates target, no motion values
   useEffect(() => {
@@ -185,7 +198,7 @@ export default function LivingSunsetBackground() {
     }
     window.addEventListener("mousemove", onMove, { passive: true })
     return () => window.removeEventListener("mousemove", onMove)
-  }, [])
+  }, [scrollYProgress])
 
   // Single unified rAF loop — drives ALL blob positions
   useEffect(() => {
@@ -195,6 +208,10 @@ export default function LivingSunsetBackground() {
       const elapsed = (performance.now() - startTime.current) / 1000
       const scrollProgress = scrollYProgress.get()
       const centeredProgress = scrollProgress - 0.5
+
+      currentIntensity.current +=
+        (targetIntensity.current - currentIntensity.current) * 0.045
+      intensity.current.set(currentIntensity.current)
 
       // Lerp mouse position toward target (frame-rate independent feel)
       mouseCurrent.current.x +=
@@ -216,13 +233,21 @@ export default function LivingSunsetBackground() {
         const my = mouseCurrent.current.y * cfg.mouseInfluence
 
         // Scroll depth parallax (different travel per blob)
-        const scrollY = centeredProgress * SCROLL_PARALLAX_RANGE * cfg.depth
-        const scrollX = centeredProgress * (SCROLL_PARALLAX_RANGE * 0.22) * cfg.depth
+        const depthIntensity = 0.35 + currentIntensity.current * 0.65
+        const scrollY =
+          centeredProgress * SCROLL_PARALLAX_RANGE * cfg.depth * depthIntensity
+        const scrollX =
+          centeredProgress *
+          (SCROLL_PARALLAX_RANGE * 0.22) *
+          cfg.depth *
+          depthIntensity
 
         // Very gentle breathing (size + opacity)
         const breathe =
           0.92 +
-          (Math.sin(elapsed * BREATH_SPEED + i * 1.33) + 1) * BREATH_AMPLITUDE
+          (Math.sin(elapsed * BREATH_SPEED + i * 1.33) + 1) *
+            BREATH_AMPLITUDE *
+            (0.45 + currentIntensity.current * 0.55)
 
         // Final position = rest + idle + mouse
         blobMotion.current[i].x.set(cfg.restX + idleX + mx + scrollX)
@@ -256,6 +281,7 @@ export default function LivingSunsetBackground() {
           blobX={blobMotion.current[i].x}
           blobY={blobMotion.current[i].y}
           breathe={blobMotion.current[i].breathe}
+          intensity={intensity.current}
           scrollOpacity={scrollOpacity}
         />
       ))}
@@ -265,7 +291,7 @@ export default function LivingSunsetBackground() {
         style={{
           x: grainX.current,
           y: grainY.current,
-          opacity: GRAIN_OPACITY,
+          opacity: useTransform(intensity.current, (v) => GRAIN_OPACITY * (0.35 + v * 0.65)),
           backgroundImage:
             "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
           backgroundRepeat: "repeat",

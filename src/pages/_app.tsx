@@ -13,7 +13,7 @@ import Navbar from "@/components/Navbar/Navbar"
 import ContactContextProvider from "@/contexts/contactContext"
 import IntroContextProvider, { IntroContext } from "@/contexts/introContext"
 import ProjectContextProvider from "@/contexts/projectContext"
-import { ReactLenis, useLenis } from "lenis/dist/lenis-react"
+import { ReactLenis } from "lenis/dist/lenis-react"
 
 import type { AppProps } from "next/app"
 import MouseTrail from "@/components/MouseTrail"
@@ -36,37 +36,19 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
 })
 
-function RouteScrollReset() {
+export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
-  const lenis = useLenis()
+  const routeKey = router.asPath.split("#")[0]
 
   useEffect(() => {
     if (typeof window === "undefined") return
-
     const previousScrollRestoration = window.history.scrollRestoration
     window.history.scrollRestoration = "manual"
-
-    const handleRouteChangeComplete = (url: string) => {
-      if (url.includes("#")) return
-
-      lenis?.scrollTo(0, { immediate: true, force: true })
-      window.scrollTo(0, 0)
-      requestAnimationFrame(() => window.scrollTo(0, 0))
-    }
-
-    router.events.on("routeChangeComplete", handleRouteChangeComplete)
-
     return () => {
       window.history.scrollRestoration = previousScrollRestoration
-      router.events.off("routeChangeComplete", handleRouteChangeComplete)
     }
-  }, [lenis, router.events])
+  }, [])
 
-  return null
-}
-
-export default function App({ Component, pageProps }: AppProps) {
-  const router = useRouter()
   const navLinks = router.pathname === "/" ? [
     { href: "#projects", text: "Projects" },
     { href: "#milestones", text: "Milestones" },
@@ -83,15 +65,40 @@ export default function App({ Component, pageProps }: AppProps) {
           <ContactContextProvider>
             <LivingSunsetBackground />
             <MouseTrail />
-            <ReactLenis root options={{ lerp: 0.08, smoothWheel: true }}>
-              <RouteScrollReset />
-              <Navbar navLinks={navLinks} />
-              <main
+            <ReactLenis
+              root
+              options={{
+                lerp: 0.08,
+                smoothWheel: true,
+                stopInertiaOnNavigate: true,
+              }}
+            >
+              <div
                 className={`${dmSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} ${dmSans.className}`}
               >
-                <Component {...pageProps} />
-              </main>
-              <Footer />
+                <Navbar navLinks={navLinks} />
+                <main>
+                  <AnimatePresence
+                    mode="wait"
+                    initial={false}
+                    onExitComplete={() => {
+                      if (typeof window === "undefined") return
+                      window.scrollTo(0, 0)
+                    }}
+                  >
+                    <motion.div
+                      key={routeKey}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.22, ease: "easeOut" }}
+                    >
+                      <Component {...pageProps} />
+                    </motion.div>
+                  </AnimatePresence>
+                </main>
+                <Footer />
+              </div>
             </ReactLenis>
           </ContactContextProvider>
         </ProjectContextProvider>

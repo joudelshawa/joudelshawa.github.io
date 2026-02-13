@@ -80,7 +80,7 @@ export default function ProjectTitle({ project }: Props) {
 
   return (
     <motion.div ref={ref} className="group/project origin-left py-12 md:py-36">
-      <Link href={`projects/${project.slug}`} className="block space-y-5">
+      <Link href={`/projects/${project.slug}`} scroll={false} className="block space-y-5">
         <div className="space-y-1">
           <p
             className={cn(

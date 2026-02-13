@@ -13,7 +13,8 @@ export default function ProjectPreviewImage({ project }: Props) {
 
   return (
     <Link
-      href={`projects/${project.slug}`}
+      href={`/projects/${project.slug}`}
+      scroll={false}
       className={cn(
         "absolute inset-0 flex h-min w-full items-center justify-center rounded-2xl shadow-lg shadow-ink/[0.06] transition-opacity duration-500",
         inViewProject?.name === project.name
