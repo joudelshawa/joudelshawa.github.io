@@ -1,5 +1,4 @@
 import { AnimatePresence, motion } from "framer-motion"
-import { useEffect } from "react"
 
 import Hero from "@/components/Hero/Hero"
 import Intro from "@/components/Hero/Intro"
@@ -9,7 +8,6 @@ import ProjectSection from "@/components/Projects/ProjectSection"
 import { useContactContext } from "@/contexts/contactContext"
 import { useIntroContext } from "@/contexts/introContext"
 import useScreenSize from "@/hooks/use-screen-size"
-import { useLenis } from "@studio-freight/react-lenis"
 
 const navLinks = [
   { href: "#projects", text: "Projects" },
@@ -20,15 +18,6 @@ export default function Home() {
   const { isMobile } = useScreenSize()
   const { shouldShowIntro } = useIntroContext()
   const { modalOpen } = useContactContext()
-  const lenis = useLenis()
-
-  useEffect(() => {
-    if (modalOpen) {
-      lenis?.stop()
-    } else {
-      lenis?.start()
-    }
-  }, [lenis, modalOpen])
 
   if (shouldShowIntro) return <Intro />
 

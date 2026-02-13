@@ -11,7 +11,7 @@ import Navbar from "@/components/Navbar/Navbar"
 import ContactContextProvider from "@/contexts/contactContext"
 import IntroContextProvider, { IntroContext } from "@/contexts/introContext"
 import ProjectContextProvider from "@/contexts/projectContext"
-import { ReactLenis } from "@studio-freight/react-lenis"
+import { ReactLenis } from "lenis/dist/lenis-react"
 
 import type { AppProps } from "next/app"
 import MouseTrail from "@/components/MouseTrail"

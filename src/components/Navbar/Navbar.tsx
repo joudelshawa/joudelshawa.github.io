@@ -220,6 +220,9 @@ export default function Navbar({ navLinks }: Props) {
           {modalOpen && (
             <motion.div
               ref={modalPanelRef}
+              data-lenis-prevent
+              data-lenis-prevent-wheel
+              data-lenis-prevent-touch
               transition={{ duration: islandTime(0.7), ease }}
               style={{ transformOrigin: "top" }}
               className={`origin-top border-t border-cream-100/15 ${

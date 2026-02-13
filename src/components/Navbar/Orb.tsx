@@ -7,7 +7,7 @@ import { useState } from "react"
 import { useIntroContext } from "@/contexts/introContext"
 import useScreenSize from "@/hooks/use-screen-size"
 import { ease } from "@/utils/framer"
-import { useLenis } from "@studio-freight/react-lenis"
+import { useLenis } from "lenis/dist/lenis-react"
 
 import TextMask from "../TextMask"
 
