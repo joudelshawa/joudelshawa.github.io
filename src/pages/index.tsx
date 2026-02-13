@@ -3,16 +3,10 @@ import { AnimatePresence, motion } from "framer-motion"
 import Hero from "@/components/Hero/Hero"
 import Intro from "@/components/Hero/Intro"
 import MilestoneSection from "@/components/Milestones/MilestoneSection"
-import Navbar from "@/components/Navbar/Navbar"
 import ProjectSection from "@/components/Projects/ProjectSection"
 import { useContactContext } from "@/contexts/contactContext"
 import { useIntroContext } from "@/contexts/introContext"
 import useScreenSize from "@/hooks/use-screen-size"
-
-const navLinks = [
-  { href: "#projects", text: "Projects" },
-  { href: "#milestones", text: "Milestones" },
-]
 
 export default function Home() {
   const { isMobile } = useScreenSize()
@@ -23,8 +17,6 @@ export default function Home() {
 
   return (
     <>
-      <Navbar key="navbar" navLinks={navLinks} />
-
       <Hero />
       <ProjectSection />
       <MilestoneSection />

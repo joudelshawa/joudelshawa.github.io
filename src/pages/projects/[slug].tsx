@@ -9,7 +9,6 @@ import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote"
 import { serialize } from "next-mdx-remote/serialize"
 import { useEffect } from "react"
 
-import Navbar from "@/components/Navbar/Navbar"
 import ProjectDetailImage from "@/components/Projects/ProjectDetailImage"
 import projectData from "@/data/projects"
 import { cn } from "@/utils/misc"
@@ -66,7 +65,6 @@ export default function ProjectDetailPage({
 
   return (
     <>
-      <Navbar navLinks={[]} />
       <div className="relative mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-24">
         <button
           className="text-md group flex w-min items-center justify-center rounded-2xl border border-ink/[0.06] bg-cream-200 py-3 pl-4 pr-5 font-mono text-sm font-medium text-ink-muted transition-colors hover:bg-cream-300"

@@ -5,9 +5,7 @@ import { useRouter } from "next/router"
 import { useState } from "react"
 
 import { useIntroContext } from "@/contexts/introContext"
-import useScreenSize from "@/hooks/use-screen-size"
 import { ease } from "@/utils/framer"
-import { useLenis } from "lenis/dist/lenis-react"
 
 import TextMask from "../TextMask"
 
@@ -17,7 +15,6 @@ type Props = {
 
 export default function Orb({ expanded }: Props) {
   const router = useRouter()
-  const lenis = useLenis()
   const [scope, animate] = useAnimate()
   const { shouldShowIntro } = useIntroContext()
   const orbColors = [
@@ -62,7 +59,7 @@ export default function Orb({ expanded }: Props) {
 
   return (
     <Link href="#hero" onClick={handleNavigate}>
-      <motion.div layout="position" className="flex">
+      <motion.div className="flex">
         <motion.div
           onPointerEnter={orbAnimation}
           ref={scope}

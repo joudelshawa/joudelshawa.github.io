@@ -5,6 +5,7 @@ import {
   useMotionValueEvent,
   useScroll,
 } from "framer-motion"
+import { useRouter } from "next/router"
 import { useEffect, useRef, useState } from "react"
 
 import { useContactContext } from "@/contexts/contactContext"
@@ -28,6 +29,7 @@ const islandTime = (seconds: number) => seconds * ISLAND_ANIMATION_SCALE
 
 
 export default function Navbar({ navLinks }: Props) {
+  const router = useRouter()
   const { isMobile, pixelWidth } = useScreenSize()
   const { introComplete } = useIntroContext()
   const { modalOpen, setModalOpen } = useContactContext()
@@ -38,6 +40,20 @@ export default function Navbar({ navLinks }: Props) {
   const contactToggleRef = useRef<HTMLButtonElement>(null)
   const [expanded, setExpanded] = useState<boolean>(true)
   const [hovered, setHovered] = useState(false)
+  const [suppressChildAnimation, setSuppressChildAnimation] = useState(false)
+
+  useEffect(() => {
+    setSuppressChildAnimation(true)
+    setExpanded(true)
+    setHovered(false)
+    setModalOpen(false)
+
+    const timeout = window.setTimeout(() => {
+      setSuppressChildAnimation(false)
+    }, 60)
+
+    return () => window.clearTimeout(timeout)
+  }, [router.asPath, setModalOpen])
 
   useEffect(() => {
     if (!modalOpen) return
@@ -169,8 +185,13 @@ export default function Navbar({ navLinks }: Props) {
 
           {!isMobile && (
             <motion.div
+              initial={false}
               animate={showExpanded ? { opacity: 1, x: 0 } : { opacity: 0, x: 6 }}
-              transition={{ duration: islandTime(0.26), ease }}
+              transition={
+                suppressChildAnimation
+                  ? { duration: 0 }
+                  : { duration: islandTime(0.26), ease }
+              }
               className="ml-auto flex items-center gap-4"
               style={{ pointerEvents: showExpanded ? "auto" : "none" }}
             >
@@ -196,8 +217,13 @@ export default function Navbar({ navLinks }: Props) {
 
           {isMobile && (
             <motion.div
+              initial={false}
               animate={showExpanded ? { opacity: 1, x: 0 } : { opacity: 0, x: 6 }}
-              transition={{ duration: islandTime(0.26), ease }}
+              transition={
+                suppressChildAnimation
+                  ? { duration: 0 }
+                  : { duration: islandTime(0.26), ease }
+              }
               style={{ pointerEvents: showExpanded ? "auto" : "none" }}
               className="ml-auto"
             >
