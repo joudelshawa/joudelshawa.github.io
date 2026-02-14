@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import { useIntroContext } from "@/contexts/introContext"
 import { ease } from "@/utils/framer"
@@ -8,6 +8,7 @@ import TextBubbles from "./TextBubbles"
 
 export default function Hero() {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [showScrollCue, setShowScrollCue] = useState(false)
 
   const { scrollYProgress } = useScroll({
     target: scrollContainerRef,
@@ -17,6 +18,17 @@ export default function Hero() {
   const { introComplete } = useIntroContext()
   const scrollCueOpacity = useTransform(scrollYProgress, [0, 0.18], [1, 0])
   const scrollCueY = useTransform(scrollYProgress, [0, 0.24], [0, 8])
+
+  useEffect(() => {
+    setShowScrollCue(false)
+
+    const timer = window.setTimeout(
+      () => setShowScrollCue(true),
+      introComplete ? 1200 : 2200,
+    )
+
+    return () => window.clearTimeout(timer)
+  }, [introComplete])
 
   return (
     <motion.section
@@ -57,13 +69,27 @@ export default function Hero() {
         />
 
         <motion.div
-          style={{ opacity: scrollCueOpacity, y: scrollCueY }}
+          style={{ opacity: showScrollCue ? scrollCueOpacity : 0, y: scrollCueY }}
           className="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2"
           aria-hidden
         >
-          <div className="rounded-full rounded-br-md bg-cream-200/90 px-4 py-2 text-sm font-light text-ink shadow-sm shadow-ink/10">
-            Scroll to continue ↓
-          </div>
+          <motion.div
+            initial={false}
+            animate={
+              showScrollCue
+                ? { opacity: 1, y: 0, scale: 1 }
+                : { opacity: 0, y: 6, scale: 0.98 }
+            }
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <motion.div
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+              className="rounded-full rounded-br-md bg-cream-200/90 px-4 py-2 text-sm font-light text-ink shadow-sm shadow-ink/10"
+            >
+              Scroll to continue ↓
+            </motion.div>
+          </motion.div>
         </motion.div>
       </motion.div>
     </motion.section>
