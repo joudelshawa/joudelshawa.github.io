@@ -5,7 +5,7 @@ import { Instrument_Serif, DM_Sans, JetBrains_Mono } from "next/font/google"
 
 import Head from "next/head"
 import { useRouter } from "next/router"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 
 import Footer from "@/components/Footer/Footer"
 import LivingSunsetBackground from "@/components/LivingSunsetBackground"
@@ -14,6 +14,7 @@ import ContactContextProvider from "@/contexts/contactContext"
 import IntroContextProvider, { IntroContext } from "@/contexts/introContext"
 import ProjectContextProvider from "@/contexts/projectContext"
 import { ReactLenis } from "lenis/dist/lenis-react"
+import type { LenisRef } from "lenis/dist/lenis-react"
 
 import type { AppProps } from "next/app"
 import MouseTrail from "@/components/MouseTrail"
@@ -38,8 +39,9 @@ const jetbrainsMono = JetBrains_Mono({
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
+  const lenisRef = useRef<LenisRef>(null)
+  const isRouteTransitioningRef = useRef(false)
   const routeKey = router.asPath.split("#")[0]
-  const isHomeRoute = router.pathname === "/"
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -49,6 +51,26 @@ export default function App({ Component, pageProps }: AppProps) {
       window.history.scrollRestoration = previousScrollRestoration
     }
   }, [])
+
+  useEffect(() => {
+    const handleRouteChangeStart = () => {
+      isRouteTransitioningRef.current = true
+      lenisRef.current?.lenis?.stop()
+    }
+
+    const handleRouteChangeError = () => {
+      isRouteTransitioningRef.current = false
+      lenisRef.current?.lenis?.start()
+    }
+
+    router.events.on("routeChangeStart", handleRouteChangeStart)
+    router.events.on("routeChangeError", handleRouteChangeError)
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChangeStart)
+      router.events.off("routeChangeError", handleRouteChangeError)
+    }
+  }, [router.events])
 
   const navLinks = router.pathname === "/" ? [
     { href: "#projects", text: "Projects" },
@@ -67,6 +89,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <LivingSunsetBackground />
             <MouseTrail />
             <ReactLenis
+              ref={lenisRef}
               root
               options={{
                 lerp: 0.08,
@@ -78,21 +101,32 @@ export default function App({ Component, pageProps }: AppProps) {
                 className={`${dmSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} ${dmSans.className}`}
               >
                 <Navbar navLinks={navLinks} />
-                <main>
+                <main className="relative overflow-x-clip">
                   <AnimatePresence
                     mode="wait"
                     initial={router.pathname === "/"}
                     onExitComplete={() => {
-                      if (typeof window === "undefined") return
+                      if (!isRouteTransitioningRef.current || typeof window === "undefined") return
+
+                      lenisRef.current?.lenis?.scrollTo(0, {
+                        immediate: true,
+                        force: true,
+                      })
                       window.scrollTo(0, 0)
+                      isRouteTransitioningRef.current = false
+
+                      requestAnimationFrame(() => {
+                        lenisRef.current?.lenis?.start()
+                      })
                     }}
                   >
                     <motion.div
                       key={routeKey}
-                      initial={isHomeRoute ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={isHomeRoute ? { opacity: 1, y: 0 } : { opacity: 0, y: -6 }}
-                      transition={isHomeRoute ? { duration: 0 } : { duration: 0.22, ease: "easeOut" }}
+                      initial={{ opacity: 0, filter: "blur(2px)" }}
+                      animate={{ opacity: 1, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, filter: "blur(1px)" }}
+                      transition={{ duration: 0.28, ease: "easeOut" }}
+                      className="relative"
                     >
                       <Component {...pageProps} />
                     </motion.div>

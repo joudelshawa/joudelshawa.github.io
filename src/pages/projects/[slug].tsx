@@ -7,7 +7,6 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote"
 import { serialize } from "next-mdx-remote/serialize"
-import { useEffect } from "react"
 
 import ProjectDetailImage from "@/components/Projects/ProjectDetailImage"
 import projectData from "@/data/projects"
@@ -52,9 +51,9 @@ export default function ProjectDetailPage({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
 
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+  const handleBack = () => {
+    router.push("/", undefined, { scroll: false })
+  }
 
   if (!project)
     return (
@@ -70,7 +69,7 @@ export default function ProjectDetailPage({
         <button
           className="text-md group flex w-min items-center justify-center rounded-2xl border border-ink/[0.06] bg-cream-200 py-3 pl-4 pr-5 font-mono text-sm font-medium text-ink-muted transition-colors hover:bg-cream-300"
           type="button"
-          onClick={() => router.back()}
+          onClick={handleBack}
         >
           <svg
             className="mr-2 h-4 w-4 transition-transform duration-200 group-hover:-translate-x-1"

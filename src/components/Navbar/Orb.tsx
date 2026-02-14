@@ -52,8 +52,7 @@ export default function Orb({ expanded }: Props) {
   function handleNavigate(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     if (router.pathname !== "/") {
       e.preventDefault()
-      console.log("scrolling to top")
-      router.push("/")
+      router.push("/", undefined, { scroll: false })
     }
   }
 
