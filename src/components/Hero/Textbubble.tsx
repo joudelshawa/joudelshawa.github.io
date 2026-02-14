@@ -21,7 +21,6 @@ export default function TextBubble({ children, visible, index }: Props) {
         {...(index === 0 && {
           layoutId: "hello",
           onLayoutAnimationComplete: () => {
-            console.log("layout animation complete")
             setIntroComplete(true)
             setShouldShowIntro(false)
           },

@@ -39,6 +39,7 @@ const jetbrainsMono = JetBrains_Mono({
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
   const routeKey = router.asPath.split("#")[0]
+  const isHomeRoute = router.pathname === "/"
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -80,7 +81,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 <main>
                   <AnimatePresence
                     mode="wait"
-                    initial={false}
+                    initial={router.pathname === "/"}
                     onExitComplete={() => {
                       if (typeof window === "undefined") return
                       window.scrollTo(0, 0)
@@ -88,10 +89,10 @@ export default function App({ Component, pageProps }: AppProps) {
                   >
                     <motion.div
                       key={routeKey}
-                      initial={{ opacity: 0, y: 8 }}
+                      initial={isHomeRoute ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -6 }}
-                      transition={{ duration: 0.22, ease: "easeOut" }}
+                      exit={isHomeRoute ? { opacity: 1, y: 0 } : { opacity: 0, y: -6 }}
+                      transition={isHomeRoute ? { duration: 0 } : { duration: 0.22, ease: "easeOut" }}
                     >
                       <Component {...pageProps} />
                     </motion.div>

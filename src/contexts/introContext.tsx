@@ -21,21 +21,12 @@ export default function IntroContextProvider({
   const router = useRouter()
 
   useEffect(() => {
-    console.log(
-      "IntroContextProvider useEffect",
-      router.pathname,
-      shouldShowIntro,
-      introComplete
-    )
-  }, [router.pathname, shouldShowIntro, introComplete])
-
-  useEffect(() => {
-    console.log(router.pathname)
     if (router.pathname !== "/") {
       setShouldShowIntro(false)
       setIntroComplete(true)
     }
-  }, [])
+  }, [router.pathname])
+
   return (
     <IntroContext.Provider
       value={{
