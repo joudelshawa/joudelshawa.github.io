@@ -5,7 +5,7 @@ export const ease = [0.6, 0.01, 0.05, 0.95] as const
 export const textBubbleVariants: AnimationProps["variants"] = {
   hidden: {
     opacity: 0,
-    x: 10,
+    x: -10,
   },
   visible: {
     opacity: 1,

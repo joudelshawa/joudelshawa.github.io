@@ -23,18 +23,6 @@ export default function Intro() {
         className="flex items-end gap-3"
         transition={{ duration: 2, ease }}
       >
-        {/* Chat bubble */}
-        <motion.div
-          layoutId="hello"
-          variants={textBubbleVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 0.12 }}
-          className="bubble-message max-w-lg rounded-[1.25rem] rounded-br-[0.25rem] bg-ink px-5 py-3.5 text-lg font-light text-cream-200 md:text-[clamp(0.875rem,0.3242rem+1.1475vw,1.4rem)]"
-        >
-          {text}
-        </motion.div>
-
         {/* Mobile avatar */}
         <motion.div
           initial={{ scale: 0 }}
@@ -89,6 +77,18 @@ export default function Intro() {
           }}
           className="z-0 hidden h-14 w-14 flex-shrink-0 bg-[url('/me.jpg')] bg-cover bg-center md:block"
         ></motion.div>
+
+        {/* Chat bubble */}
+        <motion.div
+          layoutId="hello"
+          variants={textBubbleVariants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 0.12 }}
+          className="bubble-message max-w-lg rounded-[1.25rem] rounded-bl-[0.25rem] bg-ink px-5 py-3.5 text-lg font-light text-cream-200 md:text-[clamp(0.875rem,0.3242rem+1.1475vw,1.4rem)]"
+        >
+          {text}
+        </motion.div>
       </motion.div>
     </motion.div>
   )

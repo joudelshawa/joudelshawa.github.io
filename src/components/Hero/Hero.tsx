@@ -53,7 +53,6 @@ export default function Hero() {
       />
 
       <motion.div className="sticky left-0 top-0 mx-auto mb-4 flex h-screen max-w-7xl grid-cols-1 items-center justify-center gap-4 ">
-        <TextBubbles scrollYProgress={scrollYProgress} />
         <motion.div
           layoutId="avatar-lg"
           transition={{
@@ -67,28 +66,53 @@ export default function Hero() {
           }}
           className="z-0 hidden aspect-square w-full min-w-[25rem] max-w-[40%] bg-[url('/me.jpg')] bg-cover bg-top shadow-2xl shadow-ink/10 md:block"
         />
+        <TextBubbles scrollYProgress={scrollYProgress} />
+      </motion.div>
 
+      <motion.div
+        className="pointer-events-none fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+0.75rem)] z-20 flex justify-center md:hidden"
+        aria-hidden
+      >
         <motion.div
-          style={{ opacity: showScrollCue ? scrollCueOpacity : 0, y: scrollCueY }}
-          className="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2"
-          aria-hidden
+          style={{ opacity: showScrollCue ? 1 : 0 }}
+          initial={false}
+          animate={
+            showScrollCue
+              ? { opacity: 1, y: 0, scale: 1 }
+              : { opacity: 0, y: 6, scale: 0.98 }
+          }
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
           <motion.div
-            initial={false}
-            animate={
-              showScrollCue
-                ? { opacity: 1, y: 0, scale: 1 }
-                : { opacity: 0, y: 6, scale: 0.98 }
-            }
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            animate={{ y: [0, -4, 0] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            className="rounded-full rounded-br-md bg-cream-200/90 px-4 py-2 text-sm font-light text-ink shadow-sm shadow-ink/10"
           >
-            <motion.div
-              animate={{ y: [0, -4, 0] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-              className="rounded-full rounded-br-md bg-cream-200/90 px-4 py-2 text-sm font-light text-ink shadow-sm shadow-ink/10"
-            >
-              Scroll to continue ↓
-            </motion.div>
+            Scroll to continue ↓
+          </motion.div>
+        </motion.div>
+      </motion.div>
+
+      <motion.div
+        className="pointer-events-none fixed inset-x-0 bottom-8 z-20 hidden justify-center md:flex"
+        aria-hidden
+      >
+        <motion.div
+          style={{ opacity: showScrollCue ? scrollCueOpacity : 0, y: scrollCueY }}
+          initial={false}
+          animate={
+            showScrollCue
+              ? { opacity: 1, y: 0, scale: 1 }
+              : { opacity: 0, y: 6, scale: 0.98 }
+          }
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <motion.div
+            animate={{ y: [0, -4, 0] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            className="rounded-full rounded-br-md bg-cream-200/90 px-4 py-2 text-sm font-light text-ink shadow-sm shadow-ink/10"
+          >
+            Scroll to continue ↓
           </motion.div>
         </motion.div>
       </motion.div>

@@ -32,31 +32,8 @@ export default function TextBubble({ children, visible, index }: Props) {
   return (
     <motion.div
       key={children?.toString()}
-      className="flex items-end justify-end gap-3 py-1"
+      className="flex items-end justify-start gap-3 py-1"
     >
-      {/* Bubble */}
-      <motion.div
-        {...(index === 0 && {
-          layoutId: "hello",
-          onLayoutAnimationComplete: () => {
-            setIntroComplete(true)
-            setShouldShowIntro(false)
-          },
-        })}
-        variants={textBubbleVariants}
-        initial={index === 0 ? "visible" : "hidden"}
-        animate={animationPhase}
-        className="max-w-lg rounded-[1.25rem] rounded-br-[0.25rem] bg-ink px-5 py-3.5 text-lg font-light text-cream-200 md:text-[clamp(0.875rem,0.3242rem+1.1475vw,1.4rem)] short:text-base"
-        transition={{
-          layout: {
-            duration: 1.2,
-            ease,
-          },
-        }}
-      >
-        {children}
-      </motion.div>
-
       {/* Mobile avatar */}
       <motion.div
         initial={index === 0 ? "visible" : "hidden"}
@@ -78,6 +55,29 @@ export default function TextBubble({ children, visible, index }: Props) {
             className="h-full w-full object-cover"
           />
         </div>
+      </motion.div>
+
+      {/* Bubble */}
+      <motion.div
+        {...(index === 0 && {
+          layoutId: "hello",
+          onLayoutAnimationComplete: () => {
+            setIntroComplete(true)
+            setShouldShowIntro(false)
+          },
+        })}
+        variants={textBubbleVariants}
+        initial={index === 0 ? "visible" : "hidden"}
+        animate={animationPhase}
+        className="max-w-lg rounded-[1.25rem] rounded-bl-[0.25rem] bg-ink px-5 py-3.5 text-lg font-light text-cream-200 md:text-[clamp(0.875rem,0.3242rem+1.1475vw,1.4rem)] short:text-base"
+        transition={{
+          layout: {
+            duration: 1.2,
+            ease,
+          },
+        }}
+      >
+        {children}
       </motion.div>
     </motion.div>
   )
