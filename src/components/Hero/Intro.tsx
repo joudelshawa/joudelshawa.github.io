@@ -56,7 +56,7 @@ export default function Intro() {
             },
           }}
         >
-          <div className="h-10 w-10 overflow-hidden rounded-full ring-2 ring-cream-300">
+          <div className="h-[3.25rem] w-[3.25rem] overflow-hidden rounded-full ring-2 ring-cream-300">
             <img
               alt="Joud El-Shawa"
               src="/me.jpg"
