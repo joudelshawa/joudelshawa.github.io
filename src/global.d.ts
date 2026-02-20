@@ -22,5 +22,7 @@ declare global {
     date: string | [string, string]
     href?: string
     hoverImage?: string
+    image?: string
+    isFocused?: boolean
   }
 }

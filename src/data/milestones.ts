@@ -6,10 +6,14 @@ const milestones: Milestone[] = [
   {
     text: "Attended and presented two papers at the AAAI Secure AI4H Fall Symposium in Arlington, VA!",
     date: "Nov 2025",
+    isFocused: true,
+    image: "/projects/gnn.png",
   },
   {
     text: "Presented ongoing climate work at the Global AI Alliance for Climate Action showcase event in Toronto",
     date: "May 2025",
+    isFocused: true,
+    image: "/projects/view-the-world.webp",
   },
   {
     text: "Presented a poster and talk of ongoing research at the Western Research Forum",
@@ -22,6 +26,8 @@ const milestones: Milestone[] = [
   {
     text: "Started a new climate project with an NGO from the Global South as part of the Global AI Alliance for Climate Action!",
     date: "Jan 2025",
+    isFocused: true,
+    image: "/projects/gnn.png",
   },
   {
     text: "Organized and volunteered at Brainhack Western 2025 🧠",
@@ -34,6 +40,8 @@ const milestones: Milestone[] = [
   {
     text: "Attended the AI for Climate Summit in Istanbul, Turkiye 🇹🇷",
     date: "Nov 2024",
+    isFocused: true,
+    image: "/projects/view-the-world.webp",
   },
   {
     text: "Joined the Vector Institute's Global AI Alliance for Climate Action ☔️",
@@ -42,6 +50,8 @@ const milestones: Milestone[] = [
   {
     text: "Started my MSc in Computer Science - Vector Collaborative Specialization in AI under the supervision of Dr. Yalda Mohsenzadeh",
     date: "Sept 2024",
+    isFocused: true,
+    image: "/me2.jpg",
   },
   {
     text: "Presented Research at the Vector/GEMINI Research Day 🤓",
@@ -58,10 +68,14 @@ const milestones: Milestone[] = [
   {
     text: "Began my research internship at the Vector Institute!",
     date: ["May 2024", "Aug 2024"],
+    isFocused: true,
+    image: "/projects/unsupervised-anomaly.webp",
   },
   {
     text: "Presented my undergraduate thesis research at UWORCS and won second place in the AI category!",
     date: "Apr 2024",
+    isFocused: true,
+    image: "/projects/ml4labs.webp",
   },
   {
     text: "Organized the Western University Research in Computer Science (UWORCS) Conference",
