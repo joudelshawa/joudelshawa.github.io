@@ -41,30 +41,9 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
   const lenisRef = useRef<LenisRef>(null)
   const isRouteTransitioningRef = useRef(false)
-  const isInterceptedNavigationRef = useRef(false)
-  const [curtainPhase, setCurtainPhase] = useState<"hidden" | "entering" | "covered" | "exiting">("hidden")
+  const [hashFadePhase, setHashFadePhase] = useState<"hidden" | "out" | "in">("hidden")
   const routeKey = router.asPath.split("#")[0]
-
-  const curtainDurationMs = 420
-
-  const coverWithCurtain = async () => {
-    if (typeof window === "undefined") return
-
-    setCurtainPhase("entering")
-    lenisRef.current?.lenis?.stop()
-
-    await new Promise<void>((resolve) => {
-      window.setTimeout(() => {
-        setCurtainPhase("covered")
-        resolve()
-      }, curtainDurationMs)
-    })
-  }
-
-  const revealCurtain = () => {
-    if (typeof window === "undefined") return
-    setCurtainPhase("exiting")
-  }
+  const hashFadeDurationMs = 180
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -78,7 +57,12 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     if (typeof window === "undefined") return
 
-    const handleAnchorNavigation = async (event: MouseEvent) => {
+    const sleep = (ms: number) =>
+      new Promise<void>((resolve) => {
+        window.setTimeout(resolve, ms)
+      })
+
+    const handleHashNavigation = async (event: MouseEvent) => {
       if (event.defaultPrevented) return
       if (event.button !== 0) return
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
@@ -93,65 +77,54 @@ export default function App({ Component, pageProps }: AppProps) {
       const url = new URL(anchor.href, window.location.href)
       const currentUrl = new URL(window.location.href)
 
-      if (url.origin !== window.location.origin) return
+      if (url.origin !== currentUrl.origin) return
 
-      const isSamePath = url.pathname === currentUrl.pathname && url.search === currentUrl.search
+      const isSamePath =
+        url.pathname === currentUrl.pathname && url.search === currentUrl.search
       const isHashOnlyNavigation = isSamePath && Boolean(url.hash)
-      const isRouteNavigation = !isSamePath
 
-      if (!isHashOnlyNavigation && !isRouteNavigation) return
+      if (!isHashOnlyNavigation) return
 
       event.preventDefault()
 
-      isInterceptedNavigationRef.current = true
+      setHashFadePhase("out")
+      lenisRef.current?.lenis?.stop()
 
-      await coverWithCurtain()
+      await sleep(hashFadeDurationMs)
 
-      if (isHashOnlyNavigation) {
-        const hash = decodeURIComponent(url.hash.replace(/^#/, ""))
-        const targetElement = hash ? document.getElementById(hash) : null
+      const hash = decodeURIComponent(url.hash.replace(/^#/, ""))
+      const targetElement = hash ? document.getElementById(hash) : null
 
-        if (targetElement) {
-          lenisRef.current?.lenis?.scrollTo(targetElement, {
-            immediate: true,
-            force: true,
-          })
-        }
-
-        window.history.pushState({}, "", `${currentUrl.pathname}${currentUrl.search}${url.hash}`)
-        isInterceptedNavigationRef.current = false
-        revealCurtain()
-        return
+      if (targetElement) {
+        lenisRef.current?.lenis?.scrollTo(targetElement, {
+          immediate: true,
+          force: true,
+        })
       }
 
-      await router.push(`${url.pathname}${url.search}${url.hash}`, undefined, {
-        scroll: false,
-      })
+      window.history.pushState({}, "", `${currentUrl.pathname}${currentUrl.search}${url.hash}`)
+
+      setHashFadePhase("in")
+      lenisRef.current?.lenis?.start()
+
+      await sleep(hashFadeDurationMs)
+      setHashFadePhase("hidden")
     }
 
-    document.addEventListener("click", handleAnchorNavigation, true)
+    document.addEventListener("click", handleHashNavigation, true)
 
     return () => {
-      document.removeEventListener("click", handleAnchorNavigation, true)
+      document.removeEventListener("click", handleHashNavigation, true)
     }
-  }, [router])
+  }, [])
 
   useEffect(() => {
     const handleRouteChangeStart = () => {
       isRouteTransitioningRef.current = true
-
-      if (!isInterceptedNavigationRef.current) {
-        setCurtainPhase("entering")
-      }
-
-      lenisRef.current?.lenis?.stop()
     }
 
     const handleRouteChangeError = () => {
       isRouteTransitioningRef.current = false
-      isInterceptedNavigationRef.current = false
-      revealCurtain()
-      lenisRef.current?.lenis?.start()
     }
 
     router.events.on("routeChangeStart", handleRouteChangeStart)
@@ -193,24 +166,12 @@ export default function App({ Component, pageProps }: AppProps) {
               >
                 <Navbar navLinks={navLinks} />
                 <main className="relative overflow-x-clip">
-                  {curtainPhase !== "hidden" && (
+                  {hashFadePhase !== "hidden" && (
                     <motion.div
                       aria-hidden
-                      initial={{ y: "-100%" }}
-                      animate={
-                        curtainPhase === "exiting"
-                          ? { y: "100%" }
-                          : { y: "0%" }
-                      }
-                      transition={{
-                        duration: curtainDurationMs / 1000,
-                        ease: [0.22, 1, 0.36, 1],
-                      }}
-                      onAnimationComplete={() => {
-                        if (curtainPhase === "exiting") {
-                          setCurtainPhase("hidden")
-                        }
-                      }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: hashFadePhase === "out" ? 1 : 0 }}
+                      transition={{ duration: hashFadeDurationMs / 1000, ease: "easeOut" }}
                       className="pointer-events-none fixed inset-0 z-40 bg-cream-100"
                     />
                   )}
@@ -226,12 +187,6 @@ export default function App({ Component, pageProps }: AppProps) {
                       })
                       window.scrollTo(0, 0)
                       isRouteTransitioningRef.current = false
-                      isInterceptedNavigationRef.current = false
-
-                      requestAnimationFrame(() => {
-                        lenisRef.current?.lenis?.start()
-                        revealCurtain()
-                      })
                     }}
                   >
                     <motion.div
