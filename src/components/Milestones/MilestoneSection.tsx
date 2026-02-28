@@ -1,9 +1,10 @@
-import { motion, MotionValue, useScroll, useTransform } from "framer-motion"
+import { motion, MotionValue, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import { useRef, useState } from "react"
 
 import milestoneData from "@/data/milestones"
+import useScreenSize from "@/hooks/use-screen-size"
 
 import SectionHeading from "../SectionHeading"
 import Milestone from "./Milestone"
@@ -19,58 +20,82 @@ export default function TimelineSection() {
   const shouldRenderFocused = mode === "focused" && focusedMilestones.length > 0
 
   return (
-    <section id="milestones" ref={ref} className="relative px-4 pb-24">
+    <section id="milestones" ref={ref} className="relative pb-24">
       <SectionHeading>Milestones</SectionHeading>
 
-      <div className="mx-auto mb-8 flex w-full max-w-7xl items-center justify-end gap-2 px-1">
-        <button
-          type="button"
-          onClick={() => setMode("focused")}
-          className={`rounded-full border px-4 py-2 font-mono text-xs tracking-wide transition-colors md:text-sm ${
-            mode === "focused"
-              ? "border-terracotta bg-terracotta text-cream-50"
-              : "border-cream-300 bg-cream-100 text-ink-subtle hover:border-terracotta/50 hover:text-terracotta"
-          }`}
-        >
-          Focused
-        </button>
-        <button
-          type="button"
-          onClick={() => setMode("all")}
-          className={`rounded-full border px-4 py-2 font-mono text-xs tracking-wide transition-colors md:text-sm ${
-            mode === "all"
-              ? "border-terracotta bg-terracotta text-cream-50"
-              : "border-cream-300 bg-cream-100 text-ink-subtle hover:border-terracotta/50 hover:text-terracotta"
-          }`}
-        >
-          Show all
-        </button>
+      <div className="mx-auto mb-12 flex w-full max-w-7xl items-center justify-center px-4 md:px-0">
+        <div className="relative flex rounded-full bg-cream-200 p-1 shadow-inner border border-cream-300">
+          <button
+            type="button"
+            onClick={() => setMode("focused")}
+            className={`relative z-10 w-24 rounded-full py-2 font-mono text-xs tracking-wide transition-colors md:w-28 md:text-sm ${
+              mode === "focused" ? "text-cream-50" : "text-ink-subtle hover:text-ink"
+            }`}
+          >
+            Focused
+          </button>
+          <button
+            type="button"
+            onClick={() => setMode("all")}
+            className={`relative z-10 w-24 rounded-full py-2 font-mono text-xs tracking-wide transition-colors md:w-28 md:text-sm ${
+              mode === "all" ? "text-cream-50" : "text-ink-subtle hover:text-ink"
+            }`}
+          >
+            Show all
+          </button>
+          
+          {/* Sliding background */}
+          <motion.div
+            className="absolute bottom-1 top-1 z-0 rounded-full bg-terracotta shadow-sm"
+            initial={false}
+            animate={{
+              left: mode === "focused" ? "4px" : "calc(50% + 2px)",
+              width: "calc(50% - 6px)",
+            }}
+            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+          />
+        </div>
       </div>
 
-      {shouldRenderFocused ? (
-        <FocusedMilestoneTimeline milestones={focusedMilestones} />
-      ) : (
-        <motion.ul
-          key="milestones-container"
-          className="relative mx-auto flex w-full max-w-7xl flex-col"
-        >
-          {milestones.map((milestone, index) => (
-            <Milestone
-              key={milestone.text}
-              milestone={milestone}
-              index={index}
-              isFirst={index === 0}
-              isLast={index === milestones.length - 1}
-            />
-          ))}
-        </motion.ul>
-      )}
+      <AnimatePresence mode="wait">
+        {shouldRenderFocused ? (
+          <motion.div
+            key="focused-view"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+          >
+            <FocusedMilestoneTimeline milestones={focusedMilestones} />
+          </motion.div>
+        ) : (
+          <motion.ul
+            key="all-view"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="relative mx-auto flex w-full max-w-7xl flex-col"
+          >
+            {milestones.map((milestone, index) => (
+              <Milestone
+                key={milestone.text}
+                milestone={milestone}
+                index={index}
+                isFirst={index === 0}
+                isLast={index === milestones.length - 1}
+              />
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
 
 function FocusedMilestoneTimeline({ milestones }: { milestones: Milestone[] }) {
   const scrollRef = useRef<HTMLDivElement>(null)
+  const { isMobile } = useScreenSize()
 
   const { scrollYProgress } = useScroll({
     target: scrollRef,
@@ -83,26 +108,36 @@ function FocusedMilestoneTimeline({ milestones }: { milestones: Milestone[] }) {
     ["0%", `-${((milestones.length - 1) / milestones.length) * 100}%`]
   )
 
-  const sectionHeight = Math.max(190, milestones.length * 84)
+  const sectionHeight = isMobile 
+    ? Math.max(190, milestones.length * 100)
+    : Math.max(190, milestones.length * 130)
 
   return (
-    <div ref={scrollRef} className="relative" style={{ height: `${sectionHeight}vh` }}>
+    <div 
+      ref={scrollRef} 
+      className="relative" 
+      style={{ height: `${sectionHeight}vh` }}
+    >
       <div className="sticky top-0 flex h-screen items-center overflow-hidden px-1 md:px-0">
+        <YearBackground milestones={milestones} scrollYProgress={scrollYProgress} />
         <div className="mx-auto w-full max-w-7xl">
-          <motion.ol style={{ x }} className="relative flex h-[76vh] w-max min-w-full">
+          <motion.ol 
+            style={{ x }} 
+            className="relative flex h-[76vh] w-max min-w-full -ml-[10vw] md:ml-0"
+          >
             {/* The Line Container */}
             <div 
-              className="pointer-events-none absolute top-1/2 h-[2px] -translate-y-1/2"
+              className="pointer-events-none absolute top-1/2 h-[4px] -translate-y-1/2"
               style={{
                 left: `${100 / (2 * milestones.length)}%`,
                 right: `${100 / (2 * milestones.length)}%`,
               }}
             >
               {/* Background line */}
-              <div className="absolute inset-0 bg-cream-300" />
+              <div className="absolute inset-0 bg-cream-300 rounded-full" />
               {/* Animated progress line */}
               <motion.div 
-                className="absolute inset-y-0 left-0 bg-terracotta origin-left"
+                className="absolute inset-y-0 left-0 bg-terracotta shadow origin-left rounded-full"
                 style={{ scaleX: scrollYProgress }}
               />
             </div>
@@ -113,10 +148,93 @@ function FocusedMilestoneTimeline({ milestones }: { milestones: Milestone[] }) {
                 index={index}
                 total={milestones.length}
                 scrollYProgress={scrollYProgress}
+                isMobile={isMobile}
               />
             ))}
           </motion.ol>
         </div>
+      </div>
+    </div>
+  )
+}
+
+function YearBackground({
+  milestones,
+  scrollYProgress,
+}: {
+  milestones: Milestone[]
+  scrollYProgress: MotionValue<number>
+}) {
+  const getYear = (date: string | [string, string]) => {
+    const dateStr = Array.isArray(date) ? date[0] : date
+    return dateStr.split(" ").pop() || ""
+  }
+
+  const [yearState, setYearState] = useState({
+    year: getYear(milestones[0].date),
+    index: 0,
+    direction: 1,
+  })
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const newIndex = Math.min(
+      milestones.length - 1,
+      Math.max(0, Math.round(latest * (milestones.length - 1)))
+    )
+    const newYear = getYear(milestones[newIndex].date)
+    
+    if (newYear !== yearState.year) {
+      setYearState(prev => ({
+        year: newYear,
+        index: newIndex,
+        direction: newIndex > prev.index ? 1 : -1
+      }))
+    } else if (newIndex !== yearState.index) {
+      setYearState(prev => ({ ...prev, index: newIndex }))
+    }
+  })
+
+  const variants = {
+    enter: (direction: number) => ({
+      y: direction > 0 ? 100 : -100,
+      opacity: 0,
+      filter: "blur(8px)",
+    }),
+    center: {
+      y: 0,
+      opacity: 1,
+      filter: "blur(0px)",
+    },
+    exit: (direction: number) => ({
+      y: direction > 0 ? -100 : 100,
+      opacity: 0,
+      filter: "blur(8px)",
+    }),
+  }
+
+  return (
+    <div className="pointer-events-none absolute bottom-8 right-8 md:bottom-12 md:right-12 flex items-end justify-end">
+      <div className="relative flex items-start justify-start font-display text-[25vw] font-bold leading-none text-cream-300 md:text-[18vw] tracking-normal pr-4 -mr-4 md:pr-8 md:-mr-8">
+        {yearState.year.split("").map((char, i) => (
+          <div key={i} className="relative inline-flex justify-center">
+            {/* Invisible static character to maintain an exact width to prevent layout shifts */}
+            <span className="invisible pointer-events-none">0</span>
+            <AnimatePresence custom={yearState.direction}>
+              <motion.div
+                key={`${i}-${char}`}
+                custom={yearState.direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute inset-0 flex items-center justify-center"
+              >
+                {char}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        ))}
       </div>
     </div>
   )
@@ -127,6 +245,7 @@ type FocusedMilestoneCardProps = {
   index: number
   total: number
   scrollYProgress: MotionValue<number>
+  isMobile?: boolean
 }
 
 function FocusedMilestoneCard({
@@ -134,17 +253,22 @@ function FocusedMilestoneCard({
   index,
   total,
   scrollYProgress,
+  isMobile,
 }: FocusedMilestoneCardProps) {
   const denominator = Math.max(1, total - 1)
   const center = index / denominator
-  const segmentStart = Math.max(0, center - 0.2)
-  const segmentEnd = Math.min(1, center + 0.2)
+  const segmentStart = center - 0.2
+  const segmentEnd = center + 0.2
 
   // Panel parallax — applied to content panels only, never to the li or dot
   const topPanelY = useTransform(scrollYProgress, [segmentStart, center, segmentEnd], [16, 0, -16])
   const bottomPanelY = useTransform(scrollYProgress, [segmentStart, center, segmentEnd], [-16, 0, 16])
-  const topPanelX = useTransform(scrollYProgress, [segmentStart, center, segmentEnd], [-100, 0, 100])
-  const bottomPanelX = useTransform(scrollYProgress, [segmentStart, center, segmentEnd], [100, 0, -100])
+  
+  // Reduce horizontal parallax on mobile to prevent overlapping
+  const parallaxX = isMobile ? 15 : 100
+  const topPanelX = useTransform(scrollYProgress, [segmentStart, center, segmentEnd], [-parallaxX, 0, parallaxX])
+  const bottomPanelX = useTransform(scrollYProgress, [segmentStart, center, segmentEnd], [parallaxX, 0, -parallaxX])
+  
   const panelOpacity = useTransform(scrollYProgress, [segmentStart, center, segmentEnd], [0.2, 1, 0.2])
 
   const imageScale = useTransform(scrollYProgress, [segmentStart, center, segmentEnd], [0.95, 1.02, 0.95])
@@ -174,14 +298,14 @@ function FocusedMilestoneCard({
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: index * 0.06 }}
-      className="relative h-full w-[86vw] shrink-0 px-2 xs:w-[68vw] md:w-[48vw] lg:w-[38vw]"
+      className="relative h-full w-[120vw] shrink-0 px-12 xs:w-[90vw] md:w-[35vw] lg:w-[25vw]"
     >
       {/* Dot and Date — static horizontally, tracks the line exactly */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center">
         <motion.div
           style={{ opacity: panelOpacity }}
           className={`absolute whitespace-nowrap font-mono text-xs font-medium text-terracotta md:text-sm ${
-            imageOnTop ? "top-6" : "bottom-6"
+            imageOnTop ? "top-8 md:top-10" : "bottom-8 md:bottom-10"
           }`}
         >
           {dateText}
@@ -192,8 +316,13 @@ function FocusedMilestoneCard({
             backgroundColor: dotColor,
             borderColor: dotBorderColor,
           }}
-          className="size-3 rounded-full border-2 shadow-[0_0_0_6px_rgba(251,248,243,1)] md:size-4"
-        />
+          className="relative flex items-center justify-center size-4 rounded-full border-2 md:size-5"
+        >
+          <motion.div 
+            className="size-1.5 rounded-full bg-cream-50 md:size-2"
+            style={{ opacity: useTransform(scrollYProgress, [segmentStart, center, segmentEnd], [0, 1, 0]) }}
+          />
+        </motion.div>
       </div>
 
       <div className="relative h-full">
@@ -237,23 +366,27 @@ function FocusedImage({
   return (
     <motion.div
       style={{ scale: imageScale }}
-      className="relative mx-auto aspect-[4/3] h-full max-w-[30rem] overflow-hidden rounded-xl border border-cream-300 bg-cream-200 shadow-sm"
+      className="relative mx-auto aspect-[4/3] h-full max-w-[70vw] md:max-w-[30rem] overflow-hidden rounded-xl border border-cream-300 bg-cream-200 shadow-sm"
     >
       <Image
         src={milestone.image}
         alt={milestone.text}
         fill
-        sizes="(max-width: 768px) 92vw, 70vw"
+        sizes="(max-width: 768px) 70vw, 30rem"
         className="object-cover"
       />
     </motion.div>
   )
 }
 
-function FocusedContent({ milestone }: { milestone: Milestone }) {
-  const content = (
-    <div className="mx-auto flex aspect-[4/3] h-full w-full max-w-[30rem] flex-col justify-center px-2 md:px-4">
-      <p className="max-w-[36ch] text-sm leading-relaxed text-ink md:text-lg font-medium">
+function FocusedContent({ 
+  milestone,
+}: { 
+  milestone: Milestone
+}) {
+  return (
+    <div className="mx-auto flex aspect-[4/3] h-full w-full max-w-[70vw] md:max-w-[30rem] flex-col justify-center px-2 md:px-4">
+      <p className="max-w-[36ch] text-sm leading-relaxed md:text-lg font-medium text-ink">
         {milestone.text}
       </p>
       {milestone.href && (
@@ -270,6 +403,4 @@ function FocusedContent({ milestone }: { milestone: Milestone }) {
       )}
     </div>
   )
-
-  return content
 }
