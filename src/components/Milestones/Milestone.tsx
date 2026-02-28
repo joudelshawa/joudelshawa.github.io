@@ -109,6 +109,7 @@ const Wrapper = ({
       )}
       href={milestone.href}
       target="_blank"
+      rel="noopener noreferrer"
     >
       {children}
       <svg

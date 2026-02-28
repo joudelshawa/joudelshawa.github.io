@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 
 import { useIntroContext } from "@/contexts/introContext"
@@ -19,16 +19,26 @@ export default function Hero() {
   const scrollCueOpacity = useTransform(scrollYProgress, [0, 0.18], [1, 0])
   const scrollCueY = useTransform(scrollYProgress, [0, 0.24], [0, 8])
 
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (latest > 0.18) {
+      setShowScrollCue(false)
+    }
+  })
+
   useEffect(() => {
     setShowScrollCue(false)
 
     const timer = window.setTimeout(
-      () => setShowScrollCue(true),
+      () => {
+        if (scrollYProgress.get() <= 0.18) {
+          setShowScrollCue(true)
+        }
+      },
       introComplete ? 1200 : 2200,
     )
 
     return () => window.clearTimeout(timer)
-  }, [introComplete])
+  }, [introComplete, scrollYProgress])
 
   return (
     <motion.section
@@ -74,7 +84,7 @@ export default function Hero() {
         aria-hidden
       >
         <motion.div
-          style={{ opacity: showScrollCue ? 1 : 0 }}
+          style={{ opacity: showScrollCue ? scrollCueOpacity : 0, y: scrollCueY }}
           initial={false}
           animate={
             showScrollCue

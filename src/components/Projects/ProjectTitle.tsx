@@ -69,14 +69,14 @@ export default function ProjectTitle({ project }: Props) {
 
   const isInViewProject = useMemo(
     () => inViewProject?.name === project.name,
-    [isInView, inViewProject]
+    [inViewProject, project.name]
   )
 
   useEffect(() => {
     if (isInView) {
       setInViewProject(project)
     }
-  }, [isInView])
+  }, [isInView, project, setInViewProject])
 
   return (
     <motion.div ref={ref} className="group/project origin-left py-12 md:py-36">

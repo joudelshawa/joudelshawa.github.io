@@ -5,6 +5,7 @@ import {
   useMotionValueEvent,
   useScroll,
 } from "framer-motion"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useRef, useState } from "react"
 
@@ -270,6 +271,24 @@ export default function Navbar({ navLinks }: Props) {
                   : { height: 0, opacity: 0, scaleY: 0.92 }
               }
             >
+              {isMobile && navLinks.length > 0 && (
+                <div className="border-b border-cream-100/15 px-5 py-4">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-faint">
+                    Navigate
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {navLinks.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className="rounded-full border border-cream-100/25 px-3 py-1.5 font-mono text-xs text-cream-100 transition-colors hover:border-cream-100/50 hover:bg-cream-100/10"
+                      >
+                        {link.text}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
               <ContactDetails />
             </motion.div>
           )}

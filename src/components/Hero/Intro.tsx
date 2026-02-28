@@ -1,4 +1,5 @@
 import { motion } from "framer-motion"
+import Image from "next/image"
 import { useContext } from "react"
 
 import { IntroContext, IntroContextType } from "@/contexts/introContext"
@@ -45,9 +46,11 @@ export default function Intro() {
           }}
         >
           <div className="h-[3.25rem] w-[3.25rem] overflow-hidden rounded-full ring-2 ring-cream-300">
-            <img
+            <Image
               alt="Joud El-Shawa"
               src="/me.jpg"
+              width={52}
+              height={52}
               className="h-full w-full object-cover"
             />
           </div>

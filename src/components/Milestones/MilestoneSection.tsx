@@ -1,7 +1,7 @@
 import { motion, MotionValue, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import milestoneData from "@/data/milestones"
 import useScreenSize from "@/hooks/use-screen-size"
@@ -96,6 +96,7 @@ export default function TimelineSection() {
 function FocusedMilestoneTimeline({ milestones }: { milestones: Milestone[] }) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const { isMobile } = useScreenSize()
+  const [showScrollCue, setShowScrollCue] = useState(false)
 
   const { scrollYProgress } = useScroll({
     target: scrollRef,
@@ -111,6 +112,27 @@ function FocusedMilestoneTimeline({ milestones }: { milestones: Milestone[] }) {
   const sectionHeight = isMobile 
     ? Math.max(190, milestones.length * 100)
     : Math.max(190, milestones.length * 130)
+
+  const cueOpacity = useTransform(scrollYProgress, [0, 0.14], [1, 0])
+  const cueY = useTransform(scrollYProgress, [0, 0.18], [0, 8])
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (latest > 0.14) {
+      setShowScrollCue(false)
+    }
+  })
+
+  useEffect(() => {
+    setShowScrollCue(false)
+
+    const timer = window.setTimeout(() => {
+      if (scrollYProgress.get() <= 0.14) {
+        setShowScrollCue(true)
+      }
+    }, 900)
+
+    return () => window.clearTimeout(timer)
+  }, [scrollYProgress])
 
   return (
     <div 
@@ -152,6 +174,27 @@ function FocusedMilestoneTimeline({ milestones }: { milestones: Milestone[] }) {
               />
             ))}
           </motion.ol>
+        </div>
+
+        <div className="pointer-events-none absolute inset-x-0 bottom-8 z-30 flex justify-center">
+          <motion.div
+            style={{ opacity: showScrollCue ? cueOpacity : 0, y: cueY }}
+            initial={false}
+            animate={
+              showScrollCue
+                ? { opacity: 1, y: 0, scale: 1 }
+                : { opacity: 0, y: 6, scale: 0.98 }
+            }
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <motion.div
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+              className="rounded-full rounded-br-md bg-cream-200/90 px-4 py-2 text-sm font-light text-ink shadow-sm shadow-ink/10"
+            >
+              Scroll to continue ↓
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </div>
@@ -393,6 +436,7 @@ function FocusedContent({
         <Link
           href={milestone.href}
           target="_blank"
+          rel="noopener noreferrer"
           className="mt-4 inline-flex w-max items-center gap-1.5 font-mono text-xs text-ink-subtle underline-offset-4 hover:text-terracotta hover:underline transition-colors"
         >
           View Project

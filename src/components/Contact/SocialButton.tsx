@@ -42,6 +42,7 @@ export default function SocialButton({
       href={href}
       {...(!isProject && { variants: socialsVariants })}
       target="_blank"
+      rel="noopener noreferrer"
       className={`group flex h-10 w-10 items-center justify-center rounded-full border shadow-sm duration-200 ease-in-out ${bgColorClass} hover:shadow-md ${hoverColorClass} transition-all`}
     >
       <div className="object- fill-black transition-colors duration-200 ease-in group-hover:fill-white">

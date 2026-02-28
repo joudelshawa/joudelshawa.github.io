@@ -51,22 +51,22 @@ export default function ContactDetails() {
         }}
       >
         <motion.li variants={liVariants}>
-          <a target="_blank" href="https://www.linkedin.com/in/joudelshawa">
+          <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/joudelshawa">
             LinkedIn
           </a>
         </motion.li>
         <motion.li variants={liVariants}>
-          <a target="_blank" download="Joud_ElShawa-Resume" href="/resume.pdf">
+          <a target="_blank" rel="noopener noreferrer" download="Joud_ElShawa-Resume" href="/resume.pdf">
             Resume
           </a>
         </motion.li>
         <motion.li variants={liVariants}>
-          <a target="_blank" href="https://github.com/joudelshawa">
+          <a target="_blank" rel="noopener noreferrer" href="https://github.com/joudelshawa">
             Github
           </a>
         </motion.li>
         <motion.li className="relative" variants={liVariants}>
-          <a target="_blank" href="mailto:jelshawa@gmail.com">
+          <a target="_blank" rel="noopener noreferrer" href="mailto:jelshawa@gmail.com">
             Email
           </a>
         </motion.li>

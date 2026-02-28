@@ -1,4 +1,5 @@
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 import { useIntroContext } from "@/contexts/introContext"
 import { ease, textBubbleVariants } from "@/utils/framer"
@@ -49,9 +50,11 @@ export default function TextBubble({ children, visible, index }: Props) {
         }}
       >
         <div className="h-[3.25rem] w-[3.25rem] overflow-hidden rounded-full ring-2 ring-cream-300">
-          <img
+          <Image
             alt="Joud El-Shawa"
             src="/me.jpg"
+            width={52}
+            height={52}
             className="h-full w-full object-cover"
           />
         </div>

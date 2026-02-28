@@ -112,18 +112,17 @@ export default function ProjectDetailPage({
           {project.links && (
             <p className="font-mono text-terracotta">
               {project.links.map((link, i) => (
-                <>
+                <span key={link.text}>
                   <Link
                     className="underline"
                     href={link.href}
-                    key={link.text}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     {link.text}
                   </Link>
                   {project.links && i < project.links.length - 1 && ", "}
-                </>
+                </span>
               ))}
             </p>
           )}
