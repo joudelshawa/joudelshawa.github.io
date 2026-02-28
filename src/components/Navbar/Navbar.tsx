@@ -237,7 +237,7 @@ export default function Navbar({ navLinks }: Props) {
                     : "border-cream-100/25 bg-transparent text-cream-100"
                 }`}
               >
-                {modalOpen ? "Close" : "Contact"}
+                {modalOpen ? "Close" : "Menu"}
               </button>
             </motion.div>
           )}
