@@ -1,9 +1,25 @@
 import { Html, Head, Main, NextScript } from "next/document"
 
+// Runs before first paint. Marks <html> when her greeting should play, so CSS
+// can hide those bubbles until it does. Without JS nothing is ever hidden.
+const arrivalScript = `try{var d=document.documentElement,s=!1;try{s=sessionStorage.getItem("arrived")==="1"}catch(e){}if(!s&&!matchMedia("(prefers-reduced-motion: reduce)").matches)d.setAttribute("data-arrive","")}catch(e){}`
+
 export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        <script dangerouslySetInnerHTML={{ __html: arrivalScript }} />
+        <meta
+          name="theme-color"
+          content="#ffffff"
+          media="(prefers-color-scheme: light)"
+        />
+        <meta
+          name="theme-color"
+          content="#000000"
+          media="(prefers-color-scheme: dark)"
+        />
+        <meta name="color-scheme" content="light dark" />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
@@ -23,7 +39,7 @@ export default function Document() {
         />
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
-      <body className="bg-cream-100">
+      <body>
         <Main />
         <NextScript />
       </body>

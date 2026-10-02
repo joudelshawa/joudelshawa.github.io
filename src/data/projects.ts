@@ -1,81 +1,108 @@
 // * Joud: This is the data for the projects section of the site.
+// `venue` is the short line under each title in the thread, taken from the blurb.
+// The first three are shown as large previews.
 const projectData: Project[] = [
-
   {
     name: "FairCast",
     slug: "gnn-heatwave-forecasting",
-  
+    venue:
+      "NeurIPS 2025 Workshop on Tackling Climate Change with Machine Learning",
+
     blurb:
       "Accepted to the NeurIPS 2025 Workshop on Tackling Climate Change with Machine Learning. A graph neural network framework for localized, high-resolution temperature forecasting and equitable early-warning systems.",
-  
-    technologies: ["PyTorch Geometric", "Graph Neural Networks", "NOAA URMA", "Python", "ClimateBERT", "Satellite Embeddings"],
+
+    technologies: [
+      "PyTorch Geometric",
+      "Graph Neural Networks",
+      "NOAA URMA",
+      "Python",
+      "ClimateBERT",
+      "Satellite Embeddings",
+    ],
     links: [
       {
         text: "NeurIPS Workshop Poster",
-        href: "https://s3.us-east-1.amazonaws.com/climate-change-ai/papers/neurips2025/61/poster.pdf"
+        href: "https://s3.us-east-1.amazonaws.com/climate-change-ai/papers/neurips2025/61/poster.pdf",
       },
       {
         text: "Paper",
-        href: "https://s3.us-east-1.amazonaws.com/climate-change-ai/papers/neurips2025/61/paper.pdf"
+        href: "https://s3.us-east-1.amazonaws.com/climate-change-ai/papers/neurips2025/61/paper.pdf",
       },
       {
         text: "Talk",
-        href: "https://www.climatechange.ai/papers/neurips2025/61#recording"
+        href: "https://www.climatechange.ai/papers/neurips2025/61#recording",
       },
       {
         text: "Slides",
-        href: "https://www.canva.com/design/DAG3jpaBZCg/ZMhMLCqysaNfpm8vviJaew/view?utm_content=DAG3jpaBZCg&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h4fe2b9be28", 
+        href: "https://www.canva.com/design/DAG3jpaBZCg/ZMhMLCqysaNfpm8vviJaew/view?utm_content=DAG3jpaBZCg&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h4fe2b9be28",
       },
     ],
-    image: "/projects/gnn.png",
+    image: "/projects/faircast.webp",
     year: 2025,
   },
   {
     name: "Hermes",
     slug: "hermes-clinical-nlp",
-  
+    venue: "AAAI SecureAI4Health 2025 Symposium",
+
     blurb:
       "Accepted and presented at the AAAI SecureAI4Health 2025 Symposium. A large-language-model-driven multi-agent system that transforms unstructured clinical notes into structured reports and knowledge graphs.",
-  
-    technologies: ["Python", "Large Language Models", "MIMIC-IV", "Ollama", "Deepseek R1", "LLama"],
+
+    technologies: [
+      "Python",
+      "Large Language Models",
+      "MIMIC-IV",
+      "Ollama",
+      "Deepseek R1",
+      "LLama",
+    ],
     links: [
       {
         text: "AAAI SecureAI4Health Poster",
-        href: "https://drive.google.com/file/d/1uX16AoPzxpECsEIyMR6p63_u_VpIEA9C/view"
+        href: "https://drive.google.com/file/d/1uX16AoPzxpECsEIyMR6p63_u_VpIEA9C/view",
       },
       {
         text: "Paper",
-        href: "https://ojs.aaai.org/index.php/AAAI-SS/article/view/36936"
+        href: "https://ojs.aaai.org/index.php/AAAI-SS/article/view/36936",
       },
       {
         text: "Slides",
         href: "https://www.canva.com/design/DAG3TYSBrK4/8J1viIPpVURMWsEKYrlLBQ/view?utm_content=DAG3TYSBrK4&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=he25515b9bf",
       },
     ],
-    image: "/projects/hermes.png",
+    image: "/projects/hermes.webp",
     year: 2025,
   },
-  
+
   {
     name: "ML4Labs",
     slug: "glucose-prediction",
-  
+    venue: "AAAI SecureAI4Health 2025 Symposium",
+
     blurb:
       "Accepted and presented at the AAAI SecureAI4Health 2025 Symposium. A multi-modal deep learning system using Clinical BioBERT and LSTM models to predict laboratory test ordering across multiple hospitals.",
-  
-    technologies: ["Python", "Keras", "Tensorflow", "SQLAlchemy", "Clinical BioBERT", "GEMINI Dataset", "LSTM"],
+
+    technologies: [
+      "Python",
+      "Keras",
+      "Tensorflow",
+      "SQLAlchemy",
+      "Clinical BioBERT",
+      "GEMINI Dataset",
+      "LSTM",
+    ],
     links: [
       {
         text: "AAAI SecureAI4Health Poster",
-        href: "https://drive.google.com/file/d/1nLRisia6qJUaBRRlnuyLgC0ar0N1Mk15/view"
+        href: "https://drive.google.com/file/d/1nLRisia6qJUaBRRlnuyLgC0ar0N1Mk15/view",
       },
       {
         text: "Paper",
-        href: "https://ojs.aaai.org/index.php/AAAI-SS/article/view/36924"
+        href: "https://ojs.aaai.org/index.php/AAAI-SS/article/view/36924",
       },
       {
         text: "Slides",
-        href: "https://www.canva.com/design/DAG3TLvU31o/V4_Q2W_gjuzsPXY9QHWqgQ/view?utm_content=DAG3TLvU31o&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h361faae11e", 
+        href: "https://www.canva.com/design/DAG3TLvU31o/V4_Q2W_gjuzsPXY9QHWqgQ/view?utm_content=DAG3TLvU31o&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h361faae11e",
       },
     ],
     image: "/projects/ml4labs.webp",
@@ -84,6 +111,7 @@ const projectData: Project[] = [
   {
     name: "Unsupervised Anomaly Detection in MRIs",
     slug: "unsupervised-anomaly",
+    venue: "NSERC Undergraduate Student Research Award",
 
     blurb:
       "This project was conducted as part of an NSERC Undergraduate Student Research Award and aimed to develop an automated deterministic segmentation solution for accurately identifying brain tumor boundaries in MR images using and improving upon existing Denoising Autoencoder and U-net models.",
@@ -104,6 +132,7 @@ const projectData: Project[] = [
   {
     name: "BankYeller",
     slug: "bank-yeller",
+    venue: "Hackwestern 8 · “Best Use of Dasha AI” Winner",
 
     blurb:
       "Hackwestern 8 Project + “Best Use of Dasha AI” Winner - An application that allows the user to voice chat with an AI to get their latest bank account information and be able to pay their bills vocally.",
@@ -136,6 +165,7 @@ const projectData: Project[] = [
   {
     name: "Evaluating Machine Learning Model Stability for Software Bug Prediction",
     slug: "ibm-uwo-research",
+    venue: "IBM + Western University Research",
 
     blurb:
       "IBM + Western University Research - A project aiming to investigate risk prediction of software system failures and evaluate machine learning model stability for software bug prediction.",
@@ -153,6 +183,7 @@ const projectData: Project[] = [
   {
     name: "SoQuo",
     slug: "soquo",
+    venue: "AI4Good Lab · Edmonton Accelerator Award Winner",
 
     blurb:
       "AI4Good Lab Project + Edmonton Accelerator Award Winner - SoQuo is an app that improves a user’s social media experience by helping them evaluate the impact of online interactions on their mental health.",
@@ -173,6 +204,7 @@ const projectData: Project[] = [
   {
     name: "ViewTheWorld",
     slug: "viewtheworld",
+    venue: "Software Engineering Course Group Project",
 
     blurb:
       "Software Engineering Course Group Project - A program that retrieves and visualizes environmental and health data from the World Bank’s data repository for selected countries.",
@@ -183,6 +215,7 @@ const projectData: Project[] = [
   {
     name: "PlatePal",
     slug: "platepal",
+    venue: "AI4Good Lab · Edmonton Accelerator Award 2023 Winner",
     category: "Mentoring",
     blurb: `AI4Good Lab Project + Edmonton Accelerator Award 2023 Winner - "Spice Up, Save Up" revolutionizes student nutrition, offering affordable and wholesome meal choices to combat food insecurity in Canada.`,
     technologies: [
@@ -205,6 +238,7 @@ const projectData: Project[] = [
   {
     name: "Your Perfect Closet",
     slug: "perfect-closet",
+    venue: "Women+ in Technology Society ADA Program",
     category: "Mentoring",
     blurb: `Women+ in Technology Society ADA Program Project + Winner of Most Creative and Best JAM3 Project - A Chrome extension that enhances online shopping by allowing users to create a personalized, interactive virtual closet.`,
     technologies: ["Figma", "JavaScript", "Python"],
