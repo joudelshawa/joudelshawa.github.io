@@ -19,8 +19,7 @@ declare global {
   type Milestone = {
     text: string
     date: string | [string, string]
-    href?: string
-    image?: string
+    /** Her highlights; not shown differently yet. */
     isFocused?: boolean
   }
 
