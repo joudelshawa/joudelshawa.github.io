@@ -75,7 +75,6 @@ body {
   font-family: var(--font);
   font-size: 17px;
   line-height: 22px;
-  letter-spacing: -0.43px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -248,7 +247,7 @@ strong {
   box-sizing: border-box;
   max-width: var(--bubble-max);
   padding: 9px 14px; /* [M] 40pt single line */
-  border-radius: 18px; /* [M] */
+  border-radius: 20px; /* [M] a one-line bubble is a capsule */
   background: var(--bubble);
   color: var(--ink);
   overflow-wrap: break-word;
@@ -287,13 +286,14 @@ strong {
   padding: 0;
 }
 
-/* [M] iOS 26 tail: hangs 7.5px below, tip 8.5px in, rejoins 23px in. */
+/* [M] iOS 26 tail: hangs under the rounded corner, tip 7.5px below and
+   8.5px in, rejoining the bottom edge 22.6px in. */
 .tail {
   position: absolute;
   bottom: -8px;
   left: 0;
   width: 24px;
-  height: 26px;
+  height: 12px;
   z-index: -1;
   fill: var(--bubble);
   pointer-events: none;
@@ -321,7 +321,6 @@ strong {
   box-shadow: 0 0 0 2px var(--bg);
   font-size: 20px; /* [M] the emoji fills ~70% of the badge */
   line-height: 1;
-  letter-spacing: 0;
   user-select: none;
 }
 
@@ -444,7 +443,6 @@ html[data-arrive] .arrive {
   color: var(--secondary);
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.06px;
   line-height: 13px;
   text-align: right;
   animation: receipt-in 200ms ease-out 250ms both;
@@ -506,7 +504,6 @@ html[data-arrive] .arrive {
   font-size: 11px;
   font-variant-numeric: tabular-nums;
   font-weight: 400;
-  letter-spacing: 0.06px;
   line-height: 13px;
   text-align: center;
 }
@@ -520,7 +517,6 @@ html[data-arrive] .arrive {
   color: var(--ink);
   font-size: 17px;
   font-weight: 600;
-  letter-spacing: -0.43px;
   line-height: 22px;
 }
 
@@ -575,7 +571,7 @@ html[data-arrive] .arrive {
 .preview-large .preview-image {
   width: 100%;
   height: auto;
-  border-radius: 18px 18px 0 0;
+  border-radius: 20px 20px 0 0;
   aspect-ratio: 1.91 / 1;
   object-fit: cover;
 }
@@ -585,7 +581,7 @@ html[data-arrive] .arrive {
   .preview-large .preview-image {
     width: calc(100% - 20px);
     margin: 10px 10px 0;
-    border-radius: 8px;
+    border-radius: 10px;
   }
 }
 
@@ -605,7 +601,6 @@ html[data-arrive] .arrive {
 .doc-sub {
   color: var(--secondary);
   font-size: 13px;
-  letter-spacing: -0.08px;
   line-height: 18px;
 }
 
@@ -670,7 +665,6 @@ html[data-arrive] .arrive {
   font-family: var(--font);
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.06px;
 }
 
 .doc-text {
@@ -735,7 +729,6 @@ html[data-arrive] .arrive {
 .article-built {
   color: var(--secondary);
   font-size: 13px;
-  letter-spacing: -0.08px;
   line-height: 18px;
 }
 
@@ -796,7 +789,6 @@ html[data-arrive] .arrive {
   cursor: pointer;
   font: inherit;
   font-size: 13px;
-  letter-spacing: -0.08px;
   line-height: 18px;
   transition: transform 120ms ease-out;
 }
@@ -829,7 +821,6 @@ html[data-arrive] .arrive {
   background: transparent;
   color: inherit;
   font: inherit;
-  letter-spacing: inherit;
   outline: none;
 }
 
@@ -906,7 +897,6 @@ html[data-arrive] .arrive {
   font-size: 11px;
   font-variant-numeric: tabular-nums;
   font-weight: 600;
-  letter-spacing: 0.06px;
   line-height: 13px;
   text-decoration: none;
 }
@@ -982,7 +972,6 @@ html[data-arrive] .arrive {
   margin-top: 16px;
   font-size: 34px;
   font-weight: 700;
-  letter-spacing: 0.37px;
   line-height: 41px;
 }
 
@@ -990,7 +979,6 @@ html[data-arrive] .arrive {
   margin-top: 2px;
   color: var(--secondary);
   font-size: 13px;
-  letter-spacing: -0.08px;
   line-height: 18px;
 }
 
@@ -1013,7 +1001,6 @@ html[data-arrive] .arrive {
   cursor: pointer;
   font: inherit;
   font-weight: 600;
-  letter-spacing: inherit;
 }
 
 .chevron {
@@ -1044,7 +1031,6 @@ html[data-arrive] .arrive {
   margin-top: 28px;
   font-size: 34px;
   font-weight: 700;
-  letter-spacing: 0.37px;
   line-height: 41px;
 }
 

@@ -5,19 +5,21 @@ import type { ReactNode } from "react"
 type Side = "her" | "you"
 
 /**
- * The iOS 26 tail: a hook hanging under the bottom outer corner, measured from
- * Apple's own screenshots (tip 8.5px in and 7.5px below, rejoining 23px in).
- * Drawn for her side; the visitor's side mirrors it in CSS.
+ * The iOS 26 tail, traced from Apple's own screenshot: the bubble keeps its
+ * rounded corner, and the tail hangs beneath it, leaving the corner's arc 3px
+ * above the bottom, dropping to a rounded tip 7.5px below and 8.5px in, and
+ * rejoining the bottom edge 22.6px in. Drawn for her side; the visitor's side
+ * mirrors it in CSS.
  */
 export function Tail() {
   return (
     <svg
       className="tail"
-      viewBox="0 -18 24 26"
+      viewBox="0 -4 24 12"
       aria-hidden="true"
       focusable="false"
     >
-      <path d="M0 -18 L0 -8 C0 -3.5 2.6 0.4 8 2.2 C9.7 2.8 10.1 4.6 8.6 7.2 C8.3 7.8 8.9 8.2 9.5 7.9 C11.6 4.6 15.8 0.6 23 0 L24 0 L24 -18 Z" />
+      <path d="M8.9 -3.2 C9.6 -2.3 10.3 -1.2 10.3 0.4 C10.3 2.2 9.6 3.6 8.6 4.9 C8 5.7 7.9 6.8 8.4 7.3 C8.8 7.7 9.6 7.5 10.4 6.9 C13.5 4.9 18 2 22.6 0 L22.6 -3.2 Z" />
     </svg>
   )
 }
