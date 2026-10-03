@@ -16,8 +16,8 @@ git config push.recurseSubmodules check && git config submodule.recurse true   #
 
 ### Changing docs and site together
 
-1. Commit the doc change inside the submodule: `git -C docs add -A && git -C docs commit -m "…"`.
-2. Make sure `docs/` is on `main` (not a detached HEAD) before committing there; `git -C docs switch main` if needed.
+1. Make sure `docs/` is on `main`, not a detached HEAD: `git -C docs switch main` (and `git -C docs pull`).
+2. Commit the doc change inside the submodule: `git -C docs add -A && git -C docs commit -m "…"`.
 3. Stage the site change and the new docs pointer together, and commit once: `git add <files> docs && git commit -m "…"`.
 4. Push the docs first (`git -C docs push`), then the site. With `push.recurseSubmodules check`, git refuses to push a site commit whose docs commit isn't on GitHub yet. (`on-demand` is avoided on purpose: with an explicit refspec like `git push origin thread`, git passes the branch name to the docs repo, which fails.)
 
