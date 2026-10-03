@@ -26,6 +26,8 @@ You can't break the live site by mistake. Every edit is checked against the rule
 
 On a computer with your local clone, you can instead choose **Work with Local Repository** in Chrome or Edge. It edits the files on your disk with no sign-in, and you commit and push yourself.
 
+**Collaborators** (anyone editing this repo from their own GitHub account, like Mahmoud): fine-grained tokens can't reach a repo you don't own, so use **Work with Local Repository** on your clone. A classic token with the `repo` scope also works, but it can reach every repo your account can.
+
 ## Common changes
 
 **Add a milestone.** In `/admin`, open **Milestones → New**. As a file, make `src/content/milestones/2026-05-something.yaml`:
