@@ -1,5 +1,9 @@
 /**
  * Hey dumdum. For the date field, if it's a single date, just put it as a string. If it has a start and end date, put it as a tuple.
+ *
+ * Joud: to send pictures with a milestone, put the files in public/milestones/
+ * and add them like this (they show up as photo messages, in order):
+ *   photos: [{ src: "/milestones/aaai-2025.jpg", alt: "Presenting my poster at AAAI" }],
  */
 
 const milestones: Milestone[] = [
@@ -7,6 +11,15 @@ const milestones: Milestone[] = [
     text: "Attended and presented two papers at the AAAI Secure AI4H Fall Symposium in Arlington, VA!",
     date: "Nov 2025",
     isFocused: true,
+    // Placeholders until Joud sends real photos from the conference: figures
+    // from the two papers she presented there (Hermes and ML4Labs).
+    photos: [
+      {
+        src: "/projects/hermes.webp",
+        alt: "Diagram of the Hermes multi-agent system",
+      },
+      { src: "/projects/ml4labs.webp", alt: "ML4Labs title graphic" },
+    ],
   },
   {
     text: "Presented ongoing climate work at the Global AI Alliance for Climate Action showcase event in Toronto",

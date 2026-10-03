@@ -1,8 +1,10 @@
 import { Html, Head, Main, NextScript } from "next/document"
 
-// Runs before first paint. Marks <html> when her greeting should play, so CSS
-// can hide those bubbles until it does. Without JS nothing is ever hidden.
-const arrivalScript = `try{var d=document.documentElement,s=!1;try{s=sessionStorage.getItem("arrived")==="1"}catch(e){}if(!s&&!matchMedia("(prefers-reduced-motion: reduce)").matches)d.setAttribute("data-arrive","")}catch(e){}`
+// Runs before first paint. Marks <html> when her greeting should play: on the
+// home page itself (no section link), once per session, without reduced motion.
+// CSS shows the inbox and hides her bubbles only under that mark, so without JS
+// nothing is ever hidden.
+const arrivalScript = `try{var d=document.documentElement,s=!1;try{s=sessionStorage.getItem("arrived")==="1"}catch(e){}if(!s&&location.pathname==="/"&&!location.hash&&!matchMedia("(prefers-reduced-motion: reduce)").matches)d.setAttribute("data-arrive","")}catch(e){}`
 
 export default function Document() {
   return (

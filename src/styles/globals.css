@@ -37,6 +37,7 @@
   --glass: rgb(255 255 255 / 0.72);
   --glass-edge: rgb(0 0 0 / 0.06);
   --raised: var(--bubble);
+  --pressed: #d1d1d6; /* a tapped list row */
 
   --column: 640px;
   --gutter: 16px;
@@ -58,6 +59,7 @@
     --glass: rgb(37 37 39 / 0.62);
     --glass-edge: rgb(255 255 255 / 0.1);
     --raised: #3a3a3c;
+    --pressed: #3a3a3c;
     --you-ink: #4c8dff;
   }
 }
@@ -103,7 +105,7 @@ strong {
   box-sizing: border-box;
   width: min(100%, var(--column));
   margin-inline: auto;
-  padding: var(--top) var(--gutter) calc(64px + env(safe-area-inset-bottom));
+  padding: var(--top) var(--gutter) calc(88px + env(safe-area-inset-bottom));
 }
 
 .thread-short {
@@ -427,9 +429,132 @@ strong {
   }
 }
 
-/* Hidden only while her greeting is about to play (see _document). */
-html[data-arrive] .arrive {
+/* Hidden only while her greeting is playing (see _document and Opening);
+   each message shows as it arrives. */
+html[data-arrive] .arrive:not(.is-in) {
   opacity: 0;
+}
+
+/* ---------- Opening: her row in an inbox, then the chat slides in ---------- */
+
+html.opening {
+  overflow: hidden;
+}
+
+.inbox {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: none;
+  background: var(--bg);
+  cursor: pointer;
+}
+
+html[data-arrive] .inbox {
+  display: block;
+}
+
+.inbox-list {
+  box-sizing: border-box;
+  width: min(100%, var(--column));
+  margin-inline: auto;
+  padding: calc(38svh + env(safe-area-inset-top)) 8px 0;
+}
+
+.inbox-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 10px 40px minmax(0, 1fr);
+  align-items: start;
+  column-gap: 10px;
+  padding: 11px 14px 11px 6px;
+  border-radius: 14px;
+  transition: background-color 120ms ease-out;
+}
+
+.inbox-row.is-pressed {
+  background: var(--pressed);
+}
+
+/* The hairline under the row, starting at the text, as in a list. */
+.inbox-row::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 72px;
+  height: 0.5px;
+  background: var(--hairline);
+  content: "";
+}
+
+.inbox-row.is-pressed::after {
+  opacity: 0;
+}
+
+.inbox-unread {
+  width: 10px;
+  height: 10px;
+  margin-top: 15px;
+  border-radius: 50%;
+  background: var(--you); /* unread, for the visitor */
+}
+
+.inbox-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.inbox-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inbox-name {
+  font-weight: 600;
+}
+
+.inbox-preview {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--secondary);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+/* While the chat slides in over the inbox. */
+.screen.is-pushing {
+  position: relative;
+  z-index: 70;
+  min-height: 100svh;
+  background: var(--bg);
+  box-shadow: -12px 0 32px rgb(0 0 0 / 0.12);
+}
+
+/* ---------- Photo messages ---------- */
+
+.photo {
+  display: block;
+  width: min(66%, 340px);
+  max-width: none;
+  background: none;
+}
+
+.photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  outline: 0.5px solid var(--hairline);
+  outline-offset: -0.5px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .photo img {
+    filter: brightness(0.92);
+  }
 }
 
 /* ---------- The visitor ---------- */
@@ -865,6 +990,52 @@ html[data-arrive] .arrive {
   stroke-width: 2.2;
 }
 
+/* ---------- Back to top ---------- */
+
+.to-top {
+  position: fixed;
+  right: calc(16px + env(safe-area-inset-right));
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  z-index: 25;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  place-items: center;
+  color: var(--ink);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 200ms,
+    transform 200ms ease-out,
+    visibility 0s 200ms;
+  visibility: hidden;
+}
+
+.to-top.is-visible {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 200ms,
+    transform 200ms ease-out;
+  visibility: visible;
+}
+
+.to-top:active {
+  transform: scale(0.97);
+}
+
+.to-top svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.2;
+}
+
 /* ---------- Year index ---------- */
 
 .year-index {
@@ -1106,6 +1277,13 @@ html[data-arrive] .arrive {
 
   .details.is-open {
     animation: none;
+  }
+
+  .to-top,
+  .to-top.is-visible,
+  .to-top:active {
+    transform: none;
+    transition: none;
   }
 
   .reply:active,

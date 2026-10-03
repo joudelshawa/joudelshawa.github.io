@@ -21,6 +21,14 @@ declare global {
     date: string | [string, string]
     /** Her highlights; not shown differently yet. */
     isFocused?: boolean
+    /** Pictures sent with the milestone, shown as photo messages after it. */
+    photos?: Photo[]
+  }
+
+  type Photo = {
+    src: string
+    /** What's in the picture, for screen readers. */
+    alt: string
   }
 
   type Paper = {

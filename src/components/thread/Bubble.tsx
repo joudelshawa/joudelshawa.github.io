@@ -1,6 +1,6 @@
 import { cn } from "@/utils/misc"
 
-import type { ReactNode } from "react"
+import type { CSSProperties, ReactNode } from "react"
 
 type Side = "her" | "you"
 
@@ -11,10 +11,11 @@ type Side = "her" | "you"
  * rejoining the bottom edge 22.6px in. Drawn for her side; the visitor's side
  * mirrors it in CSS.
  */
-export function Tail() {
+export function Tail({ style }: { style?: CSSProperties }) {
   return (
     <svg
       className="tail"
+      style={style}
       viewBox="0 -4 24 12"
       aria-hidden="true"
       focusable="false"
@@ -77,10 +78,17 @@ export default function Bubble({
   )
 }
 
-export function TypingIndicator({ className }: { className?: string }) {
+export function TypingIndicator({
+  className,
+  style,
+}: {
+  className?: string
+  style?: CSSProperties
+}) {
   return (
     <div
       className={cn("typing", className)}
+      style={style}
       role="status"
       aria-label="Joud is typing"
     >
