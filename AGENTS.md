@@ -7,7 +7,7 @@ The design record for this site (taste contract, fact ledger, directions, resear
 ```bash
 git clone --recurse-submodules git@github.com:joudelshawa/joudelshawa.github.io.git
 git submodule update --init docs        # in an existing clone where docs/ is empty
-git config push.recurseSubmodules on-demand && git config submodule.recurse true   # once per clone
+git config push.recurseSubmodules check && git config submodule.recurse true   # once per clone
 ```
 
 - Before any visual change, read `docs/taste-contract.md`. Owner feedback becomes a dated amendment there.
@@ -19,7 +19,7 @@ git config push.recurseSubmodules on-demand && git config submodule.recurse true
 1. Commit the doc change inside the submodule: `git -C docs add -A && git -C docs commit -m "…"`.
 2. Make sure `docs/` is on `main` (not a detached HEAD) before committing there; `git -C docs switch main` if needed.
 3. Stage the site change and the new docs pointer together, and commit once: `git add <files> docs && git commit -m "…"`.
-4. Push the site. With `push.recurseSubmodules on-demand`, git pushes the docs commit first. Never push a site commit that points at a docs commit that isn't on GitHub.
+4. Push the docs first (`git -C docs push`), then the site. With `push.recurseSubmodules check`, git refuses to push a site commit whose docs commit isn't on GitHub yet. (`on-demand` is avoided on purpose: with an explicit refspec like `git push origin thread`, git passes the branch name to the docs repo, which fails.)
 
 A docs-only change is the same, with only `docs` staged in step 3.
 
