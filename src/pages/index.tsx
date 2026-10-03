@@ -29,8 +29,8 @@ const greeting = latestMessage
   ? [...textBubbleData.slice(0, -1), latestMessage, ...textBubbleData.slice(-1)]
   : textBubbleData
 
-// The inbox row previews her newest message, as Messages does.
-const preview = clean(greeting[greeting.length - 1])
+// The inbox row previews her first message: the rest haven't been typed yet.
+const preview = clean(greeting[0])
 
 const featuredCount = 3
 const groups = groupMilestones(milestones)

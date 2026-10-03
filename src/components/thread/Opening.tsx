@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { createPortal } from "react-dom"
+import { createPortal, flushSync } from "react-dom"
 
 import { TypingIndicator } from "@/components/thread/Bubble"
 import { land } from "@/lib/spring"
@@ -21,12 +21,16 @@ const typingFor = (text: string) =>
 
 /**
  * Her greeting, the first time someone visits in a session (see the head
- * script in _document): her contact row in an inbox, which greys and opens
- * into the conversation once the page has loaded, then each message after a
- * short typing pause. Any tap, scroll or key reveals everything at once.
+ * script in _document): her contact row in an inbox, previewing "Hi, I'm
+ * Joud!", which greys and opens into the conversation once the page has
+ * loaded. That first message is already there; she types the rest, each after
+ * a short pause. Any tap, scroll or key reveals everything at once.
  *
  * Without the `data-arrive` flag (no JS, reduced motion, a repeat visit, or a
  * link to a section) none of this runs and everything is simply there.
+ *
+ * State changes that must reach the screen before a DOM change (unmounting the
+ * inbox, hiding the typing dots) go through flushSync, so no frame shows both.
  */
 export default function Opening({
   screen,
@@ -70,36 +74,47 @@ export default function Opening({
     let state: "inbox" | "pushing" | "typing" | "done" = "inbox"
     let shown = 0
 
-    const show = (item: HTMLElement) => {
+    const show = (item: HTMLElement, animate = true) => {
       item.classList.add("is-in")
-      land(item)
+      if (animate) land(item)
     }
 
-    const end = () => {
+    // Her first message was sent before you opened the chat: it's the inbox
+    // preview, so it's already in the thread when the chat slides in.
+    if (items[0]) {
+      show(items[0], false)
+      shown = 1
+    }
+
+    const end = (sync = true) => {
       if (state === "done") return
       state = "done"
       timers.forEach((id) => window.clearTimeout(id))
       timers.clear()
-      items.slice(shown).forEach(show)
+      const settle = () => {
+        setTypingTop(null)
+        setPhase("done")
+      }
+      if (sync) flushSync(settle)
+      else settle()
+      items.slice(shown).forEach((item) => show(item))
       shown = items.length
-      root.removeAttribute("data-arrive")
-      root.classList.remove("opening")
       screenEl.classList.remove("is-pushing")
-      setTypingTop(null)
-      setPhase("done")
+      root.classList.remove("opening")
+      root.removeAttribute("data-arrive")
     }
 
     const type = async () => {
       state = "typing"
-      setPhase("typing") // the inbox is gone once the chat has slid in
-      for (const [i, item] of items.entries()) {
+      for (let i = shown; i < items.length; i++) {
+        const item = items[i]
         if (item.classList.contains("bubble")) {
           setTypingTop(item.offsetTop)
           await wait(
-            i === 0 ? firstTypingMs : typingFor(item.textContent ?? "")
+            i === shown ? firstTypingMs : typingFor(item.textContent ?? "")
           )
           if (state !== "typing") return
-          setTypingTop(null)
+          flushSync(() => setTypingTop(null))
         } else {
           await wait(240)
           if (state !== "typing") return
@@ -130,9 +145,12 @@ export default function Opening({
       await Promise.all(
         motion.map((animation) => animation?.finished.catch(() => {}))
       )
+      if (state !== "pushing") return
+      // Unmount the inbox before the chat drops back into the page, so the
+      // inbox can't show on top of it for a frame.
+      flushSync(() => setPhase("typing"))
       screenEl.classList.remove("is-pushing")
       root.classList.remove("opening")
-      if (state !== "pushing") return
       void type()
     }
 
@@ -160,7 +178,7 @@ export default function Opening({
 
     return () => {
       events.forEach((name) => window.removeEventListener(name, interact))
-      end()
+      end(false)
     }
   }, [screen, intro])
 

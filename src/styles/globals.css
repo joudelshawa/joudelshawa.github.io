@@ -39,6 +39,7 @@
   --raised: var(--bubble);
   --pressed: #d1d1d6; /* a tapped list row */
 
+  --canvas: var(--bg); /* beside the column; tinted on wide screens */
   --column: 640px;
   --gutter: 16px;
   --bubble-max: min(72%, 440px);
@@ -64,9 +65,22 @@
   }
 }
 
+@media (min-width: 900px) {
+  :root {
+    --canvas: #f2f2f7;
+  }
+}
+
+@media (min-width: 900px) and (prefers-color-scheme: dark) {
+  :root {
+    --canvas: #111113;
+  }
+}
+
 html {
-  background: var(--bg);
+  background: var(--canvas);
   color: var(--ink);
+  scrollbar-gutter: stable; /* no sideways shift when the opening unlocks scroll */
   color-scheme: light dark;
   -webkit-text-size-adjust: 100%;
   scroll-padding-top: var(--top);
@@ -104,8 +118,19 @@ strong {
 .thread {
   box-sizing: border-box;
   width: min(100%, var(--column));
+  min-height: 100svh;
   margin-inline: auto;
   padding: var(--top) var(--gutter) calc(88px + env(safe-area-inset-bottom));
+  background: var(--bg);
+}
+
+/* On wide screens the column reads as a page on the canvas. */
+@media (min-width: 900px) {
+  .thread,
+  .article,
+  .inbox-list {
+    box-shadow: 0 0 0 0.5px var(--hairline);
+  }
 }
 
 .thread-short {
@@ -135,6 +160,22 @@ strong {
   height: calc(var(--top) + 8px);
   background: linear-gradient(to bottom, var(--bg) 70%, transparent);
   pointer-events: none;
+}
+
+/* On wide screens the fade covers only the column, not the canvas. */
+@media (min-width: 900px) {
+  .top-fade {
+    right: auto;
+    left: 50%;
+    width: var(--column);
+    transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 1100px) {
+  .top-fade-offset {
+    left: calc(50% - (280px + 56px) / 2);
+  }
 }
 
 .header {
@@ -446,8 +487,9 @@ html.opening {
   inset: 0;
   z-index: 60;
   display: none;
-  background: var(--bg);
+  background: var(--canvas);
   cursor: pointer;
+  will-change: transform;
 }
 
 html[data-arrive] .inbox {
@@ -457,7 +499,9 @@ html[data-arrive] .inbox {
 .inbox-list {
   box-sizing: border-box;
   width: min(100%, var(--column));
+  height: 100%;
   margin-inline: auto;
+  background: var(--bg);
   padding: calc(38svh + env(safe-area-inset-top)) 8px 0;
 }
 
@@ -525,12 +569,16 @@ html[data-arrive] .inbox {
 }
 
 /* While the chat slides in over the inbox. */
+/* While the chat slides in over the inbox: one screen tall, not the whole
+   page, so the moving layer stays small (iOS Safari tiles large layers). */
 .screen.is-pushing {
   position: relative;
   z-index: 70;
-  min-height: 100svh;
-  background: var(--bg);
+  height: 100svh;
+  overflow: hidden;
+  background: var(--canvas);
   box-shadow: -12px 0 32px rgb(0 0 0 / 0.12);
+  will-change: transform;
 }
 
 /* ---------- Photo messages ---------- */
@@ -1155,11 +1203,11 @@ html[data-arrive] .inbox {
 
 .details .inset {
   margin-top: 24px;
-  background: var(--bubble);
+  background: var(--bg); /* the inspector sits on the canvas */
 }
 
 .details .inset-action {
-  background: var(--bg);
+  background: var(--bubble);
 }
 
 .details-done {
@@ -1187,7 +1235,9 @@ html[data-arrive] .inbox {
 .article {
   box-sizing: border-box;
   width: min(100%, var(--column));
+  min-height: 100svh;
   margin-inline: auto;
+  background: var(--bg);
   padding: calc(72px + env(safe-area-inset-top)) var(--gutter) calc(96px + env(safe-area-inset-bottom));
 }
 

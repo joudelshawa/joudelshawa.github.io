@@ -37,7 +37,10 @@ export default function Header({
 
   return (
     <>
-      <div className="top-fade" aria-hidden="true" />
+      <div
+        className={cn("top-fade", detailsOpen && "top-fade-offset")}
+        aria-hidden="true"
+      />
       <header className={cn("header", detailsOpen && "header-offset")}>
         <a
           className="header-link"
