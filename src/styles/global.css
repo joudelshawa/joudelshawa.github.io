@@ -517,6 +517,17 @@ html[data-arrive] .arrive:not(.is-in) {
   opacity: 0;
 }
 
+/* The rest of the conversation waits until she's done typing her greeting,
+   then fades in, in place, so nothing moves. */
+html[data-arrive] .thread > section:not(.intro) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.thread > section {
+  transition: opacity 400ms ease-out;
+}
+
 /* ---------- Opening: her row in an inbox, then the chat slides in ---------- */
 
 html.opening {

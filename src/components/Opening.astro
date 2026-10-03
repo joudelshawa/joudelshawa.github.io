@@ -139,6 +139,9 @@ const { name, photo, preview } = Astro.props
         show(item)
         shown = i + 1
       }
+      // A beat after the replies land, then the rest of the page fades in.
+      await wait(320)
+      if (state !== "typing") return
       end()
     }
 
