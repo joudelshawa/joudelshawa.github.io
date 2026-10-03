@@ -29,5 +29,6 @@ A docs-only change is the same, with only `docs` staged in step 3.
 - **Content:** typed collections in `src/content/` with schemas in `src/content.config.ts`, so invalid content fails the build with the file and field named. `CONTENT.md` is the editing guide. The CMS is Sveltia at `/admin` (`public/admin/config.yml`), committing to `main`.
 - **Commands:** `npm run dev`, `npm run check` (types and content), `npm run build`. `npm run deploy:cf` deploys the current branch as a Cloudflare Pages preview.
 - **Deploys:** `main` deploys to joud.shawa.dev via `.github/workflows/deploy.yml`, which runs check and build first and doesn't fetch submodules. `check.yml` runs the same on other branches and pull requests.
+- **Editor sign-in:** "Sign In with GitHub" goes through Sveltia's sign-in Worker on Cloudflare plus a GitHub OAuth app. Details and the redeploy gotcha are in `docs/editor-sign-in.md`.
 - **Opening animation:** it plays once per session. `?intro` in the URL forces it every time, for review.
 - **Gotcha:** Astro renders a component's processed `<script>` where the component is first used. Don't put scripts in components rendered inside lists (`<ol class="run">`), or the script lands between bubbles and breaks the spacing. Use `src/scripts/*` and import them from the page instead (see `photo-tails.ts` and `copy.ts`).
