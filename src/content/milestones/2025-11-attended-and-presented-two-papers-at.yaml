@@ -1,0 +1,8 @@
+text: Attended and presented two papers at the AAAI Secure AI4H Fall Symposium in Arlington, VA!
+start: 2025-11
+focused: true
+photos:
+  - image: ../projects/images/hermes.webp
+    alt: Diagram of the Hermes multi-agent system
+  - image: ../projects/images/ml4labs.webp
+    alt: ML4Labs title graphic

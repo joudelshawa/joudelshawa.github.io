@@ -1,0 +1,29 @@
+---
+import { Image } from "astro:assets"
+import type { ImageMetadata } from "astro"
+import Chevron from "./Chevron.astro"
+
+/**
+ * Her photo and name, floating over the thread. Tapping it opens her details
+ * beside the thread on wide screens, and jumps to her contact card elsewhere.
+ */
+interface Props {
+  name: string
+  photo: ImageMetadata
+}
+const { name, photo } = Astro.props
+---
+
+<div class="top-fade" aria-hidden="true"></div>
+<header class="header">
+  <a
+    class="header-link"
+    href="#contact"
+    aria-label={`${name}, contact details`}
+    aria-controls="details"
+    aria-expanded="false"
+  >
+    <Image class="header-avatar" src={photo} alt="" width={48} height={48} densities={[1, 2, 3]} loading="eager" />
+    <span class="glass header-name">{name}<Chevron /></span>
+  </a>
+</header>

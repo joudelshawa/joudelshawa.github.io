@@ -1,0 +1,35 @@
+---
+import { Image } from "astro:assets"
+import type { CollectionEntry } from "astro:content"
+import Tail from "./Tail.astro"
+
+/** A project shared as a link: large with its image, or compact with a thumbnail. */
+interface Props {
+  project: CollectionEntry<"projects">
+  size: "large" | "compact"
+  tail?: boolean
+}
+
+const { project, size, tail = false } = Astro.props
+const { name, venue, year, category, image } = project.data
+const withCategory = category ? `${category} · ${venue}` : venue
+const subtitle = withCategory.includes(String(year)) ? withCategory : `${withCategory} · ${year}`
+---
+
+<li class="row row-her">
+  <a href={`/projects/${project.id}`} class:list={["bubble bubble-flush preview", `preview-${size}`]}>
+    {
+      size === "large" ? (
+        <Image class="preview-image" src={image} alt="" widths={[440, 880]} sizes="(min-width: 640px) 440px, 72vw" />
+      ) : (
+        <Image class="preview-image" src={image} alt="" widths={[56, 112, 168]} sizes="56px" />
+      )
+    }
+    <span class="preview-text">
+      <span class="preview-title">{name}</span>
+      <span class="preview-sub">{subtitle}</span>
+      {size === "large" && <span class="preview-sub">joud.shawa.dev</span>}
+    </span>
+    {tail && <Tail />}
+  </a>
+</li>

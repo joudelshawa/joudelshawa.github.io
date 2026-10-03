@@ -1,0 +1,147 @@
+---
+import { getCollection, getEntry } from "astro:content"
+
+import BackToTop from "@/components/BackToTop.astro"
+import Bubble from "@/components/Bubble.astro"
+import Composer from "@/components/Composer.astro"
+import ContactCard from "@/components/ContactCard.astro"
+import DateSeparator from "@/components/DateSeparator.astro"
+import Details from "@/components/Details.astro"
+import DocumentBubble from "@/components/DocumentBubble.astro"
+import Header from "@/components/Header.astro"
+import LinkPreview from "@/components/LinkPreview.astro"
+import Opening from "@/components/Opening.astro"
+import PhotoBubble from "@/components/PhotoBubble.astro"
+import SectionLabel from "@/components/SectionLabel.astro"
+import SuggestedReplies from "@/components/SuggestedReplies.astro"
+import Tail from "@/components/Tail.astro"
+import YearIndex from "@/components/YearIndex.astro"
+import Base from "@/layouts/Base.astro"
+import { groupMilestones } from "@/lib/milestones"
+import { splitReaction } from "@/lib/text"
+
+const intro = (await getEntry("intro", "intro"))!.data
+const profile = (await getEntry("profile", "profile"))!.data
+const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order)
+const papers = (await getCollection("papers")).sort((a, b) => a.data.order - b.data.order)
+const groups = groupMilestones(await getCollection("milestones"))
+const years = groups.flatMap((group) => (group.yearAnchor ? [group.yearAnchor] : []))
+
+// Her newest line goes just before her last message, which leads into the projects.
+const greeting = intro.latest
+  ? [...intro.messages.slice(0, -1), intro.latest, ...intro.messages.slice(-1)]
+  : intro.messages
+
+/** A milestone's text, then any pictures sent with it, as one run of messages. */
+const runOf = (items: (typeof groups)[number]["items"]) =>
+  items.flatMap((milestone) => [
+    { kind: "text" as const, text: milestone.data.text },
+    ...milestone.data.photos.map((photo) => ({ kind: "photo" as const, ...photo })),
+  ])
+---
+
+<Base title={profile.name} description={intro.messages[1] ?? intro.messages[0]}>
+  {/* The inbox row previews her first message: the rest haven't been typed yet. */}
+  <Opening name={profile.shortName} photo={profile.photo} preview={greeting[0]} />
+
+  <div class="screen">
+    <Header name={profile.shortName} photo={profile.photo} />
+
+    <div class="layout">
+      <main class="thread">
+        <h1 class="sr-only" tabindex="-1">{profile.name}, {profile.role}</h1>
+
+        <section class="intro" aria-label={`Messages from ${profile.shortName}`}>
+          <ol class="run">
+            {
+              greeting.map((message, i) => (
+                <Bubble tail={i === greeting.length - 1} arrive>
+                  {message}
+                </Bubble>
+              ))
+            }
+          </ol>
+          <SuggestedReplies />
+        </section>
+
+        <section aria-labelledby="projects">
+          <SectionLabel id="projects">Projects</SectionLabel>
+          <ol class="run">
+            {
+              projects.map((project, i) => (
+                <LinkPreview
+                  project={project}
+                  size={project.data.featured ? "large" : "compact"}
+                  tail={i === projects.length - 1}
+                />
+              ))
+            }
+          </ol>
+        </section>
+
+        <section aria-labelledby="papers">
+          <SectionLabel id="papers">Papers</SectionLabel>
+          <ol class="run">
+            {
+              papers.map((paper, i) => (
+                <DocumentBubble paper={paper} me={profile.citationName} tail={i === papers.length - 1} />
+              ))
+            }
+          </ol>
+        </section>
+
+        <section aria-labelledby="milestones">
+          <SectionLabel id="milestones">Milestones</SectionLabel>
+          <ol class="history">
+            {
+              groups.map((group) => (
+                <li id={group.yearAnchor ? `y${group.yearAnchor}` : undefined} data-year={group.start.year}>
+                  <DateSeparator start={group.start} end={group.end} />
+                  <ol class="run">
+                    {runOf(group.items).map((item, i, run) => {
+                      const tail = i === run.length - 1
+                      if (item.kind === "photo") return <PhotoBubble image={item.image} alt={item.alt} tail={tail} />
+                      const { text, reaction } = splitReaction(item.text)
+                      return (
+                        <Bubble reaction={reaction} tail={tail}>
+                          {text}
+                        </Bubble>
+                      )
+                    })}
+                  </ol>
+                </li>
+              ))
+            }
+          </ol>
+        </section>
+
+        <section aria-labelledby="contact">
+          <SectionLabel id="contact">Contact</SectionLabel>
+          <ol class="run">
+            <Bubble>{profile.contactLine}</Bubble>
+            <ContactCard profile={profile} />
+          </ol>
+          <Composer email={profile.email} name={profile.shortName} />
+        </section>
+      </main>
+
+      <Details profile={profile} />
+    </div>
+  </div>
+
+  <YearIndex years={years} />
+  <BackToTop />
+
+  <script>
+    // Page-wide behaviours whose markup sits inside lists, where a component's
+    // own <script> would end up (and break the bubble spacing).
+    import "@/scripts/photo-tails"
+    import "@/scripts/copy"
+  </script>
+
+  <template id="tpl-sent">
+    <li class="row row-you">
+      <div class="bubble bubble-you"><span></span><Tail /></div>
+    </li>
+  </template>
+</Base>

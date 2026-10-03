@@ -1,0 +1,54 @@
+---
+import "@/styles/global.css"
+
+interface Props {
+  title: string
+  description: string
+}
+const { title, description } = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <!--
+      Runs before first paint. Marks <html> when her greeting should play: on the
+      home page itself (no section link), once per session, without reduced
+      motion. `?intro` in the URL forces it every time, for reviewing. CSS shows
+      the inbox and hides her bubbles only under that mark, so without JS
+      nothing is ever hidden.
+    -->
+    <script is:inline>
+      try {
+        var d = document.documentElement,
+          force = new URLSearchParams(location.search).has("intro"),
+          seen = false
+        try {
+          seen = sessionStorage.getItem("arrived") === "1"
+        } catch (e) {}
+        if (
+          force ||
+          (!seen &&
+            location.pathname === "/" &&
+            !location.hash &&
+            !matchMedia("(prefers-reduced-motion: reduce)").matches)
+        )
+          d.setAttribute("data-arrive", "")
+      } catch (e) {}
+    </script>
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -25,6 +25,9 @@ A docs-only change is the same, with only `docs` staged in step 3.
 
 ## Site
 
-- Next.js 14 (pages router), static export to `out/`, Tailwind for the reset only; design tokens are CSS variables in `src/styles/globals.css`.
-- Content: `src/data/*.ts` and `content/projects/*.md`.
-- `main` deploys to joud.shawa.dev via GitHub Pages (the workflow doesn't fetch submodules). `npm run deploy:cf` deploys the current branch as a Cloudflare Pages preview.
+- **Stack:** Astro 7, static output to `dist/` (`build.format: "file"`, so URLs are `/projects/<slug>` as before). No React, no Tailwind. Interactivity is small TypeScript in component `<script>` tags and `src/scripts/`. Design tokens are CSS variables in `src/styles/global.css`.
+- **Content:** typed collections in `src/content/` with schemas in `src/content.config.ts`, so invalid content fails the build with the file and field named. `CONTENT.md` is the editing guide. The CMS is Sveltia at `/admin` (`public/admin/config.yml`), committing to `main`.
+- **Commands:** `npm run dev`, `npm run check` (types and content), `npm run build`. `npm run deploy:cf` deploys the current branch as a Cloudflare Pages preview.
+- **Deploys:** `main` deploys to joud.shawa.dev via `.github/workflows/deploy.yml`, which runs check and build first and doesn't fetch submodules. `check.yml` runs the same on other branches and pull requests.
+- **Opening animation:** it plays once per session. `?intro` in the URL forces it every time, for review.
+- **Gotcha:** Astro renders a component's processed `<script>` where the component is first used. Don't put scripts in components rendered inside lists (`<ol class="run">`), or the script lands between bubbles and breaks the spacing. Use `src/scripts/*` and import them from the page instead (see `photo-tails.ts` and `copy.ts`).

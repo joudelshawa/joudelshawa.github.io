@@ -1,0 +1,156 @@
+# Content editor for joud.shawa.dev (Sveltia CMS). It edits the files in
+# src/content/ and commits them to main; GitHub Pages rebuilds the site. If an
+# edit breaks a rule in src/content.config.ts, the build stops and the live site
+# stays as it was. See CONTENT.md.
+backend:
+  name: github
+  repo: joudelshawa/joudelshawa.github.io
+  branch: main
+  commit_messages:
+    create: "Add {{collection}} “{{slug}}”"
+    update: "Edit {{collection}} “{{slug}}”"
+    delete: "Remove {{collection}} “{{slug}}”"
+    uploadMedia: "Upload “{{path}}”"
+    deleteMedia: "Delete “{{path}}”"
+
+# File names for new entries: lowercase, at most 60 characters.
+slug:
+  maxlength: 60
+
+# Leave optional fields out of the file when they're empty.
+output:
+  omit_empty_optional_fields: true
+
+site_url: https://joud.shawa.dev
+display_url: https://joud.shawa.dev
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: site
+    label: Greeting & profile
+    files:
+      - name: intro
+        label: Greeting
+        file: src/content/site/intro.yaml
+        format: yaml
+        fields:
+          - name: messages
+            label: Messages
+            hint: What a visitor sees first, in order. A trailing emoji stays at the end of the message.
+            widget: list
+            min: 1
+            field: { name: message, label: Message, widget: text }
+          - name: latest
+            label: What you're up to now
+            hint: Shown as your newest message, just before the last one. Leave empty to hide it.
+            widget: text
+            required: false
+      - name: profile
+        label: Profile & contact
+        file: src/content/site/profile.yaml
+        format: yaml
+        fields:
+          - { name: name, label: Full name, widget: string }
+          - { name: shortName, label: Short name, hint: Shown in the header and the inbox row., widget: string }
+          - { name: role, label: Role, widget: string }
+          - { name: citationName, label: Name in author lists, hint: "Highlighted on your papers, e.g. El-Shawa, J.", widget: string }
+          - { name: photo, label: Photo, widget: image, media_folder: "", public_folder: "" }
+          - { name: email, label: Email, widget: string, pattern: ['^[^@\s]+@[^@\s]+\.[^@\s]+$', "Enter an email address"] }
+          - { name: linkedin, label: LinkedIn URL, widget: string }
+          - { name: github, label: GitHub URL, widget: string }
+          - { name: resume, label: Résumé, hint: "Path to the PDF in public/, e.g. /resume.pdf", widget: string }
+          - { name: contactLine, label: Contact message, widget: text }
+
+  - name: projects
+    label: Projects
+    label_singular: Project
+    folder: src/content/projects
+    extension: md
+    format: frontmatter
+    create: true
+    slug: "{{name}}"
+    identifier_field: name
+    summary: "{{order}}. {{name}} ({{year}})"
+    sortable_fields: [order, year, name]
+    media_folder: images
+    public_folder: images
+    fields:
+      - { name: order, label: Order, hint: Lower numbers come first., widget: number, value_type: int }
+      - { name: featured, label: Large preview, widget: boolean, default: false }
+      - { name: name, label: Name, widget: string }
+      - { name: venue, label: Venue or award, hint: The short line under the name., widget: string }
+      - { name: year, label: Year, widget: number, value_type: int }
+      - { name: category, label: Category, hint: "Optional, e.g. Mentoring", widget: string, required: false }
+      - { name: blurb, label: Summary, widget: text }
+      - { name: image, label: Image, widget: image }
+      - name: technologies
+        label: Built with
+        widget: list
+        required: false
+        field: { name: technology, label: Technology, widget: string }
+      - name: links
+        label: Links
+        widget: list
+        required: false
+        fields:
+          - { name: text, label: Label, widget: string }
+          - { name: href, label: URL, widget: string }
+      - { name: body, label: Write-up, widget: markdown }
+
+  - name: papers
+    label: Papers
+    label_singular: Paper
+    folder: src/content/papers
+    extension: yaml
+    format: yaml
+    create: true
+    slug: "{{year}}-{{title}}"
+    identifier_field: title
+    summary: "{{order}}. {{title}}"
+    sortable_fields: [order, year, title]
+    fields:
+      - { name: order, label: Order, hint: Lower numbers come first., widget: number, value_type: int }
+      - { name: title, label: Title, widget: string }
+      - { name: authors, label: Authors, hint: As in the citation. Your name is highlighted., widget: string }
+      - { name: venue, label: Venue, widget: string }
+      - { name: year, label: Year, widget: number, value_type: int }
+      - { name: link, label: Link, hint: DOI or PDF URL., widget: string }
+      - { name: kind, label: Link type, widget: select, options: [PDF, DOI], default: DOI }
+
+  - name: milestones
+    label: Milestones
+    label_singular: Milestone
+    folder: src/content/milestones
+    extension: yaml
+    format: yaml
+    create: true
+    slug: "{{fields.start}}-{{fields.text}}"
+    identifier_field: text
+    summary: "{{start}} · {{text}}"
+    sortable_fields: [start, text]
+    media_folder: photos
+    public_folder: photos
+    fields:
+      - { name: text, label: Message, hint: A trailing emoji becomes a reaction on the bubble., widget: text }
+      - name: start
+        label: Month
+        hint: Year and month, like 2025-11.
+        widget: string
+        pattern: ['^\d{4}-(0[1-9]|1[0-2])$', "Use year-month, like 2025-11"]
+      - name: end
+        label: Until (optional)
+        hint: For a range, the last month, like 2026-04.
+        widget: string
+        required: false
+        pattern: ['^\d{4}-(0[1-9]|1[0-2])$', "Use year-month, like 2026-04"]
+      - name: photos
+        label: Photos
+        hint: Sent as photo messages after the text. Phone photos are fine; they're resized automatically.
+        widget: list
+        required: false
+        fields:
+          - { name: image, label: Photo, widget: image }
+          - { name: alt, label: Description, hint: "What's in the photo, for screen readers.", widget: string }
+      - { name: focused, label: Highlight, widget: boolean, default: false, required: false }
+      - { name: order, label: Order within the month, hint: Only needed when two milestones share a month. Lower comes first., widget: number, value_type: int, required: false }

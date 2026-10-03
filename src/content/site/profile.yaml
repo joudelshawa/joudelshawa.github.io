@@ -1,0 +1,12 @@
+# Who you are and how to reach you. Shown in the header, the contact card and the details pane.
+name: Joud El-Shawa
+shortName: Joud
+role: Machine Learning Researcher
+# Your name as it appears in author lists, so it's highlighted on your papers.
+citationName: El-Shawa, J.
+photo: ./joud.webp
+email: jelshawa@gmail.com
+linkedin: https://www.linkedin.com/in/joudelshawa
+github: https://github.com/joudelshawa
+resume: /resume.pdf
+contactLine: Feel free to reach out, I'm always excited to learn, collaborate, and contribute to impactful projects! 💬

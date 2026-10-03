@@ -1,0 +1,77 @@
+---
+import { Image } from "astro:assets"
+import { getCollection, render } from "astro:content"
+import type { CollectionEntry } from "astro:content"
+
+import Chevron from "@/components/Chevron.astro"
+import Base from "@/layouts/Base.astro"
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects")
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }))
+}
+
+interface Props {
+  project: CollectionEntry<"projects">
+}
+
+/** A project, opened from the link Joud shared in the thread. */
+const { project } = Astro.props
+const { name, venue, year, category, blurb, image, links, technologies } = project.data
+const { Content } = await render(project)
+const subtitle = [category, venue, venue.includes(String(year)) ? null : year].filter(Boolean).join(" · ")
+const external = (href: string) => /^https?:/.test(href)
+---
+
+<Base title={`${name} · Joud El-Shawa`} description={blurb}>
+  <header class="header header-start">
+    <a class="glass back-button" href="/#projects" aria-label="Back to Joud's messages">
+      <svg viewBox="0 0 12 20" aria-hidden="true" focusable="false">
+        <path d="M10 2 2 10l8 8"></path>
+      </svg>
+    </a>
+  </header>
+
+  <main class="article">
+    <Image
+      class="article-image"
+      src={image}
+      alt=""
+      widths={[640, 1280]}
+      sizes="(min-width: 672px) 640px, 100vw"
+      loading="eager"
+    />
+
+    <h1 class="article-title">{name}</h1>
+    <p class="article-sub">{subtitle}</p>
+
+    <p class="article-lead">{blurb}</p>
+
+    <div class="article-body">
+      <Content />
+    </div>
+
+    {
+      links.length > 0 && (
+        <ul class="inset article-links" aria-label="Links">
+          {links.map((link) => (
+            <li>
+              <a
+                class="inset-row-link"
+                href={link.href}
+                {...(external(link.href) ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              >
+                <span>{link.text}</span>
+                <Chevron />
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    <p class="article-built">
+      <span class="article-built-label">Built with </span>{technologies.join(", ")}
+    </p>
+  </main>
+</Base>

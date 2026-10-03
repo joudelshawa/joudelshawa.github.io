@@ -1,0 +1,21 @@
+# Checks types and content, and makes sure the site builds, on every branch
+# and pull request (main is checked by the deploy workflow).
+name: Check
+
+on:
+  pull_request:
+  push:
+    branches-ignore: ["main"]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run build

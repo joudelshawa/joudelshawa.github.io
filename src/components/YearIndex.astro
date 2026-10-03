@@ -1,0 +1,41 @@
+---
+/**
+ * A year index on the edge of the screen while the milestones are in view,
+ * like the letter index in Contacts. One observer, no scroll handlers.
+ */
+interface Props {
+  years: string[]
+}
+const { years } = Astro.props
+---
+
+<nav class="year-index" aria-label="Milestones by year" aria-hidden="true">
+  {years.map((year) => <a href={`#y${year}`} tabindex="-1">{year}</a>)}
+</nav>
+
+<script>
+  const nav = document.querySelector<HTMLElement>(".year-index")
+  const groups = Array.from(document.querySelectorAll<HTMLElement>("[data-year]"))
+  if (nav && groups.length) {
+    const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>("a"))
+    const inBand = new Set<Element>()
+    const setActive = (year: string | null) => {
+      nav.classList.toggle("is-visible", !!year)
+      nav.setAttribute("aria-hidden", String(!year))
+      links.forEach((link) => {
+        link.tabIndex = year ? 0 : -1
+        if (link.textContent === year) link.setAttribute("aria-current", "true")
+        else link.removeAttribute("aria-current")
+      })
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => (entry.isIntersecting ? inBand.add(entry.target) : inBand.delete(entry.target)))
+        const current = groups.find((group) => inBand.has(group))
+        setActive(current?.dataset.year ?? null)
+      },
+      { rootMargin: "-45% 0px -45% 0px" }
+    )
+    groups.forEach((group) => observer.observe(group))
+  }
+</script>

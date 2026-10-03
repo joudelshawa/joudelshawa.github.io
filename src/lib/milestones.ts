@@ -1,26 +1,28 @@
-const months: Record<string, string> = {
-  Jan: "01",
-  Feb: "02",
-  Mar: "03",
-  Apr: "04",
-  May: "05",
-  Jun: "06",
-  Jul: "07",
-  Aug: "08",
-  Sep: "09",
-  Sept: "09",
-  Oct: "10",
-  Nov: "11",
-  Dec: "12",
-}
+import type { CollectionEntry } from "astro:content"
+
+type Milestone = CollectionEntry<"milestones">
+
+const monthNames = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+]
 
 export type MonthLabel = { month: string; year: string; iso: string }
 
-/** "Nov 2025" → { month: "Nov", year: "2025", iso: "2025-11" }. "Sept" reads as "Sep". */
-export function parseMonth(label: string): MonthLabel {
-  const [raw, year] = label.trim().split(/\s+/)
-  const month = raw === "Sept" ? "Sep" : raw
-  return { month, year, iso: `${year}-${months[month] ?? "01"}` }
+/** "2025-11" → { month: "Nov", year: "2025", iso: "2025-11" } */
+export function parseMonth(iso: string): MonthLabel {
+  const [year, month] = iso.split("-")
+  return { month: monthNames[Number(month) - 1], year, iso }
 }
 
 export type MilestoneGroup = {
@@ -33,27 +35,23 @@ export type MilestoneGroup = {
 }
 
 /**
- * Groups consecutive milestones that share a date label. The data is kept
- * newest first; the thread reads oldest first, so it ends at the present.
+ * Milestones oldest first (by start month, then `order`, then file name), with
+ * consecutive ones that share a date range grouped under one separator.
  */
 export function groupMilestones(milestones: Milestone[]): MilestoneGroup[] {
+  const sorted = [...milestones].sort(
+    (a, b) =>
+      a.data.start.localeCompare(b.data.start) ||
+      a.data.order - b.data.order ||
+      a.id.localeCompare(b.id)
+  )
+
   const groups: MilestoneGroup[] = []
   const seenYears = new Set<string>()
 
-  const start = (milestone: Milestone) =>
-    parseMonth(
-      Array.isArray(milestone.date) ? milestone.date[0] : milestone.date
-    ).iso
-  // Reverse first so same-month items keep their written order once sorted.
-  const oldestFirst = [...milestones]
-    .reverse()
-    .sort((a, b) => start(a).localeCompare(start(b)))
-
-  for (const milestone of oldestFirst) {
-    const [startLabel, endLabel] = Array.isArray(milestone.date)
-      ? milestone.date
-      : [milestone.date, null]
-    const key = endLabel ? `${startLabel}–${endLabel}` : startLabel
+  for (const milestone of sorted) {
+    const { start, end } = milestone.data
+    const key = end ? `${start}–${end}` : start
     const last = groups[groups.length - 1]
 
     if (last && last.key === key) {
@@ -61,14 +59,14 @@ export function groupMilestones(milestones: Milestone[]): MilestoneGroup[] {
       continue
     }
 
-    const start = parseMonth(startLabel)
-    const yearAnchor = seenYears.has(start.year) ? null : start.year
-    seenYears.add(start.year)
+    const startLabel = parseMonth(start)
+    const yearAnchor = seenYears.has(startLabel.year) ? null : startLabel.year
+    seenYears.add(startLabel.year)
 
     groups.push({
       key,
-      start,
-      end: endLabel ? parseMonth(endLabel) : null,
+      start: startLabel,
+      end: end ? parseMonth(end) : null,
       yearAnchor,
       items: [milestone],
     })

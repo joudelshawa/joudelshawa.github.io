@@ -1,0 +1,50 @@
+---
+import { Image } from "astro:assets"
+import type { CollectionEntry } from "astro:content"
+import ContactList from "./ContactList.astro"
+
+/**
+ * The conversation's details, opened from her name on wide screens the way
+ * Messages shows details on a Mac. Closed by default; Done or Escape closes it.
+ */
+interface Props {
+  profile: CollectionEntry<"profile">["data"]
+}
+const { profile } = Astro.props
+---
+
+<aside id="details" class="details" aria-label="Conversation details" hidden>
+  <button class="details-done" type="button">Done</button>
+  <Image class="details-avatar" src={profile.photo} alt="" width={88} height={88} densities={[1, 2, 3]} />
+  <p class="details-name">{profile.name}</p>
+  <p class="details-role">{profile.role}</p>
+  <ContactList email={profile.email} linkedin={profile.linkedin} github={profile.github} resume={profile.resume} />
+</aside>
+
+<script>
+  const link = document.querySelector<HTMLAnchorElement>(".header-link")
+  const header = document.querySelector<HTMLElement>(".header")
+  const layout = document.querySelector<HTMLElement>(".layout")
+  const details = document.querySelector<HTMLElement>("#details")
+  const done = details?.querySelector<HTMLButtonElement>(".details-done")
+
+  if (link && header && layout && details) {
+    const setOpen = (open: boolean) => {
+      layout.classList.toggle("is-open", open)
+      header.classList.toggle("header-offset", open)
+      details.classList.toggle("is-open", open)
+      details.hidden = !open
+      link.setAttribute("aria-expanded", String(open))
+      if (open) done?.focus()
+    }
+    link.addEventListener("click", (event) => {
+      if (!window.matchMedia("(min-width: 1100px)").matches) return
+      event.preventDefault()
+      setOpen(details.hidden)
+    })
+    done?.addEventListener("click", () => setOpen(false))
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !details.hidden) setOpen(false)
+    })
+  }
+</script>

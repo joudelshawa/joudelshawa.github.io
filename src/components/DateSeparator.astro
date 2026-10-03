@@ -1,0 +1,24 @@
+---
+import type { MonthLabel } from "@/lib/milestones"
+
+/** Centred like the thread's own date stamps: "Nov 2025", "Jan – Mar 2025". */
+interface Props {
+  start: MonthLabel
+  end: MonthLabel | null
+}
+const { start, end } = Astro.props
+const sameYear = end?.year === start.year
+---
+
+<p class="separator">
+  <time datetime={start.iso}><b>{start.month}</b>{!sameYear && ` ${start.year}`}</time>{
+    end && (
+      <Fragment>
+        {" – "}
+        <time datetime={end.iso}>
+          <b>{end.month}</b> {end.year}
+        </time>
+      </Fragment>
+    )
+  }
+</p>

@@ -1,0 +1,44 @@
+---
+import type { CollectionEntry } from "astro:content"
+import Tail from "./Tail.astro"
+
+/** A paper shared as a document. */
+interface Props {
+  paper: CollectionEntry<"papers">
+  me: string
+  tail?: boolean
+}
+
+const { paper, me, tail = false } = Astro.props
+const { title, authors, venue, year, link, kind } = paper.data
+const venueLine = venue.includes(String(year)) ? venue : `${venue} · ${year}`
+
+/** Splits text so each match of `pattern` can be kept on one line. */
+const keepTogether = (text: string, pattern: RegExp) =>
+  text.split(pattern).map((part, i) => ({ part, together: i % 2 === 1 }))
+
+const venueParts = keepTogether(venueLine, /(\d+-\d+|\(non-archival\))/)
+const authorParts = keepTogether(authors, /([A-Z][\w'’-]+, (?:[A-Z]\. ?)*[A-Z]\.)/)
+---
+
+<li class="row row-her">
+  <a class="bubble bubble-flush doc" href={link} target="_blank" rel="noopener noreferrer">
+    <svg class="doc-glyph" viewBox="0 0 34 44" aria-hidden="true" focusable="false">
+      <path class="doc-page" d="M5 0.5h17.5L33.5 11.5v27a5 5 0 0 1-5 5h-23.5a5 5 0 0 1-5-5v-33a5 5 0 0 1 5-5z"></path>
+      <path class="doc-fold" d="M22.5 0.5v6a5 5 0 0 0 5 5h6"></path>
+      <text x="17" y="33" text-anchor="middle">{kind}</text>
+    </svg>
+    <span class="doc-text">
+      <cite class="doc-title">{title}</cite>
+      <span class="doc-sub">{venueParts.map(({ part, together }) => (together ? <span class="nowrap">{part}</span> : part))}</span>
+      <span class="doc-sub">
+        {
+          authorParts.map(({ part, together }) =>
+            together ? <span class:list={["nowrap", part === me && "doc-me"]}>{part}</span> : part
+          )
+        }
+      </span>
+    </span>
+    {tail && <Tail />}
+  </a>
+</li>

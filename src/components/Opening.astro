@@ -1,0 +1,190 @@
+---
+import { Image } from "astro:assets"
+import type { ImageMetadata } from "astro"
+import Chevron from "./Chevron.astro"
+
+/**
+ * Her greeting, the first time someone visits in a session, or on any visit
+ * with `?intro` in the URL (see the head script in Base.astro): her contact row
+ * in an inbox, previewing her first message, which greys and opens into the
+ * conversation once the page has loaded. That first message is already there;
+ * she types the rest, each after a short pause. Any tap, scroll or key reveals
+ * everything at once.
+ *
+ * Without the `data-arrive` flag (no JS, reduced motion, a repeat visit, or a
+ * link to a section) none of this runs and everything is simply there.
+ */
+interface Props {
+  name: string
+  photo: ImageMetadata
+  preview: string
+}
+const { name, photo, preview } = Astro.props
+---
+
+<div class="inbox" aria-hidden="true">
+  <div class="inbox-list">
+    <div class="inbox-row">
+      <span class="inbox-unread"></span>
+      <Image class="inbox-avatar" src={photo} alt="" width={40} height={40} densities={[1, 2, 3]} loading="eager" />
+      <div class="inbox-text">
+        <div class="inbox-top">
+          <span class="inbox-name">{name}</span>
+          <Chevron />
+        </div>
+        <p class="inbox-preview">{preview}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<template id="tpl-typing">
+  <div class="typing typing-overlay" role="status" aria-label={`${name} is typing`}>
+    <span></span><span></span><span></span>
+  </div>
+</template>
+
+<script>
+  import { land } from "@/lib/spring"
+
+  const minInboxMs = 900 // long enough to read the row, even on a fast load
+  const maxInboxMs = 2500 // never wait longer than this for the page to load
+  const pressMs = 180 // the row greys, as if tapped
+  const pushMs = 480
+  const pushEase = "cubic-bezier(0.32, 0.72, 0, 1)" // the iOS push and sheet curve
+  const firstTypingMs = 650
+  // A short pause before each later message, a little longer for longer ones.
+  const typingFor = (text: string) => Math.min(650, Math.max(420, 380 + text.length * 2))
+
+  const root = document.documentElement
+  const screen = document.querySelector<HTMLElement>(".screen")
+  const intro = document.querySelector<HTMLElement>(".intro")
+  const inbox = document.querySelector<HTMLElement>(".inbox")
+  const typingTemplate = document.querySelector<HTMLTemplateElement>("#tpl-typing")
+
+  if (!root.hasAttribute("data-arrive") || !screen || !intro || !inbox) {
+    inbox?.remove()
+  } else {
+    try {
+      sessionStorage.setItem("arrived", "1")
+    } catch {}
+    root.classList.add("opening")
+
+    const items = Array.from(intro.querySelectorAll<HTMLElement>(".arrive"))
+    const timers = new Set<number>()
+    const wait = (ms: number) =>
+      new Promise<void>((resolve) => {
+        const id = window.setTimeout(() => {
+          timers.delete(id)
+          resolve()
+        }, ms)
+        timers.add(id)
+      })
+
+    let state: "inbox" | "pushing" | "typing" | "done" = "inbox"
+    let shown = 0
+    let typing: HTMLElement | null = null
+
+    const show = (item: HTMLElement, animate = true) => {
+      item.classList.add("is-in")
+      if (animate) land(item)
+    }
+    const hideTyping = () => {
+      typing?.remove()
+      typing = null
+    }
+    const showTyping = (top: number) => {
+      hideTyping()
+      const node = typingTemplate?.content.firstElementChild?.cloneNode(true)
+      if (!(node instanceof HTMLElement)) return
+      node.style.top = `${top}px`
+      intro.append(node)
+      typing = node
+    }
+
+    // Her first message was sent before you opened the chat: it's the inbox
+    // preview, so it's already in the thread when the chat slides in.
+    if (items[0]) {
+      show(items[0], false)
+      shown = 1
+    }
+
+    const end = () => {
+      if (state === "done") return
+      state = "done"
+      timers.forEach((id) => window.clearTimeout(id))
+      timers.clear()
+      hideTyping()
+      inbox.remove()
+      items.slice(shown).forEach((item) => show(item))
+      shown = items.length
+      screen.classList.remove("is-pushing")
+      root.classList.remove("opening")
+      root.removeAttribute("data-arrive")
+    }
+
+    const type = async () => {
+      state = "typing"
+      for (let i = shown; i < items.length; i++) {
+        const item = items[i]
+        if (item.classList.contains("bubble")) {
+          showTyping(item.offsetTop)
+          await wait(i === shown ? firstTypingMs : typingFor(item.textContent ?? ""))
+          if (state !== "typing") return
+          hideTyping()
+        } else {
+          await wait(240)
+          if (state !== "typing") return
+        }
+        show(item)
+        shown = i + 1
+      }
+      end()
+    }
+
+    const open = async () => {
+      if (state !== "inbox") return
+      state = "pushing"
+      inbox.querySelector(".inbox-row")?.classList.add("is-pressed")
+      await wait(pressMs)
+      screen.classList.add("is-pushing")
+      const motion = [
+        screen.animate([{ transform: "translateX(100%)" }, { transform: "none" }], {
+          duration: pushMs,
+          easing: pushEase,
+        }),
+        inbox.animate([{ transform: "none" }, { transform: "translateX(-30%)" }], {
+          duration: pushMs,
+          easing: pushEase,
+          fill: "forwards",
+        }),
+      ]
+      await Promise.all(motion.map((animation) => animation.finished.catch(() => {})))
+      if (state !== "pushing") return
+      // The inbox goes before the chat drops back into the page, so it can't
+      // show on top of it for a frame.
+      inbox.remove()
+      screen.classList.remove("is-pushing")
+      root.classList.remove("opening")
+      void type()
+    }
+
+    inbox.addEventListener("click", () => void open())
+
+    // Open once the page has loaded and the row has been on screen a moment.
+    const loaded = new Promise<void>((resolve) =>
+      document.readyState === "complete" ? resolve() : window.addEventListener("load", () => resolve(), { once: true })
+    )
+    void Promise.race([Promise.all([loaded, wait(minInboxMs)]), wait(maxInboxMs)]).then(() => open())
+
+    // Keys open the conversation early; any interaction while she's typing
+    // reveals the rest at once.
+    const interact = (event: Event) => {
+      if (state === "inbox" && event.type === "keydown") void open()
+      else if (state === "typing") end()
+    }
+    for (const name of ["keydown", "pointerdown", "wheel", "touchstart"]) {
+      window.addEventListener(name, interact, { passive: true })
+    }
+  }
+</script>

@@ -1,0 +1,31 @@
+---
+import Tail from "./Tail.astro"
+
+interface Props {
+  side?: "her" | "you"
+  tail?: boolean
+  /** Her trailing emoji, moved onto the bubble's corner. */
+  reaction?: string | null
+  /** No padding: for link previews, documents and cards that lay out their own. */
+  flush?: boolean
+  /** Hidden until her greeting plays (see Opening). */
+  arrive?: boolean
+  class?: string
+}
+
+const { side = "her", tail = false, reaction = null, flush = false, arrive = false, class: className } = Astro.props
+---
+
+<li class:list={["row", `row-${side}`, reaction && "has-reaction"]}>
+  <div class:list={["bubble", side === "you" && "bubble-you", flush && "bubble-flush", arrive && "arrive", className]}>
+    <slot />{
+      reaction && (
+        <Fragment>
+          {" "}
+          {/* The emoji stays in the text right after the words, so it's read in place. */}
+          <span class="reaction">{reaction}</span>
+        </Fragment>
+      )
+    }{tail && <Tail />}
+  </div>
+</li>

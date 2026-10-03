@@ -1,0 +1,26 @@
+---
+import { Image } from "astro:assets"
+import type { CollectionEntry } from "astro:content"
+import ContactList from "./ContactList.astro"
+import Tail from "./Tail.astro"
+
+/** Her contact card, shared in the thread. */
+interface Props {
+  profile: CollectionEntry<"profile">["data"]
+}
+const { profile } = Astro.props
+---
+
+<li class="row row-her">
+  <div class="bubble bubble-flush card">
+    <div class="card-head">
+      <Image class="card-avatar" src={profile.photo} alt={profile.name} width={64} height={64} densities={[1, 2, 3]} />
+      <div>
+        <p class="card-name">{profile.name}</p>
+        <p class="card-role">{profile.role}</p>
+      </div>
+    </div>
+    <ContactList email={profile.email} linkedin={profile.linkedin} github={profile.github} resume={profile.resume} />
+    <Tail />
+  </div>
+</li>

@@ -1,0 +1,51 @@
+---
+/**
+ * The visitor's message field. Sending opens their email app with the message
+ * addressed to her, and shows it as sent, without pretending it was delivered.
+ * Without JS the form itself is a mailto form.
+ */
+interface Props {
+  email: string
+  name: string
+}
+const { email, name } = Astro.props
+---
+
+<form class="composer" action={`mailto:${email}`} method="post" enctype="text/plain" data-email={email}>
+  <label class="sr-only" for="composer-input">Message {name} by email</label>
+  <input id="composer-input" name="message" class="composer-input" placeholder="Message" autocomplete="off" />
+  <button class="composer-send" type="submit" aria-label="Send as an email">
+    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+      <path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"></path>
+    </svg>
+  </button>
+</form>
+
+<script>
+  import { receipt, sendBubble, visitorRun } from "@/lib/thread"
+
+  const form = document.querySelector<HTMLFormElement>(".composer")
+  const input = form?.querySelector("input")
+  const send = form?.querySelector("button")
+  if (form && input && send) {
+    let run: HTMLElement | null = null
+    let note: HTMLElement | null = null
+    const sync = () => (send.disabled = !input.value.trim())
+    input.addEventListener("input", sync)
+    sync()
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault()
+      const text = input.value.trim()
+      if (!text) return
+      const subject = encodeURIComponent("Hello from joud.shawa.dev")
+      window.location.href = `mailto:${form.dataset.email}?subject=${subject}&body=${encodeURIComponent(text)}`
+      run ??= visitorRun(form, "Your message")
+      run.replaceChildren()
+      sendBubble(run, text)
+      note = receipt(run, "Opened in your email app", note)
+      input.value = ""
+      sync()
+    })
+  }
+</script>

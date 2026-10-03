@@ -1,0 +1,62 @@
+---
+/**
+ * The visitor's side of the conversation. Tapping a reply sends it as their
+ * own blue bubble, then takes them to the answer, which is the section itself.
+ * A reply leaves the strip once it's sent. Without JS they're plain links.
+ */
+const replies = [
+  { text: "Projects?", target: "projects" },
+  { text: "Papers?", target: "papers" },
+  { text: "Milestones?", target: "milestones" },
+  { text: "Contact?", target: "contact" },
+]
+---
+
+<nav class="replies arrive" aria-label="Reply to Joud">
+  {
+    replies.map((reply) => (
+      <a class="reply" href={`#${reply.target}`} data-target={reply.target}>
+        {reply.text}
+      </a>
+    ))
+  }
+</nav>
+
+<script>
+  import { prefersReducedMotion } from "@/lib/spring"
+  import { receipt, sendBubble, visitorRun } from "@/lib/thread"
+
+  const strip = document.querySelector<HTMLElement>(".replies")
+  if (strip) {
+    let run: HTMLElement | null = null
+    let note: HTMLElement | null = null
+
+    // Fade the strip's right edge only while it actually scrolls.
+    const measure = () => strip.classList.toggle("is-overflowing", strip.scrollWidth > strip.clientWidth + 1)
+    new ResizeObserver(measure).observe(strip)
+    measure()
+
+    strip.addEventListener("click", (event) => {
+      const reply = (event.target as Element).closest<HTMLAnchorElement>("a.reply")
+      if (!reply) return
+      event.preventDefault()
+      const target = reply.dataset.target ?? ""
+      run ??= visitorRun(strip, "Your messages")
+      sendBubble(run, reply.textContent?.trim() ?? "")
+      note = receipt(run, "Delivered", note)
+      reply.remove()
+      if (!strip.querySelector(".reply")) strip.classList.add("is-empty")
+      measure()
+      window.setTimeout(
+        () => {
+          document.getElementById(target)?.scrollIntoView({
+            behavior: prefersReducedMotion() ? "auto" : "smooth",
+            block: "start",
+          })
+          history.replaceState(null, "", `#${target}`)
+        },
+        prefersReducedMotion() ? 0 : 420
+      )
+    })
+  }
+</script>

@@ -1,0 +1,36 @@
+---
+/** Email (with copy), LinkedIn, GitHub and résumé, as an inset list. */
+interface Props {
+  email: string
+  linkedin: string
+  github: string
+  resume: string
+}
+const { email, linkedin, github, resume } = Astro.props
+const handle = (url: string) => url.replace(/\/+$/, "").split("/").pop()
+const links = [
+  { label: "LinkedIn", text: handle(linkedin), href: linkedin },
+  { label: "GitHub", text: handle(github), href: github },
+  { label: "Résumé", text: "PDF", href: resume },
+]
+---
+
+<ul class="inset contact-list">
+  <li>
+    <span class="inset-label">Email</span>
+    <button class="inset-action" type="button" data-copy={email}>
+      <span aria-live="polite">Copy</span>
+    </button>
+    <a class="inset-value" href={`mailto:${email}`}>{email}</a>
+  </li>
+  {
+    links.map((link) => (
+      <li>
+        <span class="inset-label">{link.label}</span>
+        <a class="inset-value" href={link.href} target="_blank" rel="noopener noreferrer">
+          {link.text}
+        </a>
+      </li>
+    ))
+  }
+</ul>
