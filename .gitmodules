@@ -1,0 +1,3 @@
+[submodule "docs"]
+	path = docs
+	url = ../../mo-shawa/joudelshawa-site-docs.git

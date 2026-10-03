@@ -34,6 +34,3 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 dist/
-
-# private design docs: a clone of mo-shawa/joudelshawa-site-docs (see AGENTS.md)
-/docs/
