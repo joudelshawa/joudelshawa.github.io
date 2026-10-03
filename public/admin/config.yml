@@ -6,6 +6,11 @@ backend:
   name: github
   repo: joudelshawa/joudelshawa.github.io
   branch: main
+  # "Sign In with GitHub" goes through Sveltia's sign-in Worker on Cloudflare
+  # (github.com/sveltia/sveltia-cms-auth), which holds the GitHub OAuth app's
+  # secret. The repo is public, so only public-repo access is requested.
+  base_url: https://sveltia-cms-auth.icy-heart-96a5.workers.dev
+  auth_scope: public_repo
   commit_messages:
     create: "Add {{collection}} “{{slug}}”"
     update: "Edit {{collection}} “{{slug}}”"
